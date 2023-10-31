@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: white;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text_gradient_h{
+    font-size: 24px;
+    background: -webkit-linear-gradient(#f73909, #1205d3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.text_gradient_p{
+    font-size: 14px;
+    background: -webkit-linear-gradient(#c0146a, #36cd08);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.text_gradient_a{
+    font-size: 16px;
+    background: -webkit-linear-gradient(#f15907, hwb(193 1% 5%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+
+}
+
+.text_gradient_a:hover{
+    background: -webkit-linear-gradient(#05ef14, #de2707);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
