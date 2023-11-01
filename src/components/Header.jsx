@@ -8,6 +8,7 @@ import {
 import { BiHomeAlt, BiMenuAltRight,  BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Header() {
 
@@ -17,14 +18,20 @@ function Header() {
 
 
   return (
-    <header className='flex justify-between mb-8 px-5 sm:px-20 w-full bg-white sticky top-0 py-5 z-99'>
+    <header className='flex justify-between mb-8 px-5 md:px-24 w-full bg-white sticky top-0 py-5 z-99'>
       <h1 className='text-3xl md:text-5xl font-bold cursor-pointer'>
         <Logo />
       </h1>
       <ul className='hidden md:flex gap-5 items-center justify-center'>
-        <li className='hover:underline cursor-pointer text_gradient_a'>Home</li>
-        <li className='hover:underline cursor-pointer text_gradient_a'>Contact Us</li>
-        <li className='hover:underline cursor-pointer text_gradient_a'>About Us</li>
+        <Link to="/" className='hover:underline cursor-pointer text_gradient_a'>
+          Home
+        </Link>
+        <Link to="contact" className='hover:underline cursor-pointer text_gradient_a'>
+          Contact Us
+        </Link>
+        <Link to="about" className='hover:underline cursor-pointer text_gradient_a'>
+          About Us
+        </Link>
         <button className='p-1 px-3 rounded-lg bg-blue-gray-900 text-white hover:opacity-90'>Sign In</button>
         <button className='p-1 px-3 rounded-lg bg-blue-900 text-white hover:opacity-90'>Sign Up</button>
       </ul>
