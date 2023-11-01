@@ -19,7 +19,9 @@ function Featured() {
                 <Card image={image6} open={"open"} title={"Ipsum"}/>
                 <Card image={image3} open={"close"} title={"Dolor"}/>
                 <Card image={image2} open={"open"} title={"amet"}/>
-                <Card image={image4} open={"close"} title={"Sit"}/>
+                <Card image={image4} open={"open"} title={"Sit"}/>
+                <Card image={image1} open={"close"} title={"Lorem"}/>
+                <Card image={image6} open={"open"} title={"Ipsum"}/>
             </div>
         </div>
     </section>

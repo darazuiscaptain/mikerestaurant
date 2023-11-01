@@ -1,11 +1,11 @@
-import image from '../assets/restaurant1.png'
+import restaurantImg from '../assets/restaurant2.png'
 
-function Home() {
+function Main() {
   return (
     <section>
-        <div className='flex flex-col '>
-            <img src={image} alt=""  className='border-none w-full h-[450px] sm:h-[400px] opacity-90 -z-10 '/>
-            <div className='flex flex-col p-5 sm:p-12 -mt-[200px] md:-mt-[200px]'>
+        <div className='flex flex-col relative'>
+            <img src={restaurantImg} alt="restaurant"  className='border-none w-full h-[300px] object-cover bg-repeat-x sm:h-[350px] -z-10 '/>
+            <div className='flex flex-col -z-10 sm:p-12 p-3 bottom-1 absolute'>
                 <h1 
                     data-aos='fade-top' data-aos-duration='900'
                     className='font-bold font-sans  text-white text-2xl sm:text-4xl  '> 
@@ -27,4 +27,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Main

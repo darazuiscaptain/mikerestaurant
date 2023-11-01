@@ -10,7 +10,7 @@ function Logo() {
         <div className='flex gap-0'>
           <span className='text-3xl text_gradient_p'>R</span>
           <div className='leading-4'>
-            <h1 className='text_gradient_h pl-3 text-md underline' >Mike</h1>
+            <h1 className='text_gradient_h flex justify-end text-md underline' >Mike</h1>
             <p className='text_gradient_p -left-2'>estaurant</p>
           </div>
         </div>

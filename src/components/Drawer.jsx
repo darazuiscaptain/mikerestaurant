@@ -5,7 +5,7 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-import { BiHomeAlt, BiMenuAltRight, BiPhone, BiPhoneCall } from "react-icons/bi"
+import { BiHomeAlt, BiMenuAltRight,  BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
 
