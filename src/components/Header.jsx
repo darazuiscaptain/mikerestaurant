@@ -17,7 +17,7 @@ function Header() {
 
 
   return (
-    <header className='flex justify-between mb-8 px-5 w-full bg-white sticky top-0 py-5 z-99'>
+    <header className='flex justify-between mb-8 px-5 sm:px-20 w-full bg-white sticky top-0 py-5 z-99'>
       <h1 className='text-3xl md:text-5xl font-bold cursor-pointer'>
         <Logo />
       </h1>
