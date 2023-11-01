@@ -1,12 +1,12 @@
 import Aos from "aos"
-import Featured from "./UI/Featured"
-import Main from "./UI/Main"
 import { useEffect } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import Meal from "./UI/Meal"
-import Drinks from "./UI/Drinks"
-import Statistics from "./UI/Statistics"
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 
 function App() {
@@ -16,16 +16,18 @@ function App() {
 
   return (
     <>
+    <BrowserRouter>
       <Header />
-      <div className="max-w-[900px] mx-auto">
-        <Main />
-        <br/>
-        <Statistics/>
-        <Meal/>
-        <Drinks />
-        <Featured />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Routes>
       <Footer />
+    </BrowserRouter>
+      
     </>
   )
 }
