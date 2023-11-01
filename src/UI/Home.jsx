@@ -1,4 +1,4 @@
-import image from '../assets/1.png'
+import image from '../assets/restaurant1.png'
 
 function Home() {
   return (

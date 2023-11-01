@@ -10,13 +10,9 @@
 
 body{
     background-color: white;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .text_gradient_h{
-    font-size: 24px;
     background: -webkit-linear-gradient(#f73909, #1205d3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -24,7 +20,6 @@ body{
 }
 
 .text_gradient_p{
-    font-size: 14px;
     background: -webkit-linear-gradient(#c0146a, #36cd08);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

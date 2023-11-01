@@ -9,15 +9,15 @@ import Header from "./components/Header"
 function App() {
   useEffect(() => {
     Aos.init()
-  },[])
+  }, [])
 
   return (
     <>
-      {/* <NavBar /> */}
-      <Header/>
-      <Home/>
-      <Featured />
-      {/* <Map /> */}
+      <Header />
+      <div className="max-w-[900px] mx-auto">
+        <Home />
+        <Featured />
+      </div>
       <Footer />
     </>
   )

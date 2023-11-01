@@ -3,7 +3,7 @@ import { BsFacebook, BsInstagram, BsTelegram, BsTwitter, BsYoutube } from "react
 
 function Footer() {
     return (
-        <footer className="mt-20 px-4  rounded-md">
+        <footer className="mt-20 px-4 sm:px-12  rounded-md">
             <div className='flex flex-wrap gap-4 justify-between w-full'>
                 <div className="flex flex-col justify-between h-28">
                     <div className="leading-4">
