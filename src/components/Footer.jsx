@@ -6,9 +6,15 @@ function Footer() {
         <footer className="mt-20 px-4 sm:px-12  rounded-md">
             <div className='flex flex-wrap gap-4 justify-between w-full'>
                 <div className="flex flex-col justify-between h-28">
-                    <div className="leading-4">
-                        <h1 className='text_gradient_h' >Mike </h1> 
-                        <p className='text_gradient_p l'>Resturant</p>
+                    <div className='flex flex-col justify-end font-mono  text-sm leading-4'>
+                        <div className='flex gap-0'>
+                            <span className='text-3xl text_gradient_p'>R</span>
+                            <div className='leading-4'>
+                                <h1 className='text_gradient_h flex justify-end text-md underline' >Mike</h1>
+                                <p className='text_gradient_p -left-2'>estaurant</p>
+                            </div>
+                        </div>
+
                     </div>
                     <img src={footerImage} alt="footerImg" className="w-12 h-12" />
                 </div>

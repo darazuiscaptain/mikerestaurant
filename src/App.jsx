@@ -7,6 +7,7 @@ import Header from "./components/Header"
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Sign_up_in from "./pages/Sign_up_in";
 
 
 function App() {
@@ -19,11 +20,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-        </Route>
+          <Route path="sign_up_in" element={<Sign_up_in />} />
       </Routes>
       <Footer />
     </BrowserRouter>
