@@ -86,13 +86,13 @@ function Header() {
                   </Link>
                 </ul>
               </div>
-              <div>
-                <Button className="mt-3 ml-5 hover:opacity-90" size="sm">
-                  Sign In
-                </Button>
-                <Button className="mt-3 ml-5 bg-blue-900 hover:opacity-90" size="sm">
+              <div className="flex gap-6 justify-center">
+                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-purple-500 text-white hover:opacity-90" size="sm">
+                  Login
+                </Link>
+                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90" size="sm">
                   Sign Up
-                </Button>
+                </Link>
               </div>
             </div>
           </Drawer>

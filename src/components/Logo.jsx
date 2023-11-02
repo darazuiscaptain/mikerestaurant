@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom'
 import restaurant from '../assets/restaurant.png'
 
 function Logo() {
   return (
-    <div className='flex items-center justify-end gap-1'>
+    <Link to="" className='flex items-center justify-end gap-1'>
       <span >
         <img className='w-12 h-8' src={restaurant} alt="resturant" />
       </span>
@@ -17,7 +18,7 @@ function Logo() {
 
       </div>
 
-    </div>
+    </Link>
   )
 }
 

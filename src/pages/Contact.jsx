@@ -17,7 +17,6 @@ function Contact() {
           </button>
         </form>
       </Card>
-
     </section>
   )
 }
