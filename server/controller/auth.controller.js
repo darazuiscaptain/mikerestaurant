@@ -1,20 +1,24 @@
 import User from "../model/users.model.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { errorHandler } from "../utils/error.js"
 
 export const login = async (req, res, next) => {
-  const { username, password } = req.body
+  const { email, password } = req.body
 
   try {
-    const user = await User.findOne({ username })
-    if (!user) return res.status(409).json("Wrong Credential")
+    const user = await User.findOne({ email })
+    if (!user) return next(errorHandler(404, "User not found"))
 
     const compPassword = bcrypt.compareSync(password, user.password)
-    if (!compPassword) return res.status(409).json("Wrong Credential")
+    if (!compPassword) return next(errorHandler(409, "Wrong credential"))
+    const { password: pass, ...other } = user._doc
 
-    const token = jwt.sign({ id: user._id }, "jwt_token", { expiresIn: '1h' })
-
-    res.json(token)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+    res
+      .cookie('access_token', token, { httpOnly: true})
+      .status(200)
+      .json(other)
 
   } catch (error) {
     next(errorHandler(550, "error from function"))
@@ -34,16 +38,18 @@ export const register = async (req, res, next) => {
 
     const hashPassword = bcrypt.hashSync(password, 10)
 
-    const savedUser = await User.create({
+    await User.create({
       username,
       email,
       password: hashPassword
     })
+    const { password: pass, ...other } = user
 
-    res.json(savedUser)
+
+    res.status(201).json(other)
 
   } catch (err) {
-    res.json(err)
+    next(errorHandler(500, "Internal server error"))
   }
 
 
