@@ -2,6 +2,7 @@ import { Card } from '@material-tailwind/react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import Oauth from '../components/Oauth'
 
 const BASE_URL = "http://localhost:5000/api/v1/auth"
 const initialValue = {
@@ -28,24 +29,30 @@ function Sign_up_in() {
     if (login) {
       if (email === "" || password === "") {
         alert("All fields are required!")
-      } else {}
+      } else {
+        try {
+          const data = await axios.post(`${BASE_URL}/login`, user)
+          navigate("/")
+        } catch (error) {
+          setError(error.message)
+        }
+      }
     } else {
       if (username === "" || email === "" || password === "") {
         alert("All fields are required!")
       } else {
         try {
           const data = await axios.post(`${BASE_URL}/register`, user)
-          console.log(data)
           navigate("/")
         } catch (error) {
           setError(error.message)
         }
       }
-      setUser(() => initialValue)
-      setTimeout(() => {
-        setError("")
-      }, 4000)
     }
+    setUser(() => initialValue)
+    setTimeout(() => {
+      setError("")
+    }, 4000)
   }
 
   return (
@@ -61,7 +68,7 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        <form className='flex flex-col w-full h-full gap-3 my-8' onSubmit={handleSubmit}>
+        <form className='flex flex-col w-full h-full gap-2 my-8' onSubmit={handleSubmit}>
           {error && (
             <p className='px-4 p-2 rounded-md bg-red-100 text-red-400 text-sm'>{error}</p>
           )}
@@ -71,7 +78,7 @@ function Sign_up_in() {
               type="text"
               name='username'
               value={username}
-              className='hover:outline-none  p-3 shadow-md rounded-lg' required
+              className='hover:outline-none  p-2 shadow-md rounded-lg' required
               onChange={handleChange} />
           </div>}
 
@@ -82,7 +89,7 @@ function Sign_up_in() {
               type="text"
               name='email'
               value={email}
-              className='hover:outline-none  p-3 shadow-md rounded-lg' required
+              className='hover:outline-none  p-2 shadow-md rounded-lg' required
               onChange={handleChange} />
           </div>
           <div className='flex flex-col gap-1'>
@@ -92,31 +99,21 @@ function Sign_up_in() {
                 type="password"
                 name='password'
                 value={password}
-                className='hover:outline-none  p-3 shadow-md rounded-lg' required
+                className='hover:outline-none  p-2 shadow-md rounded-lg' required
                 onChange={handleChange} />
             </div>
             {login && <Link className='text-sm text-blue-500'>Forgot password? </Link>}
 
           </div>
-          <div className='flex flex-col gap-3 my-8'>
+          <div className='flex flex-col gap-3 my-4'>
             <button
               type='submit'
-              className='w-full uppercase p-3 rounded-lg bg-gradient-to-r from-[#f73909] to-[#1205d3] text-white hover:opacity-90'>
+              className='w-full uppercase p-2 rounded-lg bg-teal-600 text-white hover:opacity-90'>
               {login ? "Login" : "Register"}
             </button>
 
             {/* =========== Signup with google ================ */}
-            {/* <GoogleLogin
-              className='w-full uppercase p-3 rounded-lg cursor-pointer'
-              clientId={"745614203657-1dp76p21fcojep5c4bft974r1qhjsjtk.apps.googleusercontent.com"}
-              buttonText="Login with Google"
-              onSuccess={handleLogin}
-              onFailure={handleLogin}
-            /> */}
-
-            {/* <button className='w-full uppercase bg-gradient-to-r from-[#c0146a] to-[#36cd08] p-3 rounded-lg text-white hover:opacity-90'>
-              Login with Google
-            </button> */}
+            <Oauth />
           </div>
         </form>
       </Card>
