@@ -12,7 +12,7 @@ function Contact() {
           <input type="text" placeholder='Subject' className='hover:outline-none placeholder:text-blue-gray-100 p-3 shadow-md rounded-lg'/>
           <textarea name="body" className='max-h-24 hover:outline-none placeholder:text-blue-gray-100 p-3 shadow-md rounded-lg' cols="10" rows="10" placeholder='Write here..'>
           </textarea>
-          <button className='w-full uppercase p-3 rounded-lg my-9 bg-green-900 text-white opacity-90'>
+          <button className='w-full uppercase p-3 rounded-lg my-9 bg-gradient-to-r from-[#c0146a] to-[#36cd08] text-white opacity-90'>
             send
           </button>
         </form>

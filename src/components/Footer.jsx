@@ -1,4 +1,4 @@
-import footerImage from "../assets/footerImg.png"
+import footerImage from "../assets/restaurant.png"
 import { BsFacebook, BsInstagram, BsTelegram, BsTwitter, BsYoutube } from "react-icons/bs"
 
 function Footer() {
