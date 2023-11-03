@@ -4,7 +4,7 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-import { BiHomeAlt, BiMenuAltRight,  BiPhoneCall } from "react-icons/bi"
+import { BiHomeAlt, BiMenuAltRight, BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ function Header() {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
 
+  const [user, setUser] = useState(true)
+  const handleLogout = () => {}
 
   return (
     <header className='flex justify-between mb-8 px-5 lg:px-24 w-full bg-white sticky top-0 py-5 z-50'>
@@ -31,16 +33,23 @@ function Header() {
         <Link to="about" className='hover:underline cursor-pointer text_gradient_a'>
           About Us
         </Link>
-        <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-gradient-to-r from-[#c0146a] to-[#36cd08] text-white hover:opacity-90'>
-          Login
-        </Link>
-        {/* <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90'>
-          Sign Up
-        </Link> */}
+        {
+          user ? (
+            <button
+              onClick={handleLogout}
+              className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
+              Logout
+            </button>
+          ) : (
+            <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-teal-600 text-white hover:opacity-90'>
+              Login
+            </Link>
+          )
+        }
       </ul>
 
       {/* ==================== Mobile Menu ====================== */}
-      
+
       <div className='flex md:hidden'>
         <Fragment>
           <div onClick={openDrawer} className="bg-white border-none shadow-none">
@@ -86,18 +95,25 @@ function Header() {
                 </ul>
               </div>
               <div className="flex gap-6 justify-center">
-                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-gradient-to-r from-[#c0146a] to-[#36cd08] text-white hover:opacity-90" size="sm">
-                  Login
-                </Link>
-                {/* <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90" size="sm">
-                  Sign Up
-                </Link> */}
+                {
+                  user ? (
+                    <button
+                      onClick={handleLogout}
+                      className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
+                      Logout
+                    </button>
+                  ) : (
+                    <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-teal-600 text-white hover:opacity-90'>
+                      Login
+                    </Link>
+                  )
+                }
               </div>
             </div>
           </Drawer>
         </Fragment>
       </div>
-    </header>
+    </header >
   )
 }
 
