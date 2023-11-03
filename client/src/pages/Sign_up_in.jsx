@@ -1,6 +1,6 @@
 import { Card } from '@material-tailwind/react'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 
 const BASE_URL = "http://localhost:5000/api/v1/auth"
@@ -12,26 +12,39 @@ const initialValue = {
 
 function Sign_up_in() {
   const [login, setLogin] = useState(true)
-  const [ user, setUser ] = useState(initialValue)
+  const [user, setUser] = useState(initialValue)
+  const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
 
   const handleChange = async (e) => {
-    setUser((prev) => ({...prev, [e.target.name] : e.target.value}))
+    setUser({ ...user, [e.target.name]: e.target.value })
   }
 
   const { username, email, password } = user
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if(login)
-    {
-    }else{
-      if(username === "" || email === "" || password === ""){
+    if (login) {
+      if (email === "" || password === "") {
         alert("All fields are required!")
-      }else{
-        const data = await axios.post(`${BASE_URL}/register`, user)
+      } else {}
+    } else {
+      if (username === "" || email === "" || password === "") {
+        alert("All fields are required!")
+      } else {
+        try {
+          const data = await axios.post(`${BASE_URL}/register`, user)
+          console.log(data)
+          navigate("/")
+        } catch (error) {
+          setError(error.message)
+        }
       }
-
       setUser(() => initialValue)
+      setTimeout(() => {
+        setError("")
+      }, 4000)
     }
   }
 
@@ -48,42 +61,45 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        <form className='flex flex-col w-full h-full gap-3 my-8' onSubmit={handleSubmit}> 
+        <form className='flex flex-col w-full h-full gap-3 my-8' onSubmit={handleSubmit}>
+          {error && (
+            <p className='px-4 p-2 rounded-md bg-red-100 text-red-400 text-sm'>{error}</p>
+          )}
           {!login && <div className='flex flex-col'>
             <label >Username</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name='username'
               value={username}
-              className='hover:outline-none  p-3 shadow-md rounded-lg' required 
-              onChange={handleChange}/>
+              className='hover:outline-none  p-3 shadow-md rounded-lg' required
+              onChange={handleChange} />
           </div>}
 
 
           <div className='flex flex-col'>
             <label >Email</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name='email'
               value={email}
-              className='hover:outline-none  p-3 shadow-md rounded-lg' required 
-              onChange={handleChange}/>
+              className='hover:outline-none  p-3 shadow-md rounded-lg' required
+              onChange={handleChange} />
           </div>
           <div className='flex flex-col gap-1'>
             <div className='flex flex-col'>
               <label >Password</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 name='password'
                 value={password}
-                className='hover:outline-none  p-3 shadow-md rounded-lg' required 
-                onChange={handleChange}/>
+                className='hover:outline-none  p-3 shadow-md rounded-lg' required
+                onChange={handleChange} />
             </div>
             {login && <Link className='text-sm text-blue-500'>Forgot password? </Link>}
 
           </div>
           <div className='flex flex-col gap-3 my-8'>
-            <button 
+            <button
               type='submit'
               className='w-full uppercase p-3 rounded-lg bg-gradient-to-r from-[#f73909] to-[#1205d3] text-white hover:opacity-90'>
               {login ? "Login" : "Register"}
