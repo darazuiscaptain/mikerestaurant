@@ -5,6 +5,7 @@ import axios from "axios"
 import Oauth from '../components/Oauth'
 
 const BASE_URL = "http://localhost:5000/api/v1/auth"
+
 const initialValue = {
   username: "",
   email: "",
