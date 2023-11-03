@@ -1,7 +1,7 @@
 {
-  "name": "tour",
+  "name": "mern-mike-restaurant",
   "version": "1.0.0",
-  "description": "touring in ethiopia MERN full stack self employed project",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M2M1M0/Ethio-tour.git"
+    "url": "git+https://github.com/M2M1M0/mern-mike-restaurant.git"
   },
   "author": "Mikiyas",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/M2M1M0/Ethio-tour/issues"
+    "url": "https://github.com/M2M1M0/mern-mike-restaurant/issues"
   },
-  "homepage": "https://github.com/M2M1M0/Ethio-tour#readme",
+  "homepage": "https://github.com/M2M1M0/mern-mike-restaurant#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
