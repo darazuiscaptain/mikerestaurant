@@ -7,18 +7,10 @@
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
-    "build": "npm install && npm install --prefix client && npm run build --prefix client"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/M2M1M0/mern-mike-restaurant.git"
+    "build": "npm install && npm install --prefix client && npm run build --prefix client --output public"
   },
   "author": "Mikiyas",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/M2M1M0/mern-mike-restaurant/issues"
-  },
-  "homepage": "https://github.com/M2M1M0/mern-mike-restaurant#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
