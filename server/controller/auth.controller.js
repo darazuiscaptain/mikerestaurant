@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { errorHandler } from "../utils/error.js"
 
+// =============== Sign In =======================
 export const login = async (req, res, next) => {
   const { email, password } = req.body
 
@@ -26,7 +27,7 @@ export const login = async (req, res, next) => {
 
 }
 
-// =============== Sign up Controller =======================
+// =============== Sign up =======================
 export const register = async (req, res, next) => {
   const { username, email, password } = req.body
   if (username === "" || email === "" || password === "") {
@@ -54,4 +55,16 @@ export const register = async (req, res, next) => {
 
 
 
+}
+
+// =============== Logout  =======================
+export const logout = (req, res, next) => {
+  try {
+    res
+      .clearCookie("access_token")
+      .status(200)
+      .json("User Logged out")
+  } catch (error) {
+    next(errorHandler(500, "Internal server error"))    
+  }
 }

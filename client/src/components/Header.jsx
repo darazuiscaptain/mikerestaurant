@@ -7,16 +7,25 @@ import {
 import { BiHomeAlt, BiMenuAltRight, BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 function Header() {
+  const navigate = useNavigate()
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
 
   const [user, setUser] = useState(true)
-  const handleLogout = () => {}
+
+  const handleLogout = async () => {
+    await axios.post(`${BASE_URL}/logout`)
+    setUser(!user)
+    navigate("/")
+  }
 
   return (
     <header className='flex justify-between mb-8 px-5 lg:px-24 w-full bg-white sticky top-0 py-5 z-50'>
