@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import {
   Drawer,
-  Button,
   Typography,
   IconButton,
 } from "@material-tailwind/react";
@@ -32,12 +31,12 @@ function Header() {
         <Link to="about" className='hover:underline cursor-pointer text_gradient_a'>
           About Us
         </Link>
-        <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-purple-500 text-white hover:opacity-90'>
+        <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-gradient-to-r from-[#c0146a] to-[#36cd08] text-white hover:opacity-90'>
           Login
         </Link>
-        <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90'>
+        {/* <Link to={"/sign_up_in"} className='p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90'>
           Sign Up
-        </Link>
+        </Link> */}
       </ul>
 
       {/* ==================== Mobile Menu ====================== */}
@@ -87,12 +86,12 @@ function Header() {
                 </ul>
               </div>
               <div className="flex gap-6 justify-center">
-                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-purple-500 text-white hover:opacity-90" size="sm">
+                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-gradient-to-r from-[#c0146a] to-[#36cd08] text-white hover:opacity-90" size="sm">
                   Login
                 </Link>
-                <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90" size="sm">
+                {/* <Link to="sign_up_in" onClick={closeDrawer} className="p-1 px-3 rounded-lg bg-green-600 text-white hover:opacity-90" size="sm">
                   Sign Up
-                </Link>
+                </Link> */}
               </div>
             </div>
           </Drawer>
