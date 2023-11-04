@@ -57,6 +57,43 @@ export const register = async (req, res, next) => {
 
 }
 
+// =============== SignIn and SignUp with google ================
+export const google = async (req, res, next) => {
+  const { name, email, photo } = req.body
+  try {
+    const isUser = await User.findOne({email})
+    if(isUser){
+      const token = jwt.sign({id: isUser._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
+      const { password, ...rest } = isUser._doc
+      res
+        .cookie("access_token", token, { httpOnly: true})
+        .status(200)
+        .json(rest)
+    } else{
+      const generatedPassword = Math.random().toString(36)
+      const hashedPassword = bcrypt.hashSync(generatedPassword, 10)
+
+      const generatedUsername = name.split(" ")[0] + Math.random().toString(36).slice(-4)
+      const savedUser = await User.create({
+        username: generatedUsername,
+        email, 
+        password: hashedPassword, 
+        photo 
+      })
+
+      const token = jwt.sign({id: isUser._id}, process.env.JWT_SECRET, {expiresIn: '1h'})
+      const { password, ...rest } = savedUser._doc
+      res
+        .cookie("access_token", token, { httpOnly: true})
+        .status(200)
+        .json(rest)
+
+    }
+  } catch (error) {
+    next(errorHandler(550, "error from function"))
+  }
+}
+
 // =============== Logout  =======================
 export const logout = (req, res, next) => {
   try {
