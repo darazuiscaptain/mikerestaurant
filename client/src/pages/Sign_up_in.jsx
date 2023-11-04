@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import Oauth from '../components/Oauth'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 
 const BASE_URL = "http://localhost:5000/api/v1/auth"
 
@@ -15,8 +17,10 @@ const initialValue = {
 function Sign_up_in() {
   const [login, setLogin] = useState(true)
   const [user, setUser] = useState(initialValue)
-  const [error, setError] = useState(null)
 
+  const { loading, error } = useSelector((state) => state.auth)
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleChange = async (e) => {
@@ -27,15 +31,17 @@ function Sign_up_in() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    dispatch(signInStart())
     if (login) {
       if (email === "" || password === "") {
         alert("All fields are required!")
       } else {
         try {
-          const data = await axios.post(`${BASE_URL}/login`, user)
+          const result = await axios.post(`${BASE_URL}/login`, user)
+          dispatch(signInSuccess(result.data))
           navigate("/")
         } catch (error) {
-          setError(error.message)
+          dispatch(signInFailure(error?.response?.data?.message))
         }
       }
     } else {
@@ -43,21 +49,19 @@ function Sign_up_in() {
         alert("All fields are required!")
       } else {
         try {
-          const data = await axios.post(`${BASE_URL}/register`, user)
+          const result = await axios.post(`${BASE_URL}/register`, user)
+          dispatch(signUpSuccess(result.data))
           navigate("/")
         } catch (error) {
-          setError(error.message)
+          dispatch(signUpFailure(error?.response?.data?.message))
         }
       }
     }
     setUser(() => initialValue)
-    setTimeout(() => {
-      setError("")
-    }, 4000)
   }
 
   return (
-    <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto'>
+    <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-8'>
       <Card className='flex flex-col justify-between px-5 sm:px-12'>
         <div className='flex flex-col gap-2'>
           <h1 className='text_gradient_p uppercase text-2xl text-center'>
@@ -69,10 +73,10 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        <form className='flex flex-col w-full h-full gap-2 my-8' onSubmit={handleSubmit}>
-          {error && (
-            <p className='px-4 p-2 rounded-md bg-red-100 text-red-400 text-sm'>{error}</p>
-          )}
+        {error && (
+          <p className='px-4 p-2 my-4 rounded-md bg-red-100 text-red-300 text-sm'>{error}</p>
+        )}
+        <form className='flex flex-col w-full h-full gap-2 my-3' onSubmit={handleSubmit}>
           {!login && <div className='flex flex-col'>
             <label >Username</label>
             <input

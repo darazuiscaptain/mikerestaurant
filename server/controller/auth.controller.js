@@ -6,20 +6,20 @@ import { errorHandler } from "../utils/error.js"
 // =============== Sign In =======================
 export const login = async (req, res, next) => {
   const { email, password } = req.body
-
   try {
     const user = await User.findOne({ email })
     if (!user) return next(errorHandler(404, "User not found"))
 
     const compPassword = bcrypt.compareSync(password, user.password)
     if (!compPassword) return next(errorHandler(409, "Wrong credential"))
-    const { password: pass, ...other } = user._doc
-
+    
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-    res
-      .cookie('access_token', token, { httpOnly: true})
-      .status(200)
-      .json(other)
+
+    const { password: pass, ...other } = user._doc
+    return res
+            .cookie('access_token', token, { httpOnly: true })
+            .status(200)
+            .json(other)
 
   } catch (error) {
     next(errorHandler(550, "error from function"))
@@ -35,7 +35,7 @@ export const register = async (req, res, next) => {
   }
   try {
     const user = await User.find({ email })
-    if (user.length > 0) return res.json("Email Already taken")
+    if (user.length > 0) return next(errorHandler(409, "Email Already taken"))
 
     const hashPassword = bcrypt.hashSync(password, 10)
 
@@ -44,8 +44,8 @@ export const register = async (req, res, next) => {
       email,
       password: hashPassword
     })
-    const { password: pass, ...other } = user
-
+    const { password: pass, ...other } = user._doc
+    console.log(other);
 
     res.status(201).json(other)
 
