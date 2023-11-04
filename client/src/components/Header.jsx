@@ -9,10 +9,14 @@ import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux'
+import {  } from '../features/authSlice'
 
 const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 function Header() {
+  const login = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [open, setOpen] = useState(false);

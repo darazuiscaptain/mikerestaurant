@@ -1,5 +1,5 @@
+import CardLoader from '../components/CardLoader'
 import React from 'react'
-import Card from '../components/Card'
 import image1 from '../assets/restaurant1.png'
 import image2 from '../assets/restaurant2.png'
 import image3 from '../assets/restaurant3.png'
@@ -15,13 +15,13 @@ function Featured() {
                 Our Restaurants
             </h1>
             <div className='flex flex-wrap gap-4 bg-gray-100 p-2 py-4 rounded-md'>
-                <Card image={image1} open={"open"} title={"Lorem"}/>
-                <Card image={image6} open={"open"} title={"Ipsum"}/>
-                <Card image={image3} open={"close"} title={"Dolor"}/>
-                <Card image={image2} open={"open"} title={"amet"}/>
-                <Card image={image4} open={"open"} title={"Sit"}/>
-                <Card image={image1} open={"close"} title={"Lorem"}/>
-                <Card image={image6} open={"open"} title={"Ipsum"}/>
+                <CardLoader image={image1} open={"open"} title={"Lorem"}/>
+                <CardLoader image={image6} open={"open"} title={"Ipsum"}/>
+                <CardLoader image={image3} open={"close"} title={"Dolor"}/>
+                <CardLoader image={image2} open={"open"} title={"amet"}/>
+                <CardLoader image={image4} open={"open"} title={"Sit"}/>
+                <CardLoader image={image1} open={"close"} title={"Lorem"}/>
+                <CardLoader image={image6} open={"open"} title={"Ipsum"}/>
             </div>
         </div>
     </section>
