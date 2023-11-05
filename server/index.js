@@ -47,15 +47,12 @@ app.use((err, req, res, next) => {
 })
 
 //Mongo DB Connect
-mongoose.connect(
-    process.env.NODE_ENV === "production" ? process.env.MONGO_URI : process.env.MONGO_LOCAL_DB_URL
-)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         const PORT = process.env.PORT || 5000
 
         app.listen(PORT, () => {
             console.log(`Server start on http://localhost:${PORT}`);
-            console.log("DB run on", process.env.NODE_ENV === "production" ? "Cloud (Atlas MongoDB" : "Local MongoDB")
         })
     })
     .catch((err) => {
