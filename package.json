@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
-    "build": "npm install && npm run compile",
+    "build": "npm install",
     "compile": "webpack --config webpack.config.js"
   },
   "author": "Mikiyas",
