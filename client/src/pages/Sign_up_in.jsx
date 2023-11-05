@@ -6,7 +6,7 @@ import Oauth from '../components/Oauth'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 
-const BASE_URL = "https://mern-restaurant-32d7.onrender.com/api/v1/auth"
+const BASE_URL = "/api/v1/auth"
 // const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 
