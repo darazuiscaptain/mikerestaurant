@@ -11,7 +11,7 @@ export const login = async (req, res, next) => {
     if (!user) return next(errorHandler(404, "User not found"))
 
     const compPassword = bcrypt.compareSync(password, user.password)
-    if (!compPassword) return next(errorHandler(409, "Wrong credential"))
+    if (!compPassword) return res.status(409).json("Wrong credential")
     
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
 
@@ -35,22 +35,27 @@ export const register = async (req, res, next) => {
   }
   try {
     const user = await User.find({ email })
-    if (user.length > 0) return next(errorHandler(409, "Email Already taken"))
+    if (user.length > 0) {
+      return res.status(409).json("Email Already taken")
+    }
+    const usernameFound = await User.find({ username })
+    if (usernameFound.length > 0) {
+      return res.status(409).json("Username taken")
+    } 
 
     const hashPassword = bcrypt.hashSync(password, 10)
 
-    await User.create({
+    const savedUser = await User.create({
       username,
       email,
       password: hashPassword
     })
-    const { password: pass, ...other } = user._doc
-    console.log(other);
+    const { password: pass, ...other } = savedUser._doc
 
-    res.status(201).json(other)
+    return res.status(201).json(other)
 
-  } catch (err) {
-    next(errorHandler(500, "Internal server error"))
+  } catch (error) {
+    next(error)
   }
 
 
