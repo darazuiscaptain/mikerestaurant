@@ -56,14 +56,6 @@ function Profile() {
                     </div>
                 </CardBody>
             </Card>
-            <div className='flex h-[100vh] relative'>
-                <div
-                    className='h-72 w-72 rounded-full bg-gradient-to-r from-[#876bed] to-[#94ade7] z-30 opacity-95 absolute -top-[93px] -left-[170px]' />
-                <div
-                    className='h-[25rem] w-[22rem] rounded-full bg-gradient-to-r from-[#1b75e4] to-[#562f33] z-10 opacity-90 absolute -top-[150px] -left-[190px] ' />
-                <div
-                    className='h-72 w-72 rounded-full bg-gradient-to-r from-[#09ab34] to-[#4859d9] z-20 opacity-90 absolute -top-[75px] -left-[35px] '/>
-            </div>
         </>
     )
 }
