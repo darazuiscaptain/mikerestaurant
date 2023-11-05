@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/v1': {
-        target: 'https://mern-restaurant-5rre.onrender.com/api/v1',
+        target: "https://mern-restaurant-5rre.onrender.com/api/v1",
         changeOrigin: true,
       },
     },
