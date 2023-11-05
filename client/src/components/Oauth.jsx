@@ -5,7 +5,7 @@ import axios from "axios"
 import { signInFailure, signInStart, signInSuccess } from "../redux/authSlice"
 import { useDispatch } from "react-redux"
 
-const BASE_URL = "/api/v1/auth"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
 
 function Oauth() {
   const navigate = useNavigate()

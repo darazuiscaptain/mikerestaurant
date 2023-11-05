@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 
 
-const BASE_URL = "/api/v1/auth"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
 // const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 function Header() {
