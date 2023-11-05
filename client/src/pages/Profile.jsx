@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardBody, CardHeader } from "@material-tailwind/react"
 import { useState } from 'react'
+import { useParams } from "react-router-dom"
+import axios from "axios"
+
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/user"
 
 function Profile() {
-    const [user, setUser] = useState("")
+    const { id } = useParams()
+    const [user, setUser] = useState(null)
 
     const handleChange = (e) => {
         setUser(({ ...user, [e.target.name]: e.target.value }))
     }
+
+    useEffect(  () => {
+        const fetch = async () => { 
+            const data = await axios.get(`${BASE_URL}/${id}`)
+            console.log(data)
+        }
+        fetch()
+    }, [id])
 
     return (
         <>
@@ -20,7 +33,7 @@ function Profile() {
                         <div className='flex flex-col gap-8 p-8 w-full'>
                             <img
                                 className="h-24 w-24 rounded-full cursor-pointer"
-                                src={""}
+                                src={user?.photo}
                                 alt=""
                             />
                             <button className='p-2 flex justify-center text-white rounded-md bg-teal-300 hover:opacity-90'>
@@ -31,7 +44,7 @@ function Profile() {
                             <input
                                 type="text"
                                 name='username'
-                                value=""
+                                value={user?.username}
                                 placeholder='Username'
                                 onChange={handleChange}
                                 className='hover:outline-none  p-2 shadow-md rounded-lg w-96' required
@@ -47,7 +60,7 @@ function Profile() {
                             <input
                                 type="password"
                                 name='password'
-                                value="password"
+                                value={user?.password}
                                 placeholder='password'
                                 onChange={handleChange}
                                 className='hover:outline-none  p-2 shadow-md rounded-lg w-96' required

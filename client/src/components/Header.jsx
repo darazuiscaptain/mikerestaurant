@@ -69,7 +69,12 @@ function Header() {
                   className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
                   Logout
                 </button>
-                <img src={currentUser.photo} alt={currentUser.username} className="h-8 w-8 rounded-full" />
+                <Link to={`profile/${currentUser._id}`}>
+                  <img
+                    src={currentUser.photo}
+                    alt={currentUser.username}
+                    className="h-8 w-8 rounded-full" />
+                </Link>
               </div>
             ) : (
               <button
