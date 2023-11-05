@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 
 const BASE_URL = "https://mern-restaurant-32d7.onrender.com/api/v1/auth"
+// const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 
 const initialValue = {
@@ -19,7 +20,7 @@ function Sign_up_in() {
   const [login, setLogin] = useState(true)
   const [user, setUser] = useState(initialValue)
 
-  const { error } = useSelector((state) => state.auth)
+  const { error, loading } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -39,10 +40,26 @@ function Sign_up_in() {
       } else {
         try {
           const result = await axios.post(`${BASE_URL}/login`, user)
-          dispatch(signInSuccess(result.data))
-          navigate("/")
+          console.log(result)
+          if (result.status === 200) {
+            dispatch(signInSuccess(result.data))
+            setUser(() => initialValue)
+            navigate("/")
+          }
+          dispatch(signInFailure(result.data))
         } catch (error) {
-          dispatch(signInFailure(error?.response?.data?.message))
+          if (error.response) {
+            // Handle specific error codes
+            if (error.response.status === 409) {
+              dispatch(signInFailure(error.response.data))
+            }else if (error.response.status === 400) {
+              dispatch(signInFailure(error.response.data.errors[0].message))
+            } else {
+              dispatch(signInFailure(error.response.data.message))
+            }
+          } else {
+            console.error('Network error:', error);
+          }
         }
       }
     } else {
@@ -51,14 +68,26 @@ function Sign_up_in() {
       } else {
         try {
           const result = await axios.post(`${BASE_URL}/register`, user)
-          dispatch(signUpSuccess(result.data))
-          navigate("/")
+          dispatch(signUpFailure(result.data))
+          if (result.status === 201) {
+            dispatch(signUpSuccess(result.data))
+            setUser(() => initialValue)
+            navigate("/")
+          }
         } catch (error) {
-          dispatch(signUpFailure(error?.response?.data?.message))
+          if (error.response) {
+            // Handle specific error codes
+            if (error.response.status === 400) {
+              dispatch(signUpFailure(error.response.data.errors[0].message))
+            } else {
+              dispatch(signUpFailure(error.response.data))
+            }
+          } else {
+            console.error('Network error:', error);
+          }
         }
       }
     }
-    setUser(() => initialValue)
   }
 
   return (
@@ -105,6 +134,7 @@ function Sign_up_in() {
                 type="password"
                 name='password'
                 value={password}
+                minLength= {6}
                 className='hover:outline-none  p-2 shadow-md rounded-lg' required
                 onChange={handleChange} />
             </div>
@@ -115,7 +145,7 @@ function Sign_up_in() {
             <button
               type='submit'
               className='w-full uppercase p-2 rounded-lg bg-teal-600 text-white hover:opacity-90'>
-              {login ? "Login" : "Register"}
+              {loading ? "loading" : (login ? "Login" : "Register")}
             </button>
 
             {/* =========== Signup with google ================ */}

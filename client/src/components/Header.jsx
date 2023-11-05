@@ -15,6 +15,7 @@ import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 
 
 const BASE_URL = "https://mern-restaurant-32d7.onrender.com/api/v1/auth"
+// const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 function Header() {
   const navigate = useNavigate()
