@@ -52,7 +52,7 @@ function Sign_up_in() {
             // Handle specific error codes
             if (error.response.status === 409) {
               dispatch(signInFailure(error.response.data))
-            }else if (error.response.status === 400) {
+            } else if (error.response.status === 400) {
               dispatch(signInFailure(error.response.data.errors[0].message))
             } else {
               dispatch(signInFailure(error.response.data.message))
@@ -91,7 +91,16 @@ function Sign_up_in() {
   }
 
   return (
-    <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-8'>
+    <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-0'>
+      <div className='flex sm:hidden overflow-hidden h-[15rem] relative'>
+        <div
+          className='h-[520px] w-[320px] rounded-full bg-gradient-to-r from-[rgb(208,214,216)] to-[#4b8ec9] z-30 opacity-95 absolute -top-[320px] -left-[105px] rotate-12' />
+        <div
+          className='h-[470px] w-[460px] rounded-full bg-gradient-to-r from-[#e4541b] to-[#d069ef] z-10 opacity-70 absolute -top-[230px] -left-[160px] rotate-45' />
+        <div
+          className='h-[500px] w-[450px] rounded-full bg-gradient-to-r from-[#8289bc] to-[#165b8f] z-20 opacity-80 absolute -top-[290px] left-[100px] rotate-3' />
+        <span className='text-4xl font-bold absolute top-[60px] left-[90px] border-2 rotate-6 p-1 z-40 text-white'>M</span>
+      </div>
       <Card className='flex flex-col justify-between px-5 sm:px-12'>
         <div className='flex flex-col gap-2'>
           <h1 className='text_gradient_p uppercase text-2xl text-center'>
@@ -134,7 +143,7 @@ function Sign_up_in() {
                 type="password"
                 name='password'
                 value={password}
-                minLength= {6}
+                minLength={6}
                 className='hover:outline-none  p-2 shadow-md rounded-lg' required
                 onChange={handleChange} />
             </div>
