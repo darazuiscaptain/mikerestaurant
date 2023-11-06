@@ -21,19 +21,32 @@ export const getOneUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
     const { id } = req.params
-    const { username, password, photo } = req.body
+    const { username, currentPassword, newPassword, photo } = req.body
     try {
         const user = await User.findById({ _id: id })
         if (!user) return res.status(400).json("Invalid update")
 
-        const hashedPassword = bcrypt.hashSync(password, 10)
+        if (currentPassword || newPassword) {
+            const checkPass = bcrypt.compareSync(currentPassword, user.password)
+            if (!checkPass) return res.status(409).json("Wrong Password")
+
+            var hashedPassword = bcrypt.hashSync(newPassword, 10)
+            const updatedUser = await User.findByIdAndUpdate({ _id: id }, {
+                username: username,
+                password: hashedPassword,
+                photo: photo
+            }, { new: true })
+
+            return res.status(200).json(updatedUser)
+        }
+
         const updatedUser = await User.findByIdAndUpdate({ _id: id }, {
             username: username,
-            password: hashedPassword,
-            photo: photo 
+            photo: photo
         }, { new: true })
 
-        res.status(200).json(updatedUser)
+        return res.status(200).json(updatedUser)
+
     } catch (error) {
         next(error)
     }
