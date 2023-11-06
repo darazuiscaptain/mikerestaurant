@@ -1,15 +1,14 @@
 import { Card } from "@material-tailwind/react"
 
-function CardLoader({image, open, title}) {
-  return (
-    <Card>
-        <Card className='sm:w-48 lg:w-52 shadow-md rounded-md overflow-hidden'>
+function CardLoader({ image, open, title }) {
+    return (
+        <Card className='sm:w-48 lg:w-[12.5rem] shadow-md rounded-md overflow-hidden'>
             <img src={image} alt={title} className=' cursor-pointer h-[150px] w-full rounded-t-md hover:scale-105 ' />
             <div className='p-2'>
                 <h1 data-aos='fade-right' data-aos-duration='1500'>{title}</h1>
                 <p className='text-xs text-gray-500 font-thin font'>
-                    ipsum dolor sit amet consectetur adipisicing elit. 
-                    Necessitatibus, harum. Lorem ipsum dolor sit amet, 
+                    ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus, harum. Lorem ipsum dolor sit amet,
                     consectetur adipisicing elit. Numquam, reprehenderit?
                 </p>
                 <div className='flex justify-between items-center mt-2'>
@@ -20,8 +19,7 @@ function CardLoader({image, open, title}) {
                 </div>
             </div>
         </Card>
-    </Card>
-  )
+    )
 }
 
 export default CardLoader

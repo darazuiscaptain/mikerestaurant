@@ -2,7 +2,7 @@ import React from 'react'
 
 function About() {
   return (
-    <div className='flex flex-col gap-5 max-w-[500px] mx-auto px-3 font-serif'>
+    <div className='flex flex-col gap-5 max-w-[500px] mx-auto px-3 font-serif sm:mt-8 md:mt-12 lg:mt-16'>
       <h1 className='text_gradient_h text-2xl uppercase font-semibold'>Lorem ipsum dolor</h1>
       <p className=''>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit.

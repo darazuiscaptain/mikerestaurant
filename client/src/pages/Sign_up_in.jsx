@@ -112,7 +112,7 @@ function Sign_up_in() {
           className='h-[500px] w-[450px] rounded-full bg-gradient-to-r from-[#8289bc] to-[#165b8f] z-20 opacity-80 absolute -top-[290px] left-[100px] rotate-3' />
         <span className='text-4xl font-bold absolute top-[60px] left-[90px] border-2 rotate-6 p-1 z-40 text-white'>M</span>
       </div>
-      <Card className='flex flex-col justify-between px-5 sm:px-12'>
+      <Card className='flex flex-col justify-between px-5 sm:px-12 sm:my-12'>
         <div className='flex flex-col gap-2'>
           <h1 className='text_gradient_p uppercase text-2xl text-center'>
             {login ? "Login" : "Sign up"}
@@ -133,7 +133,7 @@ function Sign_up_in() {
               type="text"
               name='username'
               value={username}
-              className='hover:outline-none  p-2 shadow-md rounded-lg'
+              className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400'
               onChange={handleChange} />
           </div>}
 
@@ -144,7 +144,7 @@ function Sign_up_in() {
               type="text"
               name='email'
               value={email}
-              className='hover:outline-none  p-2 shadow-md rounded-lg' 
+              className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400' 
               onChange={handleChange} />
           </div>
           <div className='flex flex-col gap-1'>
@@ -155,7 +155,7 @@ function Sign_up_in() {
                 name='password'
                 value={password}
                 minLength={6}
-                className='hover:outline-none  p-2 shadow-md rounded-lg' 
+                className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400' 
                 onChange={handleChange} />
             </div>
             {login && <Link className='text-sm text-blue-500'>Forgot password? </Link>}
@@ -164,7 +164,7 @@ function Sign_up_in() {
           <div className='flex flex-col gap-3 my-4'>
             <button
               type='submit'
-              className='w-full uppercase p-2 rounded-lg bg-teal-600 text-white hover:opacity-90'>
+              className='w-full uppercase p-[5px] bg-teal-400 text-white hover:opacity-90'>
               {loading ? "loading" : (login ? "Login" : "Register")}
             </button>
 

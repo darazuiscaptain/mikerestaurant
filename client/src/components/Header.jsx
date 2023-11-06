@@ -3,9 +3,8 @@ import {
   Drawer,
   Typography,
   IconButton,
-  Card,
 } from "@material-tailwind/react";
-import { BiHomeAlt, BiMenuAltRight, BiPhoneCall } from "react-icons/bi"
+import { BiHomeAlt, BiMenuAltLeft, BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
 import { BsInfoLg } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,30 +47,32 @@ function Header() {
   }
 
   const manageProfile = () => {
-    if(currentUser){
+    if (currentUser) {
       navigate("profile/me")
       closeDrawer()
-    } else{
+    } else {
       toast("something err Refresh the page")
     }
   }
 
   return (
-    <Card className="sticky top-0 py-5 z-50 mb-4 rounded-none">
-      <header className='flex justify-between px-5 lg:px-24 '>
+    <div className="px-5 pt-4 py-2">
+      <header className='flex justify-between flex-row-reverse md:flex-row'>
         <h1 className='text-3xl md:text-5xl font-bold cursor-pointer'>
           <Logo />
         </h1>
-        <ul className='hidden md:flex gap-5 items-center justify-center'>
-          <Link to="/" className='hover:underline cursor-pointer text_gradient_a'>
-            Home
-          </Link>
-          <Link to="contact" className='hover:underline cursor-pointer text_gradient_a'>
-            Contact Us
-          </Link>
-          <Link to="about" className='hover:underline cursor-pointer text_gradient_a'>
-            About Us
-          </Link>
+        <ul className='hidden md:flex gap-12 items-center justify-center'>
+          <div className="flex gap-3">
+            <Link to="/" className='hover:underline cursor-pointer text_gradient_a text-sx'>
+              Home
+            </Link>
+            <Link to="contact" className='hover:underline cursor-pointer text_gradient_a text-sx'>
+              Contact Us
+            </Link>
+            <Link to="about" className='hover:underline cursor-pointer text_gradient_a text-sx'>
+              About Us
+            </Link>
+          </div>
           {
             currentUser ? (
               <div className="flex flex-row gap-3">
@@ -90,7 +91,7 @@ function Header() {
             ) : (
               <button
                 onClick={handleLogin}
-                className='p-1 px-3 rounded-lg bg-teal-600 text-white hover:opacity-90'>
+                className='p-1 px-5 rounded-full bg-teal-400 text-white hover:opacity-90'>
                 Login
               </button>
             )
@@ -103,10 +104,9 @@ function Header() {
           <Fragment>
             <div onClick={openDrawer} className="bg-white border-none shadow-none">
               <div className="text-gray-700 text-4xl cursor-pointer">
-                <BiMenuAltRight />
+                <BiMenuAltLeft />
               </div>
             </div>
-
             <Drawer open={open} onClose={closeDrawer} placement="right">
               <div className="mb-2 flex items-center justify-between p-4">
                 <Typography variant="h5" color="blue-gray">
@@ -176,9 +176,10 @@ function Header() {
               </div>
             </Drawer>
           </Fragment>
+
         </div>
       </header >
-    </Card>
+    </div>
 
   )
 }

@@ -37,7 +37,7 @@ function Oauth({loading}) {
     <button
       type='button'
       onClick={handleGoogleLogin}
-      className="w-full uppercase p-2 rounded-lg bg-red-400 text-white hover:opacity-90"
+      className="w-full uppercase p-[5px] border-[1px] bg-red-300 text-white hover:opacity-90"
     >
       { loading ? "Loading" : "Continue with Google" }
     </button>
