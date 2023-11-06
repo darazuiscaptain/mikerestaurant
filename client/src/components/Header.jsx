@@ -39,11 +39,20 @@ function Header() {
       await axios.post(`${BASE_URL}/logout`)
       navigate("/")
       dispatch(logoutSuccess())
-      toast("Logout success", {autoClose: 1200})
+      toast("Logout success", { autoClose: 1200 })
     } catch (error) {
       dispatch(logoutFailure(error?.response?.data?.message))
     } finally {
       closeDrawer()
+    }
+  }
+
+  const manageProfile = () => {
+    if(currentUser){
+      navigate("profile/me")
+      closeDrawer()
+    } else{
+      toast("something err Refresh the page")
     }
   }
 
@@ -71,12 +80,12 @@ function Header() {
                   className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
                   Logout
                 </button>
-                <Link to={"profile/me"}>
+                <div onClick={manageProfile}>
                   <img
                     src={currentUser.photo}
                     alt={currentUser.username}
                     className="h-8 w-8 rounded-full" />
-                </Link>
+                </div>
               </div>
             ) : (
               <button
@@ -136,12 +145,12 @@ function Header() {
                 </div>
                 {currentUser && (
                   <div className="w-full flex justify-center">
-                    <Link onClick={closeDrawer} to={"profile/me"} >
+                    <div onClick={handleLogin} >
                       <img
                         src={currentUser.photo}
                         alt={currentUser.username}
                         className="h-12 w-12 rounded-full" />
-                    </Link>
+                    </div>
                   </div>
                 )}
                 <div className="flex gap-6 justify-center">
