@@ -1,10 +1,11 @@
 import { Card } from '@material-tailwind/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import Oauth from '../components/Oauth'
 import { useDispatch, useSelector } from 'react-redux'
-import { signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
+import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
+import { toast } from 'react-toastify'
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
 // const BASE_URL = "http://localhost:5000/api/v1/auth"
@@ -36,12 +37,14 @@ function Sign_up_in() {
     dispatch(signInStart())
     if (login) {
       if (email === "" || password === "") {
-        alert("All fields are required!")
+        toast.error("Fields are required!", {autoClose: 1500})
+        dispatch(reload())
       } else {
         try {
           const result = await axios.post(`${BASE_URL}/login`, user)
-          console.log(result)
+          // console.log(result)
           if (result.status === 200) {
+            toast.success("Login success", { autoClose: 1500})
             dispatch(signInSuccess(result.data))
             setUser(() => initialValue)
             navigate("/")
@@ -64,12 +67,15 @@ function Sign_up_in() {
       }
     } else {
       if (username === "" || email === "" || password === "") {
-        alert("All fields are required!")
+        toast.error("Fields are required!", {autoClose: 1500})
+        dispatch(reload())
       } else {
+        console.log(username, email, password)
         try {
           const result = await axios.post(`${BASE_URL}/register`, user)
           dispatch(signUpFailure(result.data))
           if (result.status === 201) {
+            toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))
             setUser(() => initialValue)
             navigate("/")
@@ -89,6 +95,11 @@ function Sign_up_in() {
       }
     }
   }
+
+  useEffect(() => {
+    dispatch(reload())
+    setUser(initialValue)
+  }, [login])
 
   return (
     <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-0'>
@@ -122,7 +133,7 @@ function Sign_up_in() {
               type="text"
               name='username'
               value={username}
-              className='hover:outline-none  p-2 shadow-md rounded-lg' required
+              className='hover:outline-none  p-2 shadow-md rounded-lg'
               onChange={handleChange} />
           </div>}
 
@@ -133,7 +144,7 @@ function Sign_up_in() {
               type="text"
               name='email'
               value={email}
-              className='hover:outline-none  p-2 shadow-md rounded-lg' required
+              className='hover:outline-none  p-2 shadow-md rounded-lg' 
               onChange={handleChange} />
           </div>
           <div className='flex flex-col gap-1'>
@@ -144,7 +155,7 @@ function Sign_up_in() {
                 name='password'
                 value={password}
                 minLength={6}
-                className='hover:outline-none  p-2 shadow-md rounded-lg' required
+                className='hover:outline-none  p-2 shadow-md rounded-lg' 
                 onChange={handleChange} />
             </div>
             {login && <Link className='text-sm text-blue-500'>Forgot password? </Link>}
@@ -158,7 +169,7 @@ function Sign_up_in() {
             </button>
 
             {/* =========== Signup with google ================ */}
-            <Oauth />
+            <Oauth loading={loading} />
           </div>
         </form>
       </Card>

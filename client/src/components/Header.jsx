@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
 import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
+import { toast } from "react-toastify";
 
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
@@ -38,6 +39,7 @@ function Header() {
       await axios.post(`${BASE_URL}/logout`)
       navigate("/")
       dispatch(logoutSuccess())
+      toast("Logout success", {autoClose: 1200})
     } catch (error) {
       dispatch(logoutFailure(error?.response?.data?.message))
     } finally {
@@ -69,7 +71,7 @@ function Header() {
                   className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
                   Logout
                 </button>
-                <Link to={`profile/${currentUser._id}`}>
+                <Link to={"profile/me"}>
                   <img
                     src={currentUser.photo}
                     alt={currentUser.username}
@@ -132,6 +134,16 @@ function Header() {
                     </Link>
                   </ul>
                 </div>
+                {currentUser && (
+                  <div className="w-full flex justify-center">
+                    <Link onClick={closeDrawer} to={"profile/me"} >
+                      <img
+                        src={currentUser.photo}
+                        alt={currentUser.username}
+                        className="h-12 w-12 rounded-full" />
+                    </Link>
+                  </div>
+                )}
                 <div className="flex gap-6 justify-center">
                   {
                     currentUser ? (
@@ -141,7 +153,7 @@ function Header() {
                           className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
                           Logout
                         </button>
-                        <img src={currentUser.photo} alt={currentUser.username} className="h-12 w-12 cursor-pointer rounded-full" />
+
                       </div>
                     ) : (
                       <button
