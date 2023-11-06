@@ -10,6 +10,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    reload: (state) => {
+      state.loading = false
+      state.error = null
+      state.currentUser = null
+    },
     // ------------------ Login ----------------
     signInStart: (state) => {
       state.loading = true
@@ -53,6 +58,7 @@ export const authSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { 
+  reload,
   signInFailure, 
   signInStart, 
   signInSuccess, 

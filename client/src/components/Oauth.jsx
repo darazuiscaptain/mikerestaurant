@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux"
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
 
-function Oauth() {
+function Oauth({loading}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -39,7 +39,7 @@ function Oauth() {
       onClick={handleGoogleLogin}
       className="w-full uppercase p-2 rounded-lg bg-red-400 text-white hover:opacity-90"
     >
-      Continue with Google
+      { loading ? "Loading" : "Continue with Google" }
     </button>
   )
 }
