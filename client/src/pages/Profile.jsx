@@ -5,8 +5,8 @@ import axios from "axios"
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 
-// const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/user"
-const BASE_URL = "http://localhost:5000/api/v1/user"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/user"
+// const BASE_URL = "http://localhost:5000/api/v1/user"
 
 function Profile() {
     const [user, setUser] = useState(null)
