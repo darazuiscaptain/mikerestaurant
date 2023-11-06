@@ -40,7 +40,7 @@ function Profile() {
                         toast.error(error.response.data.message)
                     }
                 } else {
-                    console.error('Network error:', error);
+                    toast.error("Network error")
                 }
             }
         }
