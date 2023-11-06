@@ -84,7 +84,7 @@ function Header() {
                   <img
                     src={currentUser.photo}
                     alt={currentUser.username}
-                    className="h-8 w-8 rounded-full" />
+                    className="h-8 w-8 rounded-full cursor-pointer" />
                 </div>
               </div>
             ) : (
@@ -145,11 +145,11 @@ function Header() {
                 </div>
                 {currentUser && (
                   <div className="w-full flex justify-center">
-                    <div onClick={handleLogin} >
+                    <div onClick={manageProfile} >
                       <img
                         src={currentUser.photo}
                         alt={currentUser.username}
-                        className="h-12 w-12 rounded-full" />
+                        className="h-12 w-12 rounded-full cursor-pointer" />
                     </div>
                   </div>
                 )}
