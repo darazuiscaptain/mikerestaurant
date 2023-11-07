@@ -5,27 +5,26 @@ import Drinks from "../UI/Drinks"
 import Statistics from "../UI/Statistics"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import Cart from "../UI/Cart"
+import CartHolder from "../UI/CartHolder"
 import FastFood from "../UI/FastFood"
 
 function Home() {
     return (
         <div div className="max-w-[1000px] mx-auto">
             <Header />
-            <div className="flex flex-col xl:flex-row gap-1">
+            <Main />
+            <div className="flex flex-col lg:flex-row gap-1 lg:mt-5">
                 <div className="flex flex-col flex-1 md:rounded-lg border-1">
-                    <Main />
                     <Statistics />
                     <FastFood />
                     <Meal />
                     <Drinks />
-                    <Featured />
                 </div>
-                <div className="hidden sticky top-2 2xl:flex flex-col w-[350px] h-[100vh]  p-1 border-2">
-                    <Cart />
+                <div className="hidden sticky top-2 lg:flex flex-col w-[350px] h-[100vh]  p-1 border-[0.2px]">
+                    <CartHolder />
                 </div>
-
             </div>
+            <Featured />
             <Footer />
         </div>
     )
