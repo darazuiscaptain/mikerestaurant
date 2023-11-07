@@ -9,8 +9,10 @@ function Meal() {
                 <h1 className='text_gradient_p font-extrabold text-2xl'>Meals</h1>
             </div>
             <div className='flex flex-wrap gap-2 max-w-full mx-auto'>
-                {food.map((meal) => (
-                    <div className='flex flex-col gap-2 max-w-[170px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
+                {food.map((meal, index) => (
+                    <div 
+                        key={index}
+                        className='flex flex-col gap-2 max-w-[170px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
                         <div className='overflow-hidden flex flex-1'>
                             <img 
                                 src={meal.image} 
