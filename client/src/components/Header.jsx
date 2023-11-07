@@ -57,11 +57,11 @@ function Header() {
 
   return (
     <div className="px-5 pt-4 py-2">
-      <header className='flex justify-between flex-row-reverse md:flex-row'>
+      <header className='flex justify-between flex-row-reverse lg:flex-row'>
         <h1 className='text-3xl md:text-5xl font-bold cursor-pointer'>
           <Logo />
         </h1>
-        <ul className='hidden md:flex gap-12 items-center justify-center'>
+        <ul className='hidden lg:flex gap-12 items-center justify-center'>
           <div className="flex gap-3">
             <Link to="/" className='hover:underline cursor-pointer text_gradient_a text-sx'>
               Home
@@ -100,7 +100,7 @@ function Header() {
 
         {/* ==================== Mobile Menu ====================== */}
 
-        <div className='flex md:hidden'>
+        <div className='flex lg:hidden'>
           <Fragment>
             <div onClick={openDrawer} className="bg-white border-none shadow-none">
               <div className="text-gray-700 text-4xl cursor-pointer">
@@ -176,9 +176,8 @@ function Header() {
               </div>
             </Drawer>
           </Fragment>
-
         </div>
-      </header >
+      </header>
     </div>
 
   )

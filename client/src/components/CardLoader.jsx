@@ -2,7 +2,7 @@ import { Card } from "@material-tailwind/react"
 
 function CardLoader({ image, open, title }) {
     return (
-        <Card className='sm:w-48 lg:w-[12.5rem] shadow-md rounded-md overflow-hidden'>
+        <Card className='sm:w-52 lg:w-[12.5rem] shadow-md rounded-md overflow-hidden'>
             <img src={image} alt={title} className=' cursor-pointer h-[150px] w-full rounded-t-md hover:scale-105 ' />
             <div className='p-2'>
                 <h1 data-aos='fade-right' data-aos-duration='1500'>{title}</h1>

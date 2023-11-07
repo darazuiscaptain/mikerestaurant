@@ -9,7 +9,7 @@ function Drinks() {
             </div>
             <div className='flex flex-wrap gap-2'>
                 {drink.map((drink) => (
-                    <div className='flex flex-col gap-2 max-w-[200px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
+                    <div className='flex flex-col gap-2 max-w-[170px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
                     <div className='overflow-hidden flex flex-1'>
                         <img 
                             src={drink.image} 
