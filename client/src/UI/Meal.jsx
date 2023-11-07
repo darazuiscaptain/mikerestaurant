@@ -1,5 +1,6 @@
 import { food } from '../utils/FoodCategory'
-import { BiBasket } from 'react-icons/bi'
+import { BsFillCartCheckFill } from "react-icons/bs"
+
 
 function Meal() {
     return (
@@ -22,7 +23,7 @@ function Meal() {
                             <div className='flex justify-between items-center'>
                                 <span className='text-md text-green-600'>${meal.price}</span>
                                 <div className='flex gap-2 justify-center items-center'>
-                                    <BiBasket />
+                                    <BsFillCartCheckFill />
                                     <button className='p-1 px-3 bg-teal-500 rounded-md text-xs text-white hover:opacity-90'>
                                         order
                                     </button>
