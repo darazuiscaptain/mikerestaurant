@@ -10,6 +10,8 @@ import Contact from "./pages/Contact";
 import Sign_up_in from "./pages/Sign_up_in";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
+import Cart from "./pages/Cart";
+import Order from "./pages/Order";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="sign_up_in" element={<Sign_up_in />} />
           <Route path="profile/me" element={<Profile />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="order" element={<Order />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <ToastContainer/>
