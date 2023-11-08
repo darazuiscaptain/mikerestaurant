@@ -4,7 +4,7 @@ import MainBoard from './component/MainBoard'
 
 const Dashboard = () => {
   return (
-    <div className='flex w-full h-full'>
+    <div id="dashboard" className='flex w-full h-full'>
       <div id="sidebar">
         <Sidebar/>
       </div>
