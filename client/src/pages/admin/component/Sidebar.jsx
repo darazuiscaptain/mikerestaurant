@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '../../../components/Logo'
 import { AiTwotoneHome } from "react-icons/ai"
 import { GrTransaction } from "react-icons/gr"
@@ -20,31 +20,27 @@ const Sidebar = () => {
                 </div>
                 <div></div>
                 <div className='flex flex-col flex-1 justify-start'>
-                    <ul className='flex flex-col gap-5'>
-                        <li className='flex flex-row items-center gap-3'>
+                    <ul className='flex flex-col gap-5 text-gray-800'>
+                        <Link to={"/dashboard"} className='flex flex-row items-center gap-3'>
                             <AiTwotoneHome />
                             <span className='text-sm'>Home</span>
-                        </li>
-                        <li className='flex flex-row items-center gap-3'>
-                            <GrTransaction />
-                            <span className='text-sm'>Transactions</span>
-                        </li>
-                        <li className='flex flex-row items-center gap-3'>
-                            <FaSalesforce />
-                            <span className='text-sm'>Sales</span>
-                        </li>
-                        <li className='flex flex-row items-center gap-3'>
-                            <MdOutlineProductionQuantityLimits />
-                            <span className='text-sm'>Products</span>
-                        </li>
-                        <li className='flex flex-row items-center gap-3'>
+                        </Link>
+                        <Link to={"/customers"} className='flex flex-row items-center gap-3'>
                             <MdRememberMe />
-                            <span className='text-sm'>Members</span>
-                        </li>
-                        <li className='flex flex-row items-center gap-3'>
+                            <span className='text-sm'>Customers</span>
+                        </Link>
+                        <Link to={""} className='flex flex-row items-center gap-3'>
                             <HiDocumentReport />
-                            <span className='text-sm'>Reporting</span>
-                        </li>
+                            <span className='text-sm'>Delivery Man</span>
+                        </Link>
+                        <Link to={"/products"} className='flex flex-row items-center gap-3'>
+                            <MdOutlineProductionQuantityLimits />
+                            <span className='text-sm'>Stock</span>
+                        </Link>
+                        <Link to={"/orders"} className='flex flex-row items-center gap-3'>
+                            <FaSalesforce />
+                            <span className='text-sm'>Orders</span>
+                        </Link>
                     </ul>
                 </div>
             </div>
