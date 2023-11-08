@@ -13,7 +13,13 @@ import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import { useSelector } from "react-redux";
-import Dashboard from "./pages/admin/dashboard";
+import Dashboard from "./pages/admin/Dashboard";
+import AddProduct from "./pages/admin/AddProduct";
+import EditProduct from "./pages/admin/EditProduct";
+import Orders from "./pages/admin/Orders";
+import Customers from "./pages/admin/Customers";
+import OrderDetails from "./pages/admin/OrderDetails";
+import Products from "./pages/admin/Products";
 
 
 
@@ -27,19 +33,25 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="sign_up_in" element={<Sign_up_in />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sign_up_in" element={<Sign_up_in />} />
 
           {/* Protected Customers Routes */}
-          <Route path="profile/me" element={<protectedRoute><Profile /></protectedRoute>} />
-          <Route path="cart" element={<protectedRoute><Cart /></protectedRoute>} />
-          <Route path="order" element={<protectedRoute><Order /></protectedRoute>} />
+          <Route path="/profile/me" element={<protectedRoute><Profile /></protectedRoute>} />
+          <Route path="/cart" element={<protectedRoute><Cart /></protectedRoute>} />
+          <Route path="/order" element={<protectedRoute><Order /></protectedRoute>} />
 
 
           {/* Protected Admin Routes */}
-          <Route path="dashboard" element={<protectedAdminRoute><Dashboard /> </protectedAdminRoute>} />
+          <Route path="/dashboard" element={<protectedAdminRoute><Dashboard /> </protectedAdminRoute>} />
+          <Route path="/products" element={<protectedAdminRoute><Products /> </protectedAdminRoute>} />
+          <Route path="/add-product" element={<protectedAdminRoute><AddProduct /> </protectedAdminRoute>} />
+          <Route path="/edit-product/:id" element={<protectedAdminRoute><EditProduct /> </protectedAdminRoute>} />
+          <Route path="/orders" element={<protectedAdminRoute><Orders /> </protectedAdminRoute>} />
+          <Route path="/order/:id" element={<protectedAdminRoute><OrderDetails /> </protectedAdminRoute>} />
+          <Route path="/customers" element={<protectedAdminRoute><Customers /> </protectedAdminRoute>} />
 
 
           {/* Routes Not Found  */}
