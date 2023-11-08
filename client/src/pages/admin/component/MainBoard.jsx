@@ -16,7 +16,7 @@ const MainBoard = () => {
       {/* ---------------- Nav bar --------------------- */}
       <div className='flex h-[4rem] bg-white p-3'>
         <div className='flex flex-1 justify-around items-center'>
-          <Link className='flex gap-3 cursor-pointer justify-center items-center'>
+          <Link to={"/add-product"} className='flex gap-3 cursor-pointer justify-center items-center'>
             <button className='text-white text-lg p-1 rounded-md bg-blue-600'><IoIosAddCircle /></button>
             <span className='text-xs text-gray-700'>Add Product</span>
           </Link>
