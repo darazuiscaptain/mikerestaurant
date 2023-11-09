@@ -16,8 +16,13 @@ export const addProduct = async (req, res, next) => {
 }
 
 export const getProducts = async (req, res, next) => {
+    const { categories } = req.query;
     try {
-        res.json(await Product.find())
+        if(categories){
+            console.log(categories)
+            return res.json(await Product.find({categories: { $in: categories.split(',') }}))
+        }
+        return res.json(await Product.find())
     } catch (error) {
         next(error)
     }
