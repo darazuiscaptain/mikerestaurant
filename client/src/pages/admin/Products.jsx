@@ -1,13 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from './component/Sidebar'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { IoIosAddCircle } from 'react-icons/io'
 import { HiOutlineSelector } from 'react-icons/hi'
 import profileImg from "../../assets/user1.png"
 import { Link } from 'react-router-dom'
+import fetchAPI from '../../utils/fetchData/fetchAPI.js'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 const Products = () => {
+    const [products, setProducts] = useState([])
+
+    const handleInputChange = (index, event) => {
+        const newProducts = [...products];
+        newProducts[index][event.target.name] = event.target.value;
+        setProducts(newProducts);
+    };
+
+    const handleUpdate = async (index) => {
+        const product = products[index]
+
+        try {
+            const update = await axios.put(`http://localhost:5000/api/v1/products/update/${product._id}`, product)
+            if (update) {
+                toast.success("Update successfully")
+            }
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await fetchAPI("http://localhost:5000/api/v1/products");
+                setProducts(result);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, [])
     return (
         <div id="dashboard" className='flex w-full h-full'>
             <div id="sidebar">
@@ -48,20 +83,34 @@ const Products = () => {
                 </div>
                 <div className='flex flex-col gap-5 felx-1 w-full h-full bg-white p-5'>
                     <div className='flex flex-col gap-3'>
-                        <ul className='flex gap-16 w-full'>
-                            <li className='text-sm text-gray-600'>Image</li>
+                        <ul className='grid grid-cols-8 w-full'>
+                            <li className='text-sm text-gray-600 max-w-[300px]'>Image</li>
                             <li className='text-sm text-gray-600'>Product Name</li>
                             <li className='text-sm text-gray-600'>Price</li>
                             <li className='text-sm text-gray-600'>Amount</li>
                         </ul>
                         <div className='border-b-2 w-full border-black' />
-                        <ul className='flex items-center gap-16 w-full mt-3'>
-                            <img src="" className='w-16 h-12' />
-                            <li className='text-sm'>Burger</li>
-                            <input type='number' min="1" defaultValue={1} className='w-[4rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-2' />
-                            <input type='number' min="1" defaultValue={1} className='w-[4rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-2' />
-                            <button className='border-2 border-orange-600 text-orange-600 px-3 rounded-md cursor-pointer'>Update</button>
-                        </ul>
+                        {products && products.map((res, index) => (
+                            <ul key={res._id} className='grid grid-cols-8 mt-3'>
+                                <img src={res.productImage} className='h-14 w-[6rem] object-fit' />
+                                <li className='text-sm'>{res.productName}</li>
+                                <input
+                                    type='number' min="1"
+                                    value={res.price} name='price'
+                                    onChange={(e) => handleInputChange(index, e)}
+                                    className='w-[4rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-2' />
+                                <input
+                                    type='number' min="1"
+                                    value={res.amount} name='amount'
+                                    onChange={(e) => handleInputChange(index, e)}
+                                    className='w-[4rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-2' />
+                                <button
+                                    onClick={() => handleUpdate(index)}
+                                    className='border-2 border-orange-600 text-orange-600 px-3 rounded-md cursor-pointer text-xs w-fit h-fit p-1'>
+                                    Update
+                                </button>
+                            </ul>
+                        ))}
                     </div>
                 </div>
             </div>
