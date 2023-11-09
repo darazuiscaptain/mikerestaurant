@@ -1,20 +1,19 @@
 import { BsFillCartCheckFill } from "react-icons/bs"
-import { drink } from "../utils/FoodCategory"
 
-function Drinks() {
+function Drinks({drinks}) {
     return (
         <section className='mt-8 p-3'>
             <div className='flex justify-start py-2'>
                 <h1 className='text_gradient_p font-extrabold text-2xl'>Drinks</h1>
             </div>
             <div className='flex flex-wrap gap-2'>
-                {drink.map((drink, index) => (
+                {drinks.map((drink) => (
                     <div 
-                        key={index}
+                        key={drink._id}
                         className='flex flex-col gap-2 max-w-[170px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
                     <div className='overflow-hidden flex flex-1'>
                         <img 
-                            src={drink.image} 
+                            src={drink.productImage} 
                             alt="" 
                             className='hover:scale-110  w-full h-full object-cover' />
                     </div>
