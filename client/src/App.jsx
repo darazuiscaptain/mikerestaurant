@@ -12,10 +12,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
-import { useSelector } from "react-redux";
 import Dashboard from "./pages/admin/Dashboard";
 import AddProduct from "./pages/admin/AddProduct";
-import EditProduct from "./pages/admin/EditProduct";
 import Orders from "./pages/admin/Orders";
 import Customers from "./pages/admin/Customers";
 import OrderDetails from "./pages/admin/OrderDetails";
@@ -39,19 +37,18 @@ function App() {
           <Route path="/sign_up_in" element={<Sign_up_in />} />
 
           {/* Protected Customers Routes */}
-          <Route path="/profile/me" element={<protectedRoute><Profile /></protectedRoute>} />
-          <Route path="/cart" element={<protectedRoute><Cart /></protectedRoute>} />
-          <Route path="/order" element={<protectedRoute><Order /></protectedRoute>} />
+          <Route path="/profile/me" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path="/order" element={<ProtectedRoute><Order /></ProtectedRoute>} />
 
 
           {/* Protected Admin Routes */}
-          <Route path="/dashboard" element={<protectedAdminRoute><Dashboard /> </protectedAdminRoute>} />
-          <Route path="/products" element={<protectedAdminRoute><Products /> </protectedAdminRoute>} />
-          <Route path="/add-product" element={<protectedAdminRoute><AddProduct /> </protectedAdminRoute>} />
-          <Route path="/edit-product/:id" element={<protectedAdminRoute><EditProduct /> </protectedAdminRoute>} />
-          <Route path="/orders" element={<protectedAdminRoute><Orders /> </protectedAdminRoute>} />
-          <Route path="/order/:id" element={<protectedAdminRoute><OrderDetails /> </protectedAdminRoute>} />
-          <Route path="/customers" element={<protectedAdminRoute><Customers /> </protectedAdminRoute>} />
+          <Route path="/dashboard" element={<Dashboard /> } />
+          <Route path="/products" element={<Products /> } />
+          <Route path="/add-product" element={<AddProduct /> } />
+          <Route path="/orders" element={<Orders /> } />
+          <Route path="/order/:id" element={<OrderDetails /> } />
+          <Route path="/customers" element={<Customers /> } />
 
 
           {/* Routes Not Found  */}
@@ -64,25 +61,25 @@ function App() {
   )
 }
 
-export const protectedRoute = ({ children }) => {
-  const { currentUser } = useSelector((state) => state.user)
+export const ProtectedRoute = ({ children }) => {
+  // const { currentUser } = useSelector((state) => state?.user)
 
-  if (currentUser?.role === "customer") {
-    return (
-      { children }
-    )
-  }
-  else return null
+  // if (currentUser?.role === "customer") {
+  //   return (
+  //     { children }
+  //   )
+  // }
+  // else return
 }
 
-export const protectedAdminRoute = ({ children }) => {
-  const { currentUser } = useSelector((state) => state.user)
+export const ProtectedAdminRoute = ({ children }) => {
+  // const { currentUser } = useSelector((state) => state?.user)
 
-  if (currentUser?.role === "admin") {
-    return (
-      { children }
-    )
-  } else return null
+  // if (currentUser?.role === "admin") {
+  //   return (
+  //     { children }
+  //   )
+  // } else return
 }
 
 export default App
