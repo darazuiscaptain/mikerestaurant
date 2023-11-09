@@ -13,7 +13,9 @@ function CartHolder() {
                 <div className='flex flex-col gap-4 lg:gap-6'>
                     <div className='flex flex-wrap gap-2 '>
                         {fastFood.map((fastFood) => (
-                            <div className='flex flex-col gap-2 min-w-[270px] p-1 border-[1px] bg-gray-50 rounded-lg'>
+                            <div 
+                                key={fastFood.id}
+                                className='flex flex-col gap-2 min-w-[270px] p-1 border-[1px] bg-gray-50 rounded-lg'>
                                 <div className='flex flex-wrap'>
                                     <div>
                                         <img src={fastFood.image} alt={fastFood.name} className='w-28 h-24' />
