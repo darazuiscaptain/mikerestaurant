@@ -20,7 +20,7 @@ const Orders = () => {
 
     useEffect(() => {
         const orders = async () => {
-            const result = await fetchAPI("${BASE_URL}/orders")
+            const result = await fetchAPI(`${BASE_URL}/orders`)
             setOrders(result)
             console.log(result)
         }

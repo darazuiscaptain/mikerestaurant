@@ -22,7 +22,7 @@ function Contact() {
       <Header />
       <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-4 sm:mt-8 md:mt-12 lg:mt-16'>
         <Card className='flex flex-col justify-between px-5 sm:px-12 drop-shadow-2xl '>
-          <h1 className='text_gradient_p text-2xl text-center underline-offset-2 pt-2 pt-3'>Contact Us</h1>
+          <h1 className='text_gradient_p text-2xl text-center underline-offset-2 pt-3'>Contact Us</h1>
           <form className='flex flex-col w-full h-full gap-3 my-4'>
             <input
               type="text"
