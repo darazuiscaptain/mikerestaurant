@@ -43,15 +43,12 @@ app.get("/", (req, res) => {
     res.send("<h1 style='align-center'>Welcome to Ethio-tour Backing</h1>")
 })
 
-app.post("/add", (req, res)=> {
-    console.log(req.body)
-})
 
 //Routes
-app.use("/api/v1/user", userRouter)
-app.use("/api/v1/auth", authRouter)
-app.use("/api/v1/orders", orderRouter)
-app.use("/api/v1/products", parser.single("image"), productRouter)
+app.use("/user", userRouter)
+app.use("/auth", authRouter)
+app.use("/orders", orderRouter)
+app.use("/products", parser.single("image"), productRouter)
 
 app.use("*", (req, res) => {
     res.json("Page not found")
