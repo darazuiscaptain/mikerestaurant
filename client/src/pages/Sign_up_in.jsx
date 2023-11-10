@@ -8,7 +8,7 @@ import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signU
 import { toast } from 'react-toastify'
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
-// const BASE_URL = "http://localhost:5000/api/v1/auth"
+// const BASE_URL = "http://localhost:5000/api/v1/auth" 
 
 
 const initialValue = {
@@ -42,7 +42,7 @@ function Sign_up_in() {
       } else {
         try {
           const result = await axios.post(`${BASE_URL}/login`, user)
-          // console.log(result)
+          console.log(result)
           if (result.status === 200) {
             toast.success("Login success", { autoClose: 1500})
             dispatch(signInSuccess(result.data))
@@ -51,6 +51,7 @@ function Sign_up_in() {
           }
           dispatch(signInFailure(result.data))
         } catch (error) {
+          console.log(error)
           if (error.response) {
             // Handle specific error codes
             if (error.response.status === 409) {
@@ -110,7 +111,7 @@ function Sign_up_in() {
           className='h-[470px] w-[460px] rounded-full bg-gradient-to-r from-[#e4541b] to-[#d069ef] z-10 opacity-70 absolute -top-[230px] -left-[160px] rotate-45' />
         <div
           className='h-[500px] w-[450px] rounded-full bg-gradient-to-r from-[#8289bc] to-[#165b8f] z-20 opacity-80 absolute -top-[290px] left-[100px] rotate-3' />
-        <span className='text-4xl font-bold absolute top-[60px] left-[90px] border-2 rotate-6 p-1 z-40 text-white'>M</span>
+        <span className='text-2xl font-bold absolute top-[60px] left-[90px] border-2 rotate-6 p-1 z-40 text-white'>M</span>
       </div>
       <Card className='flex flex-col justify-between px-5 sm:px-12 sm:my-12'>
         <div className='flex flex-col gap-2'>
@@ -123,9 +124,9 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        {error && (
-          <p className='px-4 p-2 my-4 rounded-md bg-red-100 text-red-300 text-sm'>{error}</p>
-        )}
+        {/* {error && (
+          // <p className='px-4 p-2 my-4 rounded-md bg-red-100 text-red-300 text-sm'>{error}</p>
+        )} */}
         <form className='flex flex-col w-full h-full gap-2 my-3' onSubmit={handleSubmit}>
           {!login && <div className='flex flex-col'>
             <label >Username</label>
@@ -158,7 +159,7 @@ function Sign_up_in() {
                 className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400' 
                 onChange={handleChange} />
             </div>
-            {login && <Link className='text-sm text-blue-500'>Forgot password? </Link>}
+            {login && <Link to={"forget"} className='text-sm text-blue-500'>Forgot password? </Link>}
 
           </div>
           <div className='flex flex-col gap-3 my-4'>
@@ -169,7 +170,7 @@ function Sign_up_in() {
             </button>
 
             {/* =========== Signup with google ================ */}
-            <Oauth loading={loading} />
+            {/* <Oauth loading={loading} /> */}
           </div>
         </form>
       </Card>
