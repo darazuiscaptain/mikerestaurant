@@ -5,7 +5,6 @@ import Drinks from "../UI/Drinks"
 import Statistics from "../UI/Statistics"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import CartHolder from "../UI/CartHolder"
 import FastFood from "../UI/FastFood"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -19,21 +18,18 @@ function Home() {
         const fetchFastFood = async () => {
             const result = await axios.get("http://localhost:5000/api/v1/products?categories=fast-food")
             setFastFood(result.data)
-            console.log(result.data)
             fetchDrinks()
         }
         fetchFastFood()
         const fetchDrinks = async () => {
             const result = await axios.get("http://localhost:5000/api/v1/products?categories=drinks")
             setDrinks(result.data)
-            console.log(result.data)
             fetchMeals()
         }
         
         const fetchMeals = async () => {
             const result = await axios.get("http://localhost:5000/api/v1/products?categories=meals")
             setMeals(result.data)
-            console.log(result.data)
         }
     }, [])
     return (
@@ -48,7 +44,6 @@ function Home() {
                     <Meal meals={meals}/>
                 </div>
                 <div className="hidden sticky top-2 lg:flex flex-col w-[350px] h-[100vh]  p-1 border-[0.2px]">
-                    <CartHolder />
                 </div>
             </div>
             <Featured />
