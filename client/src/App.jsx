@@ -37,9 +37,9 @@ function App() {
           <Route path="/sign_up_in" element={<Sign_up_in />} />
 
           {/* Protected Customers Routes */}
-          <Route path="/profile/me" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-          <Route path="/order" element={<ProtectedRoute><Order /></ProtectedRoute>} />
+          <Route path="/profile/me" element={<Profile />} />
+          <Route path="/mycart" element={<Cart />} />
+          <Route path="/order" element={<Order />} />
 
 
           {/* Protected Admin Routes */}
