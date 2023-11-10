@@ -12,9 +12,8 @@ const productSchema = new mongoose.Schema({
         min: 0
     },
     productImage: String,
-    category: {
+    categories: {
         type: String,
-        enum: ["fastFood", "meals", "drinks"]
     }
 }, { timestamps: true })
 
