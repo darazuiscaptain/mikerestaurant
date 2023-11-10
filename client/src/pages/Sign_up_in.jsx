@@ -46,7 +46,9 @@ function Sign_up_in() {
             toast.success("Login success", { autoClose: 1500})
             dispatch(signInSuccess(result.data))
             setUser(() => initialValue)
-            navigate("/")
+            if(result.data.role === "admin") navigate("/dashboard")
+            if(result.data.role === "delivery") navigate("/")
+            if(result.data.role === "customer") navigate("/")
           }
           dispatch(signInFailure(result.data))
         } catch (error) {
@@ -78,7 +80,9 @@ function Sign_up_in() {
             toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))
             setUser(() => initialValue)
-            navigate("/")
+            if(result.data.role === "admin") navigate("/dashboard")
+            if(result.data.role === "delivery") navigate("/")
+            if(result.data.role === "customer") navigate("/")
           }
         } catch (error) {
           if (error.response) {

@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     photo: {
         type: String,
         default: "https://th.bing.com/th/id/R.35e9fa8f7bc165d97c83c93335fa041d?rik=6gZ%2brqHn%2fbWTJQ&pid=ImgRaw&r=0"
+    },
+    role: {
+        type: String,
+        default: "customer"
     }
 },{timestamps: true})
 
