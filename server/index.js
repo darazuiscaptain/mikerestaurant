@@ -4,23 +4,54 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser"
 import mongoose from "mongoose";
+
+
 import userRouter from "./route/users.router.js";
 import authRouter from "./route/auth.router.js";
+import productRouter from "./route/products.router.js";
+import orderRouter from "./route/orders.router.js"
+
+
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from 'cloudinary';
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure: true,
+})
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'Mike_Restaurant/Food',
+        format: async (req, file) => 'png', // supports promises as well
+        public_id: (req, file) => file.originalname,
+    },
+});
+const parser = multer({ storage: storage })
+
 
 //Initialize Express
 const app = express()
 app.use(cors())
 app.use(cookieParser())
-
-app.use(express.json());
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.send("<h1 style='align-center'>Welcome to Ethio-tour Backing</h1>")
 })
 
+app.post("/add", (req, res)=> {
+    console.log(req.body)
+})
+
 //Routes
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/orders", orderRouter)
+app.use("/api/v1/products", parser.single("image"), productRouter)
 
 app.use("*", (req, res) => {
     res.json("Page not found")
