@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from './component/Sidebar'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { HiOutlineSelector } from 'react-icons/hi'
 import profileImg from "../../assets/user1.png"
+import fetchAPI from '../../utils/fetchData/fetchAPI'
+import { useNavigate } from 'react-router-dom'
 
 const Orders = () => {
+
+    const [orders, setOrders] = useState([])
+
+    const navigate = useNavigate()
+
+    const handleNavigate = (id) => {
+        navigate(`/orders/${id}`)
+    }
+
+    useEffect(() => {
+        const orders = async () => {
+            const result = await fetchAPI("http://localhost:5000/api/v1/orders")
+            setOrders(result)
+            console.log(result)
+        }
+        orders()
+    }, [])
     return (
         <div id="dashboard" className='flex w-full h-full'>
             <div id="sidebar">
@@ -41,20 +60,47 @@ const Orders = () => {
                 </div>
                 <div className='flex flex-col gap-5 felx-1 w-full h-full bg-white p-5'>
                     <div className='flex flex-col gap-3'>
-                        <ul className='grid grid-cols-5 w-full'>
-                            <li className='text-sm text-gray-600'>Order No</li>
-                            <li className='text-sm text-gray-600'>Product Name</li>
-                            <li className='text-sm text-gray-600'>Purchased On</li>
+                        <ul className='grid grid-cols-7 w-full'>
+                            <li className='text-sm text-gray-600'>Order ID</li>
+                            <li className='text-sm text-gray-600'>Customer ID</li>
+                            <li className='text-sm text-gray-600'>Total Amount</li>
+                            <li className='text-sm text-gray-600'>Order Date</li>
+                            <li className='text-sm text-gray-600'>Assigned Delivery</li>
                             <li className='text-sm text-gray-600'>Status</li>
+                            <li></li>
                         </ul>
                         <div className='border-b-2 w-full border-black' />
-                        <ul className='grid grid-cols-5 w-full mt-3'>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li className='text-xs p-[1px] text-green-500 border-green-500 border-2 flex justify-center items-center w-[40%] rounded-md cursor-pointer whitespace-nowrap'>view order</li>
-                        </ul>
+                        {orders && orders.map((orders) => (
+                            <ul
+                                key={orders._id}
+                                className='grid grid-cols-7 w-full mt-3 '>
+                                <div className='flex gap-3 items-start'>
+                                    <li className='truncate text-xs'>{(orders._id).slice(0, 8)}</li>
+                                    <img className='w-[4rem]'
+                                        src={orders.items[0].productImage} alt={""} />
+                                </div>
+                                <li className='truncate text-xs'>{(orders.customer).slice(0,8)}</li>
+                                <li className='text-xs whitespace-nowrap'>{orders.totalAmount}</li>
+                                <li className='text-xs whitespace-nowrap truncate '>{new Date(orders.orderDate).toLocaleDateString()}</li>
+                                <li className='text-xs whitespace-nowrap truncate '>{(orders.assigndDelivery)}</li>
+                                <li className={`text-xs whitespace-nowrap 
+                                ${orders.status == "pending"
+                                        ? "text-orange-500"
+                                        : orders.status === "active"
+                                            ? "text-blue-500"
+                                            : orders.status === "completed"
+                                                ? "text-green-500"
+                                                : orders.status === "rejected"
+                                                    ? "text-red-500"
+                                                    : "text-black"
+                                    }`}>{orders.status}</li>
+                                <li
+                                    onClick={() => handleNavigate(orders._id)}
+                                    className='flex justify-center items-center w-[45%] h-[1.5rem] whitespace-nowrap rounded-md cursor-pointer text-xs p-[.1rem] px-2 text-green-500 hover:text-white hover:bg-teal-700 hover:border-none border-green-500 border-[.1rem] '>
+                                    view order
+                                </li>
+                            </ul>
+                        ))}
 
                     </div>
                 </div>
