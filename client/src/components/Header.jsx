@@ -6,7 +6,7 @@ import {
 } from "@material-tailwind/react";
 import { BiHomeAlt, BiMenuAltLeft, BiPhoneCall } from "react-icons/bi"
 import Logo from "./Logo"
-import { BsInfoLg } from "react-icons/bs";
+import { BsInfoLg, BsFillCartCheckFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,7 +14,7 @@ import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 import { toast } from "react-toastify";
 
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
+const BASE_URL = "http://localhost:5000/api/v1/auth"
 // const BASE_URL = "http://localhost:5000/api/v1/auth"
 
 function Header() {
@@ -48,7 +48,7 @@ function Header() {
 
   const manageProfile = () => {
     if (currentUser) {
-      navigate("profile/me")
+      navigate("/profile/me")
       closeDrawer()
     } else {
       toast("something err Refresh the page")
@@ -66,27 +66,30 @@ function Header() {
             <Link to="/" className='hover:underline cursor-pointer text_gradient_a text-sx'>
               Home
             </Link>
-            <Link to="contact" className='hover:underline cursor-pointer text_gradient_a text-sx'>
+            <Link to="/contact" className='hover:underline cursor-pointer text_gradient_a text-sx'>
               Contact Us
             </Link>
-            <Link to="about" className='hover:underline cursor-pointer text_gradient_a text-sx'>
+            <Link to="/about" className='hover:underline cursor-pointer text_gradient_a text-sx'>
               About Us
             </Link>
           </div>
           {
             currentUser ? (
-              <div className="flex flex-row gap-3">
-                <button
-                  onClick={handleLogout}
-                  className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
-                  Logout
-                </button>
+              <div className="flex flex-row items-center gap-3">
+                <Link to={"/mycart"}>
+                  <BsFillCartCheckFill className="text-md text-teal-900" />
+                </Link>
                 <div onClick={manageProfile}>
                   <img
                     src={currentUser.photo}
                     alt={currentUser.username}
                     className="h-8 w-8 rounded-full cursor-pointer" />
                 </div>
+                <button
+                  onClick={handleLogout}
+                  className='p-1 px-2 text-xs rounded-lg bg-red-400 text-white hover:opacity-90'>
+                  Logout
+                </button>
               </div>
             ) : (
               <button
@@ -144,7 +147,10 @@ function Header() {
                   </ul>
                 </div>
                 {currentUser && (
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex gap-5 justify-center items-center">
+                    <Link to={"/mycart"}>
+                      <BsFillCartCheckFill className="text-xl text-teal-900" />
+                    </Link>
                     <div onClick={manageProfile} >
                       <img
                         src={currentUser.photo}
