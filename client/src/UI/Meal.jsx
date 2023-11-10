@@ -1,5 +1,5 @@
 import { BsFillCartCheckFill } from "react-icons/bs"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../redux/cartSlice"
 import { toast } from "react-toastify"
 
@@ -7,10 +7,15 @@ import { toast } from "react-toastify"
 function Meal({ meals }) {
 
     const dispatch = useDispatch()
+    const { currentUser } = useSelector((state) => state.auth)
 
     const addCart = (product) => {
-        dispatch(addToCart(product))
-        toast("Added to your cart")
+        if (currentUser) {
+            dispatch(addToCart(product))
+            toast("Added to your cart")
+        } else {
+            toast.error("Please login first!")
+        }
     }
 
     return (

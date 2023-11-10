@@ -6,10 +6,15 @@ import { toast } from "react-toastify"
 
 function FastFood({ fastFood }) {
     const dispatch = useDispatch()
+    const { currentUser } = useSelector((state) => state.auth)
 
     const addCart = (product) => {
-        dispatch(addToCart(product))
-        toast("Added to your cart")
+        if (currentUser) {
+            dispatch(addToCart(product))
+            toast("Added to your cart")
+        } else {
+            toast.error("Please login first!")
+        }
     }
 
 
