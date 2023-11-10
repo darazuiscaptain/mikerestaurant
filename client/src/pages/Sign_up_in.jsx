@@ -47,8 +47,8 @@ function Sign_up_in() {
             dispatch(signInSuccess(result.data))
             setUser(() => initialValue)
             if(result.data.role === "admin") navigate("/dashboard")
-            if(result.data.role === "delivery") navigate("/")
-            if(result.data.role === "customer") navigate("/")
+            else if(result.data.role === "delivery") navigate("/")
+            else if(result.data.role === "customer") navigate("/")
           }
           dispatch(signInFailure(result.data))
         } catch (error) {
@@ -80,9 +80,9 @@ function Sign_up_in() {
             toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))
             setUser(() => initialValue)
-            if(result.data.role === "admin") navigate("/dashboard")
-            if(result.data.role === "delivery") navigate("/")
-            if(result.data.role === "customer") navigate("/")
+            if(result.data.role === "admin") return navigate("/dashboard")
+            else if(result.data.role === "delivery") return navigate("/")
+            else if(result.data.role === "customer") return navigate("/")
           }
         } catch (error) {
           if (error.response) {
