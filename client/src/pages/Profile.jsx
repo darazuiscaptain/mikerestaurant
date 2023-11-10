@@ -5,8 +5,8 @@ import axios from "axios"
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/user"
-// const BASE_URL = "http://localhost:5000/api/v1/user"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 
 function Profile() {
     const [user, setUser] = useState(null)
@@ -26,7 +26,7 @@ function Profile() {
                 if (currentPassword === undefined && newPassword) {
                     toast.error("Current password Required!")
                 } else {
-                    await axios.put(`${BASE_URL}/${currentUser?._id}`, user)
+                    await axios.put(`${BASE_URL}/user/${currentUser?._id}`, user)
                     toast.success("Update success")
                 }
             } catch (error) {

@@ -14,8 +14,7 @@ import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 import { toast } from "react-toastify";
 
 
-const BASE_URL = "http://localhost:5000/api/v1/auth"
-// const BASE_URL = "http://localhost:5000/api/v1/auth"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 function Header() {
   const navigate = useNavigate()
@@ -35,7 +34,7 @@ function Header() {
   const handleLogout = async () => {
     dispatch(logoutStart())
     try {
-      await axios.post(`${BASE_URL}/logout`)
+      await axios.post(`${BASE_URL}/auth/logout`)
       navigate("/")
       dispatch(logoutSuccess())
       toast("Logout success", { autoClose: 1200 })

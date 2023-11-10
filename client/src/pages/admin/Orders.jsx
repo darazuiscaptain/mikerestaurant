@@ -6,6 +6,8 @@ import profileImg from "../../assets/user1.png"
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
 
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 const Orders = () => {
 
     const [orders, setOrders] = useState([])
@@ -18,7 +20,7 @@ const Orders = () => {
 
     useEffect(() => {
         const orders = async () => {
-            const result = await fetchAPI("http://localhost:5000/api/v1/orders")
+            const result = await fetchAPI("${BASE_URL}/orders")
             setOrders(result)
             console.log(result)
         }

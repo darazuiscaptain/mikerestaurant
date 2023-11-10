@@ -9,6 +9,8 @@ import FastFood from "../UI/FastFood"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 function Home() {
     const [ fastFood, setFastFood] = useState([])
     const [ meals, setMeals] = useState([])
@@ -16,19 +18,19 @@ function Home() {
 
     useEffect(() => {
         const fetchFastFood = async () => {
-            const result = await axios.get("http://localhost:5000/api/v1/products?categories=fast-food")
+            const result = await axios.get(`${BASE_URL}/products?categories=fast-food`)
             setFastFood(result.data)
             fetchDrinks()
         }
         fetchFastFood()
         const fetchDrinks = async () => {
-            const result = await axios.get("http://localhost:5000/api/v1/products?categories=drinks")
+            const result = await axios.get(`${BASE_URL}/products?categories=drinks`)
             setDrinks(result.data)
             fetchMeals()
         }
         
         const fetchMeals = async () => {
-            const result = await axios.get("http://localhost:5000/api/v1/products?categories=meals")
+            const result = await axios.get(`${BASE_URL}/products?categories=meals`)
             setMeals(result.data)
         }
     }, [])

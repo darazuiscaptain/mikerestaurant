@@ -5,7 +5,8 @@ import axios from "axios"
 import { signInFailure, signInStart, signInSuccess } from "../redux/authSlice"
 import { useDispatch } from "react-redux"
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 
 function Oauth({loading}) {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ function Oauth({loading}) {
 
       const data = await signInWithPopup(auth, provider)
 
-      const result = await axios.post(`${BASE_URL}/google`, {
+      const result = await axios.post(`${BASE_URL}/auth/google`, {
         name: data.user.displayName,
         email: data.user.email,
         photo: data.user.photoURL

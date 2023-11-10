@@ -4,6 +4,8 @@ import axios from "axios"
 import { deleteAllCart } from "../redux/cartSlice"
 import { useNavigate } from "react-router-dom"
 
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 const Order = () => {
 
   const dispatch = useDispatch()
@@ -22,7 +24,7 @@ const Order = () => {
       totalAmount: 45
     }
     try {
-      await axios.post("http://localhost:5000/api/v1/orders/create-order",order )
+      await axios.post(`${BASE_URL}/orders/create-order`, order )
       dispatch(deleteAllCart())
       toast.success("Order has been added! thank you for choosing us.")
       navigate("/")

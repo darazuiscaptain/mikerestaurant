@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 import { toast } from 'react-toastify'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com/api/v1/auth"
-// const BASE_URL = "http://localhost:5000/api/v1/auth" 
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 
 const initialValue = {
@@ -21,7 +20,7 @@ function Sign_up_in() {
   const [login, setLogin] = useState(true)
   const [user, setUser] = useState(initialValue)
 
-  const { error, loading } = useSelector((state) => state.auth)
+  const {  loading } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -41,7 +40,7 @@ function Sign_up_in() {
         dispatch(reload())
       } else {
         try {
-          const result = await axios.post(`${BASE_URL}/login`, user)
+          const result = await axios.post(`${BASE_URL}/auth/login`, user)
           console.log(result)
           if (result.status === 200) {
             toast.success("Login success", { autoClose: 1500})
@@ -73,7 +72,7 @@ function Sign_up_in() {
       } else {
         console.log(username, email, password)
         try {
-          const result = await axios.post(`${BASE_URL}/register`, user)
+          const result = await axios.post(`${BASE_URL}/auth/register`, user)
           dispatch(signUpFailure(result.data))
           if (result.status === 201) {
             toast.success("Register and login success")
@@ -124,9 +123,7 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        {/* {error && (
-          // <p className='px-4 p-2 my-4 rounded-md bg-red-100 text-red-300 text-sm'>{error}</p>
-        )} */}
+        
         <form className='flex flex-col w-full h-full gap-2 my-3' onSubmit={handleSubmit}>
           {!login && <div className='flex flex-col'>
             <label >Username</label>
