@@ -2,8 +2,15 @@ import User from "../model/users.model.js"
 import bcrypt from "bcrypt"
 
 export const getUsers = async (req, res, next) => {
-    const users = await User.find()
-    res.json(users)
+    const { role } = req.query
+    if (role) {
+        const users = await User.find({ role })
+        res.json(users)
+    } else {
+        const users = await User.find()
+        res.json(users)
+    }
+
 }
 
 export const getOneUser = async (req, res, next) => {
