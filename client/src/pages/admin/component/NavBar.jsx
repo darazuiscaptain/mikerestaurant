@@ -8,9 +8,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { HiOutlineSelector } from 'react-icons/hi'
 import { BiLogOut, BiEdit } from 'react-icons/bi'
 
-import profileImg from "../../../assets/user1.png"
-
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
@@ -19,6 +17,7 @@ const NavBar = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { currentUser } = useSelector((state) => state.auth)
 
     const [profile, setProfile] = useState(false)
 
@@ -58,9 +57,9 @@ const NavBar = () => {
             </div>
             <div className='flex justify-end flex-1 pr-8'>
                 <div className='flex gap-3 items-center justify-around'>
-                    <img src={profileImg} alt="" className='w-8 h-8 rounded-full' />
+                    <img src={currentUser?.photo} alt="" className='w-8 h-8 rounded-full' />
                     <div className='flex gap-2 items-center'>
-                        <span>Mikiyas</span>
+                        <span className='capitalize text-blue-gray-700'>{currentUser?.username}</span>
                         <div className="cursor-pointer" onClick={() => setProfile(!profile)}>
                             <HiOutlineSelector />
                         </div>
