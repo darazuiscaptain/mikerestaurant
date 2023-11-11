@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react" 
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import axios from "axios"
 import { deleteAllCart } from "../redux/cartSlice"
 import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+
 import fetchAPI from "../utils/fetchData/fetchAPI"
+import axios from "axios"
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
@@ -14,13 +15,14 @@ const Order = () => {
   const navigate = useNavigate()
 
   const [product, setProduct] = useState({})
-
+  
   const { cart } = useSelector((state) => state.cart)
   const { currentUser } = useSelector((state) => state.auth)
 
+
   const handleSubmit = async () => {
     const productId = []
-    if (id) {
+    if (Object.keys(id).length !== 0) {
       const _id = (id.id).toString()
       productId.push(_id)
     } else {
@@ -28,18 +30,21 @@ const Order = () => {
         productId.push(element._id)
       })
     }
+    // console.log(productId, "id")
     const order = {
       customer: currentUser?._id,
       items: productId,
-      totalAmount: 17
+      totalAmount: 150
     }
 
-    if (cart.length < 1 && typeof id !== 'object' ) {
+    if (cart.length < 1 && typeof id !== 'object') {
       toast.error("Invalid Request!")
     } else {
       try {
         await axios.post(`${BASE_URL}/orders/create-order`, order)
-        dispatch(deleteAllCart())
+        if(typeof id !== 'object' && Object.keys(id).length === 0){
+          dispatch(deleteAllCart())
+        }
         toast.success("Order has been added! thank you for choosing us.")
         navigate("/")
       } catch (error) {
@@ -48,32 +53,39 @@ const Order = () => {
 
     }
   }
+ 
+
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
       const stringID = JSON.stringify(id)
       try {
-        const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
-        setProduct(result)
+        if (typeof id === 'object' && Object.keys(id).length !== 0) {
+          const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
+          // console.log(result)
+          setProduct(result)
+        } else {
+          setProduct(null)
+        }
       } catch (error) {
         console.log(error)
       }
     }
     fetchSingleProduct()
-  }, [id])
+  }, [])
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="flex flex-col gap-3 max-w-[600px] h-full ">
+    <div className="flex items-center justify-center min-h-screen bg-blue-gray-50">
+      <div className="flex flex-col gap-3 min-w-[400px] h-full bg-white p-8 shadow-md">
         <div className="flex flex-col gap-5 items-center justify-center">
-          <h2 className="flex gap-3 justify-center text-teal-300">Your Order is on process. Payment on delivery!!!</h2>
+          <h2 className="flex gap-3 justify-center text-teal-300">Payment on delivery!!!</h2>
           <div className="border-b-2 border-gray-300" />
-          {id ? "" : (<div className="flex gap-5 justify-between w-full">
+          {product !== null ? "" : (<div className="grid grid-cols-3 w-full">
             <h6>No</h6>
             <h4>Image</h4>
             <h3>Name</h3>
-          </div>) / ''}
-          {id ? (
+          </div>)}
+          {product !== null ? product && (
             <div className="flex items-center gap-2 bg-blue-gray-50 w-[16rem]">
               <div>
                 <img className="w-[8rem] h-[8rem]" src={product.productImage} alt={product.productName} />
@@ -91,14 +103,13 @@ const Order = () => {
             </div>
           ) : (
             cart && cart.map((item, index) => (
-              <div key={item._id} className="flex gap-5 justify-between w-full">
+              <div key={item._id} className="grid grid-cols-3 w-full">
                 <h2 className="text-sm">{index + 1}</h2>
                 <img className="max-w-[60px]" src={item.productImage} alt={item.productName} />
                 <h2>{item.productName}</h2>
               </div>
             ))
           )}
-
         </div>
         <div className="flex flex-col gap-6 m-12 justify-end w-full">
           {id ? "" : (
