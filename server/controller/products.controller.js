@@ -28,10 +28,9 @@ export const getProducts = async (req, res, next) => {
 }
 
 export const getProduct = async (req, res, next) => {
-    const { id } = req.params
-    console.log(id, "jhkh")
+    const productId = req.params.id;
     try {
-        return res.json(await Product.findById({ _id: id }))
+        return res.json(await Product.findById(productId))
     } catch (error) {
         next(error)
     }

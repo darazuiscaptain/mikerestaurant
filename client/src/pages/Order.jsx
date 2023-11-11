@@ -30,8 +30,8 @@ const Order = () => {
       items: productId,
       totalAmount: 45
     }
-    console.log(order, "ordre")
-    if (cart.length < 1) {
+    console.log(order, "order")
+    if (cart.length < 1 || !id) {
       toast.error("Empty Cart")
     } else {
       try {
@@ -47,8 +47,12 @@ const Order = () => {
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
-      const result = await fetchAPI(`${BASE_URL}/products/${id}`);
-      console.log(result)
+      try {
+        const result = await fetchAPI(`${BASE_URL}/products/${id}`);
+        console.log(result, "response")
+      } catch (error) {
+        console.log(error)        
+      }
     }
     fetchSingleProduct()
   }, [id])
