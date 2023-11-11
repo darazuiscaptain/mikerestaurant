@@ -20,7 +20,7 @@ function Sign_up_in() {
   const [login, setLogin] = useState(true)
   const [user, setUser] = useState(initialValue)
 
-  const {  loading } = useSelector((state) => state.auth)
+  const {  error, loading } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -104,6 +104,10 @@ function Sign_up_in() {
     dispatch(reload())
     setUser(initialValue)
   }, [login])
+
+  useEffect(() => {
+    toast.error(error)
+  }, [error])
 
   return (
     <section className='flex flex-col justify-center gap-5 w-full max-w-[500px] mx-auto mt-0'>
