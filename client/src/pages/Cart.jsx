@@ -29,9 +29,9 @@ const Cart = () => {
     }, [cart])
 
     return (
-        <section id="cart" className="p-2 overflow-y-auto">
+        <section id="cart" className="flex flex-col p-2 gap-12 ">
             <Header />
-            <div className='flex flex-col justify-center mx-12 h-[50vh]'>
+            <div className='flex flex-col justify-center mx-12 min-h-[75vh]'>
                 <h1 className='text-red-700 font-bold text-2xl whitespace-nowrap'>
                     Your Cart is Here
                 </h1>
@@ -74,8 +74,7 @@ const Cart = () => {
                         ))
                         }
                     </div>
-                    <h2>Subtotal: ${subtotal.toFixed(2)}</h2>
-                    <div className='flex gap-5 max-w-[15rem]'>
+                    <div className='flex gap-5 mt-10 max-w-[15rem]'>
                         <button
                             className="w-full p-1 uppercase text-xs bg-red-400 text-white whitespace-nowrap px-2 hover:opacity-90"
                             onClick={() => deleteCart()}>
