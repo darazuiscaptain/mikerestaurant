@@ -1,0 +1,88 @@
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import axios from "axios"
+
+import { IoIosAddCircle } from 'react-icons/io'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { HiOutlineSelector } from 'react-icons/hi'
+import { BiLogOut, BiEdit } from 'react-icons/bi'
+
+import profileImg from "../../../assets/user1.png"
+
+import { useDispatch } from 'react-redux'
+import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
+
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
+const NavBar = () => {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [profile, setProfile] = useState(false)
+
+    const handleLogout = async () => {
+        dispatch(logoutStart())
+        try {
+            await axios.post(`${BASE_URL}/auth/logout`)
+            navigate("/")
+            dispatch(logoutSuccess())
+            toast("Logout success", { autoClose: 1200 })
+        } catch (error) {
+            dispatch(logoutFailure(error?.response?.data?.message))
+            toast.error(error)
+        } finally {
+            setProfile(!profile)
+        }
+    }
+
+    return (
+        <div className='flex h-[4rem] bg-white p-3 relative'>
+            <div className='flex flex-1 justify-around items-center'>
+                <Link to={"/add-product"} className='flex gap-3 cursor-pointer justify-center items-center'>
+                    <button className='text-white text-lg p-1 rounded-md bg-blue-600'><IoIosAddCircle /></button>
+                    <span className='text-xs text-gray-700'>Add Product</span>
+                </Link>
+                <div className='flex gap-0 justify-center '>
+                    <div className='flex gap-3 relative border-[1px]'>
+                        <AiOutlineSearch className="absolute top-[0.6rem] left-2 text-xs text-gray-500" />
+                        <input
+                            className='w-[10rem] py-2 px-6 text-xs focus:outline-none hover:outline-none border-none'
+                            type="text"
+                            placeholder="Search.."
+                        />
+                    </div>
+                    <button className='px-3 bg-blue-600 text-xs text-white font-light'>Search</button>
+                </div>
+            </div>
+            <div className='flex justify-end flex-1 pr-8'>
+                <div className='flex gap-3 items-center justify-around'>
+                    <img src={profileImg} alt="" className='w-8 h-8 rounded-full' />
+                    <div className='flex gap-2 items-center'>
+                        <span>Mikiyas</span>
+                        <div className="cursor-pointer" onClick={() => setProfile(!profile)}>
+                            <HiOutlineSelector />
+                        </div>
+                    </div>
+                    {/* Admin Profile */}
+                    <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 top-[4.5rem] bg-white shadow-2xl h-[7rem] w-[15rem] `}>
+                        <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                            <BiEdit className='text-orange-600 text-lg' />
+                            Update Profile
+                        </Link>
+                        <div className='w-full border-b-2 border-gray-300' />
+                        <button className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                            <BiLogOut className='text-red-600 text-lg' />
+                            <span onClick={() => handleLogout()} >
+                                Logout
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default NavBar

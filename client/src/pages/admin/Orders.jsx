@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from './component/Sidebar'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { HiOutlineSelector } from 'react-icons/hi'
-import profileImg from "../../assets/user1.png"
+
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
+import NavBar from './component/NavBar'
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
@@ -27,35 +26,12 @@ const Orders = () => {
         orders()
     }, [])
     return (
-        <div id="dashboard" className='flex w-full h-full'>
+        <div id="dashboard" className='flex w-full h-full '>
             <div id="sidebar">
                 <Sidebar />
             </div>
-            <div id="order" className='flex flex-col gap-5 flex-1 bg-blue-gray-50 p-5'>
-                <div className='flex h-[4rem] bg-white p-3 w-full'>
-                    <div className='flex flex-1 justify-around items-center'>
-                        <div className='flex gap-0 justify-center '>
-                            <div className='flex gap-3 relative border-[1px]'>
-                                <AiOutlineSearch className="absolute top-[0.6rem] left-2 text-xs text-gray-500" />
-                                <input
-                                    className='w-[10rem] py-2 px-6 text-xs focus:outline-none hover:outline-none border-none'
-                                    type="text"
-                                    placeholder="Search.."
-                                />
-                            </div>
-                            <button className='px-3 bg-blue-600 text-xs text-white font-light'>Search</button>
-                        </div>
-                    </div>
-                    <div className='flex justify-end flex-1 pr-8'>
-                        <div className='flex gap-3 items-center justify-around'>
-                            <img src={profileImg} alt="" className='w-8 h-8 rounded-full' />
-                            <div className='flex gap-2 items-center'>
-                                <span>Mikiyas</span>
-                                <HiOutlineSelector />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="order" className='flex flex-col p-5 w-full gap-4 bg-blue-gray-50'>
+                <NavBar/>
 
                 <div className='flex flex-col w-full bg-white p-1 px-3'>
                     <h2 className='text-md text-gray-700'>Orders</h2>
@@ -72,7 +48,7 @@ const Orders = () => {
                             <li></li>
                         </ul>
                         <div className='border-b-2 w-full border-black' />
-                        {orders && orders.map((orders) => (
+                        {orders.length > 0 ? (orders.map((orders) => (
                             <ul
                                 key={orders._id}
                                 className='grid grid-cols-7 w-full mt-3 '>
@@ -81,7 +57,7 @@ const Orders = () => {
                                     <img className='w-[4rem]'
                                         src={orders.items[0].productImage} alt={""} />
                                 </div>
-                                <li className='truncate text-xs'>{(orders.customer).slice(0,8)}</li>
+                                <li className='truncate text-xs'>{(orders.customer).slice(0, 8)}</li>
                                 <li className='text-xs whitespace-nowrap'>{orders.totalAmount}</li>
                                 <li className='text-xs whitespace-nowrap truncate '>{new Date(orders.orderDate).toLocaleDateString()}</li>
                                 <li className='text-xs whitespace-nowrap truncate '>{(orders.assigndDelivery)}</li>
@@ -102,7 +78,11 @@ const Orders = () => {
                                     view order
                                 </li>
                             </ul>
-                        ))}
+                        ))) : (
+                        <h1 className='p-3 w-1/2 text-xs text-red-300 bg-red-50'>
+                            Network Error
+                        </h1>
+                        )}
 
                     </div>
                 </div>

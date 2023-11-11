@@ -1,47 +1,18 @@
-import { Link } from 'react-router-dom'
 
-import { IoIosAddCircle } from 'react-icons/io'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { HiOutlineSelector } from 'react-icons/hi'
 import { FaAngleRight, FaUsers } from 'react-icons/fa'
 import { SlBasketLoaded } from 'react-icons/sl'
 import { GiExpense } from 'react-icons/gi'
 import { MdOutlineAttachMoney } from 'react-icons/md'
 
-import profileImg from "../../../assets/user1.png"
+import NavBar from './NavBar'
 
 const MainBoard = () => {
+
   return (
     <div id="mainboard" className='flex flex-col p-5 w-full gap-4'>
       {/* ---------------- Nav bar --------------------- */}
-      <div className='flex h-[4rem] bg-white p-3'>
-        <div className='flex flex-1 justify-around items-center'>
-          <Link to={"/add-product"} className='flex gap-3 cursor-pointer justify-center items-center'>
-            <button className='text-white text-lg p-1 rounded-md bg-blue-600'><IoIosAddCircle /></button>
-            <span className='text-xs text-gray-700'>Add Product</span>
-          </Link>
-          <div className='flex gap-0 justify-center '>
-            <div className='flex gap-3 relative border-[1px]'>
-              <AiOutlineSearch className="absolute top-[0.6rem] left-2 text-xs text-gray-500" />
-              <input
-                className='w-[10rem] py-2 px-6 text-xs focus:outline-none hover:outline-none border-none'
-                type="text"
-                placeholder="Search.."
-              />
-            </div>
-            <button className='px-3 bg-blue-600 text-xs text-white font-light'>Search</button>
-          </div>
-        </div>
-        <div className='flex justify-end flex-1 pr-8'>
-          <div className='flex gap-3 items-center justify-around'>
-            <img src={profileImg} alt="" className='w-8 h-8 rounded-full' />
-            <div className='flex gap-2 items-center'>
-              <span>Mikiyas</span>
-              <HiOutlineSelector />
-            </div>
-          </div>
-        </div>
-      </div>
+      <NavBar/>
+
       {/* ----------------- upper menu ---------------- */}
       <div className='flex justify-between'>
         <div>
@@ -65,7 +36,7 @@ const MainBoard = () => {
               <h6 className='text-xs text-gray-500'>in (30 days)</h6>
             </div>
             <div className='text-3xl p-4 rounded-full bg-white'>
-              <SlBasketLoaded className='text-purple-500'/>
+              <SlBasketLoaded className='text-purple-500' />
             </div>
           </div>
           <div></div>
@@ -78,7 +49,7 @@ const MainBoard = () => {
               <h6 className='text-xs text-gray-500'>Increased by (20%)</h6>
             </div>
             <div className='text-3xl p-4 rounded-full bg-white'>
-              <MdOutlineAttachMoney className='text-teal-500'/>
+              <MdOutlineAttachMoney className='text-teal-500' />
             </div>
           </div>
           <div></div>
@@ -104,7 +75,7 @@ const MainBoard = () => {
               <h6 className='text-xs text-gray-500'>in (30 days)</h6>
             </div>
             <div className='text-3xl p-4 rounded-full bg-white'>
-              <FaUsers className='text-orange-500'/>
+              <FaUsers className='text-orange-500' />
             </div>
           </div>
           <div></div>
@@ -114,7 +85,7 @@ const MainBoard = () => {
       <div className='flex flex-col gap-5 w-1/2 bg-white flex-1 p-2'>
         <div className='flex flex-col gap-3 w-full'>
           <h2 className='text-sm p-2 text-gray-800'>Summary</h2>
-          <div className='w-full border-b-2  border-gray-300'/>
+          <div className='w-full border-b-2  border-gray-300' />
         </div>
         {/* ------------- ======= ---------------  */}
         <div className='flex w-full justify-around'>
