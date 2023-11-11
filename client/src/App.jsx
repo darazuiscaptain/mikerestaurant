@@ -1,6 +1,6 @@
 import Aos from "aos"
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,6 +18,7 @@ import Orders from "./pages/admin/Orders";
 import Customers from "./pages/admin/Customers";
 import OrderDetails from "./pages/admin/OrderDetails";
 import Products from "./pages/admin/Products";
+import { useSelector } from "react-redux";
 
 
 
@@ -37,49 +38,50 @@ function App() {
           <Route path="/sign_up_in" element={<Sign_up_in />} />
 
           {/* Protected Customers Routes */}
-          <Route path="/profile/me" element={<Profile />} />
-          <Route path="/mycart" element={<Cart />} />
-          <Route path="/order" element={<Order />} />
-
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile/me" element={<Profile />} />
+            <Route path="/mycart" element={<Cart />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/order/:id" element={<Order />} />
+          </Route>
 
           {/* Protected Admin Routes */}
-          <Route path="/dashboard" element={<Dashboard /> } />
-          <Route path="/products" element={<Products /> } />
-          <Route path="/add-product" element={<AddProduct /> } />
-          <Route path="/orders" element={<Orders /> } />
-          <Route path="/order/:id" element={<OrderDetails /> } />
-          <Route path="/customers" element={<Customers /> } />
+          <Route element={<ProtectedAdminRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/add-product" element={<AddProduct />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/customers" element={<Customers />} />
+          </Route>
 
 
           {/* Routes Not Found  */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <ToastContainer />
-      </BrowserRouter>
+      </BrowserRouter >
 
     </>
   )
 }
 
-export const ProtectedRoute = ({ children }) => {
-  // const { currentUser } = useSelector((state) => state?.user)
+export const ProtectedRoute = () => {
+  const { currentUser } = useSelector((state) => state?.auth)
 
-  // if (currentUser?.role === "customer") {
-  //   return (
-  //     { children }
-  //   )
-  // }
-  // else return
+  if (currentUser?.role === "customer") {
+    return <Outlet />
+  }
+  <Navigate to="/sign_up_in" />
 }
 
-export const ProtectedAdminRoute = ({ children }) => {
-  // const { currentUser } = useSelector((state) => state?.user)
+export const ProtectedAdminRoute = () => {
+  const { currentUser } = useSelector((state) => state?.auth)
 
-  // if (currentUser?.role === "admin") {
-  //   return (
-  //     { children }
-  //   )
-  // } else return
+  if (currentUser?.role === "admin") {
+    return <Outlet />
+  }
+  <Navigate to="/sign_up_in" />
 }
 
 export default App
