@@ -3,7 +3,7 @@ import { toast } from "react-toastify"
 import axios from "axios"
 import { deleteAllCart } from "../redux/cartSlice"
 import { useNavigate, useParams } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import fetchAPI from "../utils/fetchData/fetchAPI"
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
@@ -12,6 +12,8 @@ const Order = () => {
   const id = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [product, setProduct] = useState({})
 
   const { cart } = useSelector((state) => state.cart)
   const { currentUser } = useSelector((state) => state.auth)
@@ -42,6 +44,7 @@ const Order = () => {
       } catch (error) {
         toast.error(error)
       }
+
     }
   }
 
@@ -49,10 +52,10 @@ const Order = () => {
     const fetchSingleProduct = async () => {
       const stringID = JSON.stringify(id)
       try {
-        const result = await fetchAPI(`http://localhost:5000/products/${stringID}`);
-        console.log(result, "response")
+        const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
+        setProduct(result)
       } catch (error) {
-        console.log(error)        
+        console.log(error)
       }
     }
     fetchSingleProduct()
@@ -64,15 +67,15 @@ const Order = () => {
         <div className="flex flex-col gap-5 items-center justify-center">
           <h2 className="flex gap-3 justify-center text-teal-300">Your Order is on process. Payment on delivery!!!</h2>
           <div className="border-b-2 border-gray-300" />
-          <div className="flex gap-5 justify-between w-full">
+          {id ? "" : (<div className="flex gap-5 justify-between w-full">
             <h6>No</h6>
             <h4>Image</h4>
             <h3>Name</h3>
-          </div>
+          </div>) / ''}
           {id ? (
             <div className="flex gap-5">
-              {/* <img className="max-w-[60px]" src={productImage} alt={productName} />
-              <h2>{productName}</h2> */}
+              <img className="max-w-[60px]" src={product.productImage} alt={product.productName} />
+              <h2>{product.productName}</h2>
             </div>
           ) : (
             cart && cart.map((item, index) => (

@@ -28,10 +28,11 @@ export const getProducts = async (req, res, next) => {
 }
 
 export const getProduct = async (req, res, next) => {
-    const productId = req.params.id;
+    const { id } = req.params;
     try {
-        console.log(productId)
-        return res.json(await Product.findById(productId))
+        const _id = JSON.parse(id).id
+        const result = await Product.findById({ _id })
+        return res.json(result)
     } catch (error) {
         next(error)
     }
