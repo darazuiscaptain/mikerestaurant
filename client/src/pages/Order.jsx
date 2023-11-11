@@ -21,7 +21,8 @@ const Order = () => {
   const handleSubmit = async () => {
     const productId = []
     if (id) {
-      productId.push(id)
+      const _id = (id.id).toString()
+      productId.push(_id)
     } else {
       cart.forEach(element => {
         productId.push(element._id)
@@ -30,11 +31,11 @@ const Order = () => {
     const order = {
       customer: currentUser?._id,
       items: productId,
-      totalAmount: 45
+      totalAmount: 17
     }
-    console.log(order, "order")
-    if (cart.length < 1 || !id) {
-      toast.error("Empty Cart")
+
+    if (cart.length < 1 && typeof id !== 'object' ) {
+      toast.error("Invalid Request!")
     } else {
       try {
         await axios.post(`${BASE_URL}/orders/create-order`, order)
@@ -73,9 +74,20 @@ const Order = () => {
             <h3>Name</h3>
           </div>) / ''}
           {id ? (
-            <div className="flex gap-5">
-              <img className="max-w-[60px]" src={product.productImage} alt={product.productName} />
-              <h2>{product.productName}</h2>
+            <div className="flex items-center gap-2 bg-blue-gray-50 w-[16rem]">
+              <div>
+                <img className="w-[8rem] h-[8rem]" src={product.productImage} alt={product.productName} />
+              </div>
+              <div className="flex flex-col text-gray-600 gap-0">
+                <h2>
+                  {product.productName}
+                </h2>
+                <h2 className="text-md flex items-center gap-1">
+                  price:
+                  <span className="text-lg text-teal-500">${product.price}</span>
+                </h2>
+
+              </div>
             </div>
           ) : (
             cart && cart.map((item, index) => (
@@ -88,13 +100,14 @@ const Order = () => {
           )}
 
         </div>
-        <div className="flex flex-col gap-8 m-12 justify-end w-full">
+        <div className="flex flex-col gap-6 m-12 justify-end w-full">
+          {id ? "" : (
+            <div className="flex gap-2">
+              <h1>Total: </h1>
+              <span>${cart && cart.total}</span>
+            </div>
+          )}
           <div className="flex gap-2">
-            <h1>Total: </h1>
-            <span>${cart && cart.total}</span>
-          </div>
-          <div className="flex gap-2">
-
             <button
               onClick={() => handleSubmit()}
               className="bg-teal-500 text-md rounded-md px-3 p-1 text-white hover:opacity-90">
