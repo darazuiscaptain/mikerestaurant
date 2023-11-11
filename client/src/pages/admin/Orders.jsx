@@ -55,7 +55,7 @@ const Orders = () => {
                                 <div className='flex gap-3 items-start'>
                                     <li className='truncate text-xs'>{(orders._id).slice(0, 8)}</li>
                                     <img className='w-[4rem]'
-                                        src={orders.items[0].productImage} alt={""} />
+                                        src={orders.items.productImage} alt={""} />
                                 </div>
                                 <li className='truncate text-xs'>{(orders.customer).slice(0, 8)}</li>
                                 <li className='text-xs whitespace-nowrap'>{orders.totalAmount}</li>
