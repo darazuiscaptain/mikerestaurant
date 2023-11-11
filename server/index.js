@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 
 
 //Routes
-app.use("/user", userRouter)
+app.use("/users", userRouter)
 app.use("/auth", authRouter)
 app.use("/orders", orderRouter)
 app.use("/products", parser.single("image"), productRouter)
