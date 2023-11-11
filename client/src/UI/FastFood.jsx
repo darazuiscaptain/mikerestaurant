@@ -2,10 +2,12 @@ import { BsFillCartCheckFill } from "react-icons/bs"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../redux/cartSlice"
 import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 
 function FastFood({ fastFood }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { currentUser } = useSelector((state) => state.auth)
 
     const addCart = (product) => {
@@ -14,6 +16,14 @@ function FastFood({ fastFood }) {
             toast("Added to your cart")
         } else {
             toast.error("Please login first!")
+        }
+    }
+
+    const handleOrder = (id) => {
+        if(currentUser){
+            navigate(`/order/${id}`)
+        } else {
+            toast.error("Please Login First!")
         }
     }
 
@@ -43,7 +53,9 @@ function FastFood({ fastFood }) {
                                     <div onClick={() => addCart(fastFood)}>
                                         <BsFillCartCheckFill />
                                     </div>
-                                    <button className='p-1 px-3 bg-teal-500 rounded-md text-xs text-white hover:opacity-90'>
+                                    <button
+                                        onClick={() => handleOrder(fastFood._id)}
+                                        className='p-1 px-3 bg-teal-500 rounded-md text-xs text-white hover:opacity-90'>
                                         order
                                     </button>
                                 </div>
