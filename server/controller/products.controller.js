@@ -9,7 +9,7 @@ export const addProduct = async (req, res, next) => {
             productName, price, amount, categories, productImage: path
         })
         res.json(saveProduct)
-        
+
     } catch (error) {
         next(error)
     }
@@ -18,11 +18,20 @@ export const addProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
     const { categories } = req.query;
     try {
-        if(categories){
-            console.log(categories)
-            return res.json(await Product.find({categories: { $in: categories.split(',') }}))
+        if (categories) {
+            return res.json(await Product.find({ categories: { $in: categories.split(',') } }))
         }
         return res.json(await Product.find())
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getProduct = async (req, res, next) => {
+    const { id } = req.params
+    console.log(id, "jhkh")
+    try {
+        return res.json(await Product.findById({ _id: id }))
     } catch (error) {
         next(error)
     }
@@ -31,7 +40,7 @@ export const getProducts = async (req, res, next) => {
 export const updateProduct = async (req, res, next) => {
     const { id } = req.params
     try {
-        const update = await Product.findByIdAndUpdate({_id: id}, req.body, {new:true})
+        const update = await Product.findByIdAndUpdate({ _id: id }, req.body, { new: true })
         res.json(update)
     } catch (error) {
         next(error)
