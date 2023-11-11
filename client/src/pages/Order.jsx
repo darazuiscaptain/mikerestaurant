@@ -2,36 +2,56 @@ import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import axios from "axios"
 import { deleteAllCart } from "../redux/cartSlice"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import fetchAPI from "../utils/fetchData/fetchAPI"
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const Order = () => {
-
+  const id = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const { cart } = useSelector((state) => state.cart)
   const { currentUser } = useSelector((state) => state.auth)
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     const productId = []
-    cart.forEach(element => {
-      productId.push(element._id)
-    });  
+    if (id) {
+      productId.push(id)
+    } else {
+      cart.forEach(element => {
+        productId.push(element._id)
+      })
+    }
     const order = {
-      customer: currentUser._id,
+      customer: currentUser?._id,
       items: productId,
       totalAmount: 45
     }
-    try {
-      await axios.post(`${BASE_URL}/orders/create-order`, order )
-      dispatch(deleteAllCart())
-      toast.success("Order has been added! thank you for choosing us.")
-      navigate("/")
-    } catch (error) {
-      toast.error(error)
+    console.log(order, "ordre")
+    if (cart.length < 1) {
+      toast.error("Empty Cart")
+    } else {
+      try {
+        await axios.post(`${BASE_URL}/orders/create-order`, order)
+        dispatch(deleteAllCart())
+        toast.success("Order has been added! thank you for choosing us.")
+        navigate("/")
+      } catch (error) {
+        toast.error(error)
+      }
     }
   }
+
+  useEffect(() => {
+    const fetchSingleProduct = async () => {
+      const result = await fetchAPI(`${BASE_URL}/products/${id}`);
+      console.log(result)
+    }
+    fetchSingleProduct()
+  }, [id])
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -44,13 +64,21 @@ const Order = () => {
             <h4>Image</h4>
             <h3>Name</h3>
           </div>
-          {cart && cart.map((item, index) => (
-            <div key={item._id} className="flex gap-5 justify-between w-full">
-              <h2 className="text-sm">{index + 1}</h2>
-              <img className="max-w-[60px]" src={item.productImage} alt={item.productName} />
-              <h2>{item.productName}</h2>
+          {id ? (
+            <div className="flex gap-5">
+              {/* <img className="max-w-[60px]" src={productImage} alt={productName} />
+              <h2>{productName}</h2> */}
             </div>
-          ))}
+          ) : (
+            cart && cart.map((item, index) => (
+              <div key={item._id} className="flex gap-5 justify-between w-full">
+                <h2 className="text-sm">{index + 1}</h2>
+                <img className="max-w-[60px]" src={item.productImage} alt={item.productName} />
+                <h2>{item.productName}</h2>
+              </div>
+            ))
+          )}
+
         </div>
         <div className="flex flex-col gap-8 m-12 justify-end w-full">
           <div className="flex gap-2">
@@ -58,8 +86,8 @@ const Order = () => {
             <span>${cart && cart.total}</span>
           </div>
           <div className="flex gap-2">
-            
-            <button 
+
+            <button
               onClick={() => handleSubmit()}
               className="bg-teal-500 text-md rounded-md px-3 p-1 text-white hover:opacity-90">
               Submit order
