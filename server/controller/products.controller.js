@@ -30,6 +30,7 @@ export const getProducts = async (req, res, next) => {
 export const getProduct = async (req, res, next) => {
     const productId = req.params.id;
     try {
+        console.log(productId)
         return res.json(await Product.findById(productId))
     } catch (error) {
         next(error)

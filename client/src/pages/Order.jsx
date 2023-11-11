@@ -47,8 +47,9 @@ const Order = () => {
 
   useEffect(() => {
     const fetchSingleProduct = async () => {
+      const stringID = JSON.stringify(id)
       try {
-        const result = await fetchAPI(`${BASE_URL}/products/${id}`);
+        const result = await fetchAPI(`http://localhost:5000/products/${stringID}`);
         console.log(result, "response")
       } catch (error) {
         console.log(error)        

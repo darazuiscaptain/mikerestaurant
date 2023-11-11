@@ -38,14 +38,12 @@ function Home() {
         <div div className="max-w-[1000px] mx-auto">
             <Header />
             <Main />
-            <div className="flex flex-col lg:flex-row gap-1 lg:mt-5">
+            <div className="flex flex-col gap-1 lg:mt-5">
                 <div className="flex flex-col flex-1 md:rounded-lg border-1">
                     <Statistics />
                     <FastFood fastFood={fastFood} />
                     <Drinks drinks={drinks} />
                     <Meal meals={meals}/>
-                </div>
-                <div className="hidden sticky top-2 lg:flex flex-col w-[350px] h-[100vh]  p-1 border-[0.2px]">
                 </div>
             </div>
             <Featured />
