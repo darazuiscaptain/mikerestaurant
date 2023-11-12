@@ -29,7 +29,7 @@ const Sidebar = () => {
                             <MdRememberMe />
                             <span className='text-sm'>Customers</span>
                         </Link>
-                        <Link to={""} className='flex flex-row items-center gap-3'>
+                        <Link to={"/delivery"} className='flex flex-row items-center gap-3'>
                             <HiDocumentReport />
                             <span className='text-sm'>Delivery Man</span>
                         </Link>
