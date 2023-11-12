@@ -1,21 +1,149 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
+import Sidebar from './component/Sidebar'
+import NavBar from './component/NavBar'
+import { toast } from 'react-toastify'
+import axios from 'axios'
+
+const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const OrderDetails = () => {
   const id = useParams()
 
+  const [order, setOrder] = useState([])
+  const [delivery, setDelivery] = useState([])
+  const [selected, setSelected] = useState("")
+
+  const handleChange = (e) => {
+    setSelected(e.target.value)
+  }
+
+  const handleAssign = async () => {
+    const _id = JSON.stringify(id)
+    const data = {
+      assignedDelivery: selected,
+      status: "out of delivery"
+    }
+    try {
+      const update = await axios.put(`${BASE_URL}/orders/edit/${_id}`,data)
+      console.log(update)
+    } catch (error) {
+      toast.error(error)
+    }
+  }
+
   useEffect(() => {
-    // const stringID = JSON.stringify(id)
+    const stringID = JSON.stringify(id)
 
     const handleDetails = async () => {
-      // const result = await fetchAPI(`http://localhost:5000/api/v1/orders/${stringID}`)
-      // console.log(result)
+      const result = await fetchAPI(`${BASE_URL}/orders/${stringID}`)
+      setOrder(result)
     }
     handleDetails()
   }, [])
+
+  useEffect(() => {
+    const fetchDelivery = async () => {
+      const result = await fetchAPI(`${BASE_URL}/users?role=delivery`)
+      setDelivery(result)
+    }
+    fetchDelivery()
+  }, [])
+
+
   return (
-    <div>OrderDetails</div>
+    <div id="dashboard" className='flex w-full h-full '>
+      <div id="sidebar">
+        <Sidebar />
+      </div>
+      <div id="order" className='flex flex-col p-5 w-full gap-4 bg-blue-gray-50'>
+        <NavBar />
+
+        <div className='flex flex-col w-full bg-white p-1 px-3'>
+          <h2 className='text-md text-gray-700 flex items-center gap-3'>Orders
+            <span className='text-sm text-gray-500'>
+              order details
+            </span>
+          </h2>
+        </div>
+
+        <div className='w-full h-full flex gap-4'>
+          <div className='flex flex-col bg-white flex-1 p-2 text-gray-600'>
+            <h3 className='text-xs '>Ordered lists</h3>
+            <div className='flex flex-wrap gap-3 p-3'>
+              {order ? (order?.items?.map((order, index) => (
+                <div className='flex gap-1 min-w-[12rem] bg-blue-gray-50 min-h-[4rem]' key={index}>
+                  <div className='flex flex-col gap-1 m-2 '>
+                    <img src={order.productImage} alt="" className='w-[5rem] h-[3.5rem]' />
+                  </div>
+                  <div className='flex flex-col justify-center'>
+                    <h4 className='text-xs text-black'>{order.productName}</h4>
+                    <h3 className='text-xs'>{order.categories}</h3>
+                    <h3 className='text-xs text-teal-600'>${order.price}</h3>
+                  </div>
+                </div>
+              ))
+              ) : ""}
+            </div>
+            <h1 className='text-md  flex gap-3 justify-start p-5'>
+              Total:
+              <span className='text-teal-500'>
+                ${order && order.totalAmount}
+              </span>
+            </h1>
+          </div>
+
+          {/* ----------- Assign delivery------------ */}
+          <div className='flex flex-col gap-12 bg-white w-[300px] p-5'>
+            <div className='flex flex-col gap-3'>
+              <h2 className='text-md'>Assign Delivery</h2>
+              <div className='border-b-2 border-gray-300' />
+              <div className='flex flex-col gap-8'>
+                <select name="delivery" onChange={handleChange} value={selected} className='hover:bg-blue-gray-50'>
+                  <option value="0" className='p-2 hover:bg-red-400'></option>
+                  {delivery ? (delivery.map((delivery, index) => (
+                    <option
+                      key={index}
+                      value={delivery.username}
+
+                    >{delivery.username}
+                    </option>
+                  ))) : ""}
+                </select>
+                <div className='flex justify-end'>
+                  <button
+                    onClick={handleAssign}
+                    className='text-xs uppercase bg-teal-500 rounded-lg p-2 px-5 w-fit text-white'>
+                    Assign
+                  </button>
+                </div>
+              </div>
+            </div>
+            <h1 className='flex gap-3 items-center text-md'>
+              Status:
+              {order ? (
+                <span
+                  className={` whitespace-nowrap 
+                                    ${order.status == "placed"
+                      ? "text-orange-500"
+                      : order.status === "out of delivery"
+                        ? "text-blue-500"
+                        : order.status === "delivered"
+                          ? "text-green-500"
+                          : order.status === "rejected"
+                            ? "text-red-500"
+                            : "text-black"
+                    }`}
+                >
+                  {order.status}
+                </span>
+              ) : ""}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
