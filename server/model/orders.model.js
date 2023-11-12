@@ -17,13 +17,13 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  assigndDelivery: {
+  assignedDelivery: {
     type: String,
     default: "Not Assigned"
   },
   status: {
     type: String,
-    default: "pending"
+    default: "placed"
   },
   orderDate: {
     type: Date,
