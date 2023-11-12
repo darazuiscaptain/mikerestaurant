@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAllCart, removeFromCart } from '../redux/cartSlice';
 import { AiFillDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { setCart } from '../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { cart } = useSelector(state => state.cart);
 
 
@@ -22,10 +24,18 @@ const Cart = () => {
 
     const subtotal = cart.reduce(
         (total, item) => total + item.price * item.quantity, 0)
+    
 
+    const proccedToOrder = () => {
+        if (cart.length < 1) {
+            toast.error("Empty cart")
+        } else {
+            navigate("/order")
+        }
+    }
 
     useEffect(() => {
-
+        console.log(cart)
     }, [cart])
 
     return (
@@ -38,8 +48,8 @@ const Cart = () => {
                 <div className="w-full border-b-2 border-gray-500 my-3" />
                 <div className='flex flex-col gap-4 lg:gap-6'>
                     <div className='flex flex-wrap gap-2 '>
-                        {cart.filter(item => item).map(item => (
-                            item && <div key={item._id}>
+                        {cart.filter(item => item).map((item, index) => (
+                            item && <div key={index}>
                                 <div
                                     className='flex flex-col gap-2 min-w-[270px] p-1 border-[1px] bg-gray-50 rounded-lg'>
                                     <div className='flex flex-wrap'>
@@ -55,7 +65,9 @@ const Cart = () => {
                                                         type="number"
                                                         className='w-8 h-6 border-2 flex px-2 focus:outline-none'
                                                         min={1}
-                                                        defaultValue={1} />
+                                                        value={item.quantity}
+                                                        name='quantity'
+                                                        readOnly />
                                                 </div>
                                                 <div className='flex justify-between'>
                                                     <div className='flex gap-4'>
@@ -68,23 +80,26 @@ const Cart = () => {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         ))
                         }
                     </div>
-                    <div className='flex gap-5 mt-10 max-w-[15rem]'>
+                    <div className='flex gap-3 mt-2 md:mt-4 lg:mt-8 justify-start text-blue-gray-500'>
+                        <h1 className='text-2xl'>Total:</h1>
+                        <h2 className='text-2xl'>${subtotal}</h2>
+                    </div>
+                    <div className='flex gap-5 mt-4 max-w-[15rem]'>
                         <button
                             className="w-full p-1 uppercase text-xs bg-red-400 text-white whitespace-nowrap px-2 hover:opacity-90"
                             onClick={() => deleteCart()}>
                             Clear the cart
                         </button>
-                        <Link
-                            to={"/order"}
+                        <button
+                            onClick={() => proccedToOrder()}
                             className='w-full p-1 uppercase font-medium text-xs bg-teal-500 text-white whitespace-nowrap px-2 hover:opacity-90'>
                             Proceed to Order
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>
