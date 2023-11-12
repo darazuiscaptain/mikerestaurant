@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react" 
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { deleteAllCart } from "../redux/cartSlice"
@@ -15,9 +15,12 @@ const Order = () => {
   const navigate = useNavigate()
 
   const [product, setProduct] = useState({})
-  
+
   const { cart } = useSelector((state) => state.cart)
   const { currentUser } = useSelector((state) => state.auth)
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity, 0)
 
 
   const handleSubmit = async () => {
@@ -34,7 +37,7 @@ const Order = () => {
     const order = {
       customer: currentUser?._id,
       items: productId,
-      totalAmount: 150
+      totalAmount: subtotal || product.price
     }
 
     if (cart.length < 1 && typeof id !== 'object') {
@@ -42,7 +45,7 @@ const Order = () => {
     } else {
       try {
         await axios.post(`${BASE_URL}/orders/create-order`, order)
-        if(typeof id !== 'object' && Object.keys(id).length === 0){
+        if (typeof id !== 'object' || Object.keys(id).length === 0) {
           dispatch(deleteAllCart())
         }
         toast.success("Order has been added! thank you for choosing us.")
@@ -53,7 +56,7 @@ const Order = () => {
 
     }
   }
- 
+
 
 
   useEffect(() => {
@@ -62,7 +65,6 @@ const Order = () => {
       try {
         if (typeof id === 'object' && Object.keys(id).length !== 0) {
           const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
-          // console.log(result)
           setProduct(result)
         } else {
           setProduct(null)
@@ -111,11 +113,16 @@ const Order = () => {
             ))
           )}
         </div>
-        <div className="flex flex-col gap-6 m-12 justify-end w-full">
-          {id ? "" : (
-            <div className="flex gap-2">
-              <h1>Total: </h1>
-              <span>${cart && cart.total}</span>
+        <div className="flex flex-col gap-6 m-4 justify-end w-full">
+
+          {product !== null ? "" : (
+            <div className='flex gap-3 justify-end text-blue-gray-500'>
+              <h1 className='text-2xl'>Total:</h1>
+              <h2 className='text-2xl'>
+                <span className="text-teal-600">
+                  ${subtotal}
+                </span>
+              </h2>
             </div>
           )}
           <div className="flex gap-2">
