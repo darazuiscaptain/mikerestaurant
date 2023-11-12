@@ -52,6 +52,10 @@ export const authSlice = createSlice({
     logoutFailure: (state, action) => {
       state.error = action.payload
       state.loading = false
+    }, 
+    exit: (state) => {
+      state.loading = false
+      state.error = null
     }
   },
 })
@@ -66,7 +70,8 @@ export const {
   signUpSuccess, 
   logoutFailure, 
   logoutStart, 
-  logoutSuccess 
+  logoutSuccess,
+  exit
 } = authSlice.actions
 
 export default authSlice.reducer
