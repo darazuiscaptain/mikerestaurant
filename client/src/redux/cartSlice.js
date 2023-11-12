@@ -28,6 +28,11 @@ export const cartSlice = createSlice({
         },
         deleteAllCart: (state) => {
             state.cart = []
+        }, 
+        
+        setCart: (state, action) => {
+            state.cart = []
+            state.cart.push(action.payload)
         }
 
     },
@@ -35,7 +40,7 @@ export const cartSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-    addToCart, getCart, removeFromCart, deleteAllCart
+    addToCart, getCart, removeFromCart, deleteAllCart, setCart
 } = cartSlice.actions
 
 export default cartSlice.reducer

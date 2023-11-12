@@ -20,7 +20,7 @@ function Sign_up_in() {
   const [login, setLogin] = useState(true)
   const [user, setUser] = useState(initialValue)
 
-  const {  error, loading } = useSelector((state) => state.auth)
+  const { error, loading } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,21 +36,23 @@ function Sign_up_in() {
     dispatch(signInStart())
     if (login) {
       if (email === "" || password === "") {
-        toast.error("Fields are required!", {autoClose: 1500})
+        toast.error("Fields are required!", { autoClose: 1500 })
         dispatch(reload())
       } else {
         try {
+          dispatch(signInStart())
           const result = await axios.post(`${BASE_URL}/auth/login`, user)
           console.log(result)
           if (result.status === 200) {
-            toast.success("Login success", { autoClose: 1500})
+            toast.success("Login success", { autoClose: 1500 })
             dispatch(signInSuccess(result.data))
             setUser(() => initialValue)
-            if(result.data.role === "admin") navigate("/dashboard")
-            else if(result.data.role === "delivery") navigate("/")
-            else if(result.data.role === "customer") navigate("/")
+            if (result.data.role === "admin") navigate("/dashboard")
+            else if (result.data.role === "delivery") navigate("/")
+            else if (result.data.role === "customer") navigate("/")
+          } else {
+            dispatch(signInFailure(result.data))
           }
-          dispatch(signInFailure(result.data))
         } catch (error) {
           console.log(error)
           if (error.response) {
@@ -69,20 +71,19 @@ function Sign_up_in() {
       }
     } else {
       if (username === "" || email === "" || password === "") {
-        toast.error("Fields are required!", {autoClose: 1500})
+        toast.error("Fields are required!", { autoClose: 1500 })
         dispatch(reload())
       } else {
-        console.log(username, email, password)
         try {
+          dispatch(signInStart())
           const result = await axios.post(`${BASE_URL}/auth/register`, user)
-          dispatch(signUpFailure(result.data))
           if (result.status === 201) {
             toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))
             setUser(() => initialValue)
-            if(result.data.role === "admin") return navigate("/dashboard")
-            else if(result.data.role === "delivery") return navigate("/")
-            else if(result.data.role === "customer") return navigate("/")
+            if (result.data.role === "admin") return navigate("/dashboard")
+            else if (result.data.role === "delivery") return navigate("/")
+            else if (result.data.role === "customer") return navigate("/")
           }
         } catch (error) {
           if (error.response) {
@@ -131,7 +132,7 @@ function Sign_up_in() {
             </span>
           </h5>
         </div>
-        
+
         <form className='flex flex-col w-full h-full gap-2 my-3' onSubmit={handleSubmit}>
           {!login && <div className='flex flex-col'>
             <label >Username</label>
@@ -150,7 +151,7 @@ function Sign_up_in() {
               type="text"
               name='email'
               value={email}
-              className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400' 
+              className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400'
               onChange={handleChange} />
           </div>
           <div className='flex flex-col gap-1'>
@@ -161,7 +162,7 @@ function Sign_up_in() {
                 name='password'
                 value={password}
                 minLength={6}
-                className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400' 
+                className='hover:outline-none  focus:outline-none p-[6px] border-[0.7px] border-gray-400'
                 onChange={handleChange} />
             </div>
             {login && <Link to={"forget"} className='text-sm text-blue-500'>Forgot password? </Link>}
