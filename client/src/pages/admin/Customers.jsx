@@ -12,8 +12,7 @@ const Customers = () => {
 
     useEffect(() => {
         const fetchCustomers = async () => {
-            const result = await fetchAPI(`http://localhost:5000/users?role=customer`)
-            console.log(result);
+            const result = await fetchAPI(`${BASE_URL}/users?role=customer`)
             setCustomers(result)
         }
         fetchCustomers()

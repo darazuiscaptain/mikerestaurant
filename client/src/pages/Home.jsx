@@ -28,7 +28,7 @@ function Home() {
             setDrinks(result.data)
             fetchMeals()
         }
-        
+
         const fetchMeals = async () => {
             const result = await axios.get(`${BASE_URL}/products?categories=meals`)
             setMeals(result.data)

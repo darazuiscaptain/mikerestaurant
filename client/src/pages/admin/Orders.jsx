@@ -21,7 +21,6 @@ const Orders = () => {
         const orders = async () => {
             const result = await fetchAPI(`${BASE_URL}/orders`)
             setOrders(result)
-            console.log(result)
         }
         orders()
     }, [])
@@ -78,11 +77,7 @@ const Orders = () => {
                                     view order
                                 </li>
                             </ul>
-                        ))) : (
-                        <h1 className='p-3 w-1/2 text-xs text-red-300 bg-red-50'>
-                            Network Error
-                        </h1>
-                        )}
+                        ))) : ""}
 
                     </div>
                 </div>
