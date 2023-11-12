@@ -29,7 +29,7 @@ export const login = async (req, res, next) => {
 
 // =============== Sign up =======================
 export const register = async (req, res, next) => {
-  const { username, email, password } = req.body
+  const { username, email, password, role } = req.body
   if (username === "" || email === "" || password === "") {
     return res.json("fields required")
   }
@@ -48,7 +48,8 @@ export const register = async (req, res, next) => {
     const savedUser = await User.create({
       username,
       email,
-      password: hashPassword
+      password: hashPassword,
+      role
     })
     const { password: pass, ...other } = savedUser._doc
 
