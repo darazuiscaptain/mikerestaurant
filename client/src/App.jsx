@@ -19,6 +19,8 @@ import Customers from "./pages/admin/Customers";
 import OrderDetails from "./pages/admin/OrderDetails";
 import Products from "./pages/admin/Products";
 import { useSelector } from "react-redux";
+import Deliveries from "./pages/admin/Deliveries";
+import RegisterDelivery from "./pages/admin/RegisterDelivery";
 
 
 
@@ -48,11 +50,13 @@ function App() {
           {/* Protected Admin Routes */}
           <Route element={<ProtectedAdminRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/add-product" element={<AddProduct />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/customers" element={<Customers />} />
+            <Route path="/order/:id" element={<OrderDetails />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/delivery" element={<Deliveries />} />
+            <Route path="/reg-delivery" element={<RegisterDelivery />} />
           </Route>
 
 
