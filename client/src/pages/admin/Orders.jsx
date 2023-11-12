@@ -59,17 +59,17 @@ const Orders = () => {
                                 <li className='truncate text-xs'>{(orders.customer).slice(0, 8)}</li>
                                 <li className='text-xs whitespace-nowrap'>{orders.totalAmount}</li>
                                 <li className='text-xs whitespace-nowrap truncate '>{new Date(orders.orderDate).toLocaleDateString()}</li>
-                                <li className='text-xs whitespace-nowrap truncate '>{(orders.assigndDelivery)}</li>
+                                <li className='text-xs whitespace-nowrap truncate '>{(orders.assignedDelivery)}</li>
                                 <li className={`text-xs whitespace-nowrap 
-                                ${orders.status == "pending"
-                                        ? "text-orange-500"
-                                        : orders.status === "active"
-                                            ? "text-blue-500"
-                                            : orders.status === "completed"
-                                                ? "text-green-500"
-                                                : orders.status === "rejected"
-                                                    ? "text-red-500"
-                                                    : "text-black"
+                                ${orders.status == "placed"
+                                ? "text-orange-500"
+                                : orders.status === "out of delivery"
+                                  ? "text-blue-500"
+                                  : orders.status === "delivered"
+                                    ? "text-green-500"
+                                    : orders.status === "rejected"
+                                      ? "text-red-500"
+                                      : "text-black"
                                     }`}>{orders.status}</li>
                                 <li
                                     onClick={() => handleNavigate(orders._id)}
