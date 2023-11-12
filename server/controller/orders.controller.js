@@ -13,7 +13,7 @@ export const createOrder = async (req, res, next) => {
 
 export const getOrders = async (req, res, next) => {
     try {
-        const result = await Order.find().populate("items.product")
+        const result = await Order.find({}).populate("items.product")
         res.json(result)
     } catch (error) {
         next(error)
@@ -24,7 +24,10 @@ export const getOrder = async (req, res, next) => {
     const { id } = req.params
     try {
         const parsedID = JSON.parse(id).id
-        const orderDetails = await Order.findById({ _id: parsedID }).populate("customer").populate("items.product").populate("assigndDelivery")
+        const orderDetails = await Order.findById({ _id: parsedID })
+                .populate("customer")
+                .populate("items")
+                .populate("assigndDelivery")
         res.json(orderDetails)
     } catch (error) {
         next(error)
