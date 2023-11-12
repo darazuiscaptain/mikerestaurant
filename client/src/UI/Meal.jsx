@@ -14,6 +14,7 @@ function Meal({ meals }) {
 
     const addCart = (product) => {
         if (currentUser) {
+            product.quantity = parseInt(1);
             dispatch(addToCart(product))
             toast("Added to your cart")
         } else {
@@ -22,7 +23,7 @@ function Meal({ meals }) {
     }
 
     const handleOrder = (id) => {
-        if(currentUser){
+        if (currentUser) {
             navigate(`/order/${id}`)
         } else {
             toast.error("Please Login First!")
@@ -54,7 +55,7 @@ function Meal({ meals }) {
                                     <div onClick={() => addCart(meal)}>
                                         <BsFillCartCheckFill />
                                     </div>
-                                    <button 
+                                    <button
                                         onClick={() => handleOrder(meal._id)}
                                         className='p-1 px-3 bg-teal-500 rounded-md text-xs text-white hover:opacity-90'>
                                         order

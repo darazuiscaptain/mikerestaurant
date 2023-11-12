@@ -13,6 +13,9 @@ function Drinks({ drinks }) {
 
     const addCart = (product) => {
         if (currentUser) {
+            const quantityInput = document.querySelector('input[name="quantity"]');
+            const quantity = parseInt(quantityInput.value);
+            product.quantity = quantity;
             dispatch(addToCart(product))
             toast("Added to your cart")
         } else {
@@ -21,7 +24,7 @@ function Drinks({ drinks }) {
     }
 
     const handleOrder = (id) => {
-        if(currentUser){
+        if (currentUser) {
             navigate(`/order/${id}`)
         } else {
             toast.error("Please Login First!")
@@ -50,11 +53,12 @@ function Drinks({ drinks }) {
                             <span className='text-xs text-gray-500'>{drink.star}*</span>
                             <div className='flex justify-between items-center'>
                                 <span className='text-md text-green-600'>${drink.price}</span>
+                                <input type="hidden" name="quantity" value={1} />
                                 <div className='flex gap-2 justify-center items-center'>
                                     <div onClick={() => addCart(drink)}>
                                         <BsFillCartCheckFill />
                                     </div>
-                                    <button 
+                                    <button
                                         onClick={() => handleOrder(drink._id)}
                                         className='p-1 px-3 bg-teal-500 rounded-md text-xs text-white hover:opacity-90'>
                                         order
