@@ -19,7 +19,7 @@ export const getOneUser = async (req, res, next) => {
     try {
         const user = await User.findById({ _id: id })
         if (user) return res.status(200).json(user)
-        return res.status(204).json("No Content")
+        else return res.status(204).json("No Content")
 
     } catch (error) {
         next(error)
