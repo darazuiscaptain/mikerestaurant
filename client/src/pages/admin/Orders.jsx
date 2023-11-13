@@ -5,7 +5,6 @@ import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
 import NavBar from './component/NavBar'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const Orders = () => {
 
@@ -19,7 +18,7 @@ const Orders = () => {
 
     useEffect(() => {
         const orders = async () => {
-            const result = await fetchAPI(`${BASE_URL}/orders`)
+            const result = await fetchAPI(`/api/orders`)
             setOrders(result)
         }
         orders()
@@ -78,7 +77,7 @@ const Orders = () => {
                                 <div className='flex items-center'>
                                     <li
                                         onClick={() => handleNavigate(orders._id)}
-                                        className='flex justify-center items-center w-[45%] whitespace-nowrap rounded-md cursor-pointer text-xs p-[.1rem] px-2 text-green-500 hover:text-white hover:bg-teal-700 hover:border-none border-green-500 border-[.1rem] '>
+                                        className='flex justify-center items-center w-[45%] whitespace-nowrap rounded-md cursor-pointer text-xs p-[.1rem] px-2 text-green-500 hover:text-white hover:bg-teal-700  border-green-500 border-[.1rem] '>
                                         view order
                                     </li>
                                 </div>

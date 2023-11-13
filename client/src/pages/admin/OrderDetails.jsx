@@ -7,7 +7,6 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 
 const OrderDetails = () => {
@@ -29,7 +28,7 @@ const OrderDetails = () => {
     }
     if (selected) {
       try {
-        await axios.put(`${BASE_URL}/orders/edit/${_id}`, data)
+        await axios.put(`/api/orders/edit/${_id}`, data)
         toast.success("Delivery Assigned", { autoClose: 1200 })
       } catch (error) {
         toast.error(error)
@@ -43,7 +42,7 @@ const OrderDetails = () => {
     const stringID = JSON.stringify(id)
 
     const handleDetails = async () => {
-      const result = await fetchAPI(`${BASE_URL}/orders/${stringID}`)
+      const result = await fetchAPI(`/api/orders/${stringID}`)
       setOrder(result)
     }
     handleDetails()
@@ -51,7 +50,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const fetchDelivery = async () => {
-      const result = await fetchAPI(`${BASE_URL}/users?role=delivery`)
+      const result = await fetchAPI(`/api/users?role=delivery`)
       setDelivery(result)
     }
     fetchDelivery()

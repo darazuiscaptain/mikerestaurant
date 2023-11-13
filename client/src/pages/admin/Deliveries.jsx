@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 
 const Deliveries = () => {
@@ -14,7 +13,7 @@ const Deliveries = () => {
 
     useEffect(() => {
         const fetchDelivery = async () => {
-            const result = await fetchAPI(`${BASE_URL}/users?role=delivery`)
+            const result = await fetchAPI(`/api/users?role=delivery`)
             console.log(result)
             setDelivery(result)
         }

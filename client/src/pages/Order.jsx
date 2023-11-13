@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import fetchAPI from "../utils/fetchData/fetchAPI"
 import axios from "axios"
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const Order = () => {
   const id = useParams()
@@ -44,7 +43,7 @@ const Order = () => {
       toast.error("Invalid Request!")
     } else {
       try {
-        await axios.post(`${BASE_URL}/orders/create-order`, order)
+        await axios.post(`/api/orders/create-order`, order)
         if (typeof id !== 'object' || Object.keys(id).length === 0) {
           dispatch(deleteAllCart())
         }
@@ -64,7 +63,7 @@ const Order = () => {
       const stringID = JSON.stringify(id)
       try {
         if (typeof id === 'object' && Object.keys(id).length !== 0) {
-          const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
+          const result = await fetchAPI(`/api/products/${stringID}`)
           setProduct(result)
         } else {
           setProduct(null)

@@ -11,7 +11,6 @@ import { BiLogOut, BiEdit } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const NavBar = () => {
 
@@ -24,7 +23,7 @@ const NavBar = () => {
     const handleLogout = async () => {
         dispatch(logoutStart())
         try {
-            await axios.post(`${BASE_URL}/auth/logout`)
+            await axios.post(`/api/auth/logout`)
             navigate("/")
             dispatch(logoutSuccess())
             toast("Logout success", { autoClose: 1200 })

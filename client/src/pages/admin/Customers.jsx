@@ -4,7 +4,6 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import NavBar from './component/NavBar'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const Customers = () => {
 
@@ -12,7 +11,7 @@ const Customers = () => {
 
     useEffect(() => {
         const fetchCustomers = async () => {
-            const result = await fetchAPI(`${BASE_URL}/users?role=customer`)
+            const result = await fetchAPI(`/api/users?role=customer`)
             setCustomers(result)
         }
         fetchCustomers()

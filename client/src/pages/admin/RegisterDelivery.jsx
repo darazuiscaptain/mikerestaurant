@@ -15,7 +15,6 @@ const initialValue = {
     role: "delivery"
 }
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const RegisterDelivery = () => {
     const { error, loading } = useSelector((state) => state.auth)
@@ -37,7 +36,7 @@ const RegisterDelivery = () => {
         } else {
             try {
                 dispatch(signInStart())
-                const result = await axios.post(`${BASE_URL}/auth/register`, user)
+                const result = await axios.post(`/api/auth/register`, user)
                 dispatch(signUpFailure(result.data))
                 if (result.status === 201) {
                     toast.success("Register success")
@@ -57,7 +56,7 @@ const RegisterDelivery = () => {
                 } else {
                     console.error('Network error:', error);
                 }
-            } 
+            }
         }
     }
 

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 import { toast } from 'react-toastify'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 
 const initialValue = {
@@ -41,7 +40,7 @@ function Sign_up_in() {
       } else {
         try {
           dispatch(signInStart())
-          const result = await axios.post(`${BASE_URL}/auth/login`, user)
+          const result = await axios.post(`/api/auth/login`, user)
           console.log(result)
           if (result.status === 200) {
             toast.success("Login success", { autoClose: 1500 })
@@ -76,7 +75,7 @@ function Sign_up_in() {
       } else {
         try {
           dispatch(signInStart())
-          const result = await axios.post(`${BASE_URL}/auth/register`, user)
+          const result = await axios.post(`/api/auth/register`, user)
           if (result.status === 201) {
             toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))

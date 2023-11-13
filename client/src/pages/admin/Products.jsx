@@ -6,7 +6,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import NavBar from './component/NavBar'
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 const Products = () => {
     const [products, setProducts] = useState([])
@@ -21,7 +20,7 @@ const Products = () => {
         const product = products[index]
 
         try {
-            const update = await axios.put(`${BASE_URL}/products/update/${product._id}`, product)
+            const update = await axios.put(`/api/products/update/${product._id}`, product)
             if (update) {
                 toast.success("Update successfully")
             }
@@ -33,7 +32,7 @@ const Products = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await fetchAPI(`${BASE_URL}/products`);
+                const result = await fetchAPI(`/api/products`);
                 setProducts(result);
             } catch (error) {
                 console.error(error);
@@ -41,6 +40,7 @@ const Products = () => {
         };
         fetchData();
     }, [])
+    
     return (
         <div id="dashboard" className='flex w-full h-full'>
             <div id="sidebar">

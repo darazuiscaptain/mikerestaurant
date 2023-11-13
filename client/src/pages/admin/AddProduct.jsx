@@ -6,7 +6,6 @@ import axios from 'axios';
 import { toast } from "react-toastify"
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
 
 
 const AddProduct = () => {
@@ -48,7 +47,7 @@ const AddProduct = () => {
 
     try {
       setLoading(true)
-      const result = await axios.post(`${BASE_URL}/products/add-product`, formData);
+      const result = await axios.post(`/api/products/add-product`, formData);
       if (result) {
         toast.success("Product created successfully")
         navigate("/products")
