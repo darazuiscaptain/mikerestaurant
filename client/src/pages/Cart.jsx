@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAllCart, removeFromCart } from '../redux/cartSlice';
 import { AiFillDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { setCart } from '../redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
