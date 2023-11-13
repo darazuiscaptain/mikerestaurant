@@ -4,17 +4,20 @@ import NavBar from './component/NavBar'
 import { Link } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 
 
 const Deliveries = () => {
 
     const [delivery, setDelivery] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         const fetchDelivery = async () => {
             const result = await fetchAPI(`/api/users?role=delivery`)
-            console.log(result)
+            setLoading(false)
             setDelivery(result)
         }
         fetchDelivery()
@@ -45,22 +48,24 @@ const Deliveries = () => {
                         </ul>
                         <div className='border-b-2 w-full border-gray-200' />
 
-                        {delivery && delivery.map((user, index) => (
-                            <ul
-                                key={index}
-                                className='grid grid-cols-4  w-5/6'>
-                                <div className='flex gap-3 items-center'>
-                                    <img src={user.photo} alt='' className='flex w-8 h-8 rounded-full' />
-                                    <li className='flex text-xs items-center text-gray-600 truncate uppercase'>{user.username}</li>
-                                </div>
-                                <li className='flex text-xs items-center text-gray-600'>{user.email}</li>
-                                <div className='flex items-center gap-3'>
-                                    <li><AiOutlineEdit className='text-orange-600' /></li>
-                                    <li><AiOutlineDelete className='text-red-600' /></li>
+                        {loading
+                            ? <LoadingSpinner size={100} color={'#4299e1'} />
+                            : delivery && delivery.map((user, index) => (
+                                <ul
+                                    key={index}
+                                    className='grid grid-cols-4  w-5/6'>
+                                    <div className='flex gap-3 items-center'>
+                                        <img src={user.photo} alt='' className='flex w-8 h-8 rounded-full' />
+                                        <li className='flex text-xs items-center text-gray-600 truncate uppercase'>{user.username}</li>
+                                    </div>
+                                    <li className='flex text-xs items-center text-gray-600'>{user.email}</li>
+                                    <div className='flex items-center gap-3'>
+                                        <li><AiOutlineEdit className='text-orange-600' /></li>
+                                        <li><AiOutlineDelete className='text-red-600' /></li>
 
-                                </div>
-                            </ul>
-                        ))}
+                                    </div>
+                                </ul>
+                            ))}
                     </div>
                 </div>
             </div>

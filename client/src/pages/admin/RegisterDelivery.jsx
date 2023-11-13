@@ -7,6 +7,7 @@ import { signInStart, reload, signUpFailure, exit } from '../../redux/authSlice'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaAngleDoubleRight } from 'react-icons/fa'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 const initialValue = {
     username: "",
@@ -127,7 +128,9 @@ const RegisterDelivery = () => {
                             <button
                                 type='submit'
                                 className='w-full uppercase p-[5px] bg-teal-400 text-white hover:opacity-90'>
-                                {loading ? "loading" : "Register"}
+                                {loading 
+                                ? <LoadingSpinner size = {25} color = { '#fff'} />
+                                : "Register"}
                             </button>
 
                             {/* =========== Signup with google ================ */}

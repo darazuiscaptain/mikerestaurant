@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { toast } from "react-toastify"
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 
 
@@ -57,7 +58,7 @@ const AddProduct = () => {
     } finally {
       setLoading(false)
     }
-    
+
     // Log FormData entries
     // for (let pair of formData.entries()) {
     //   console.log(pair[0] + ', ' + pair[1]);
@@ -104,16 +105,18 @@ const AddProduct = () => {
                 </div>
               </div>
               <div className='flex flex-1 w-full'>
-                {selectedImage 
-                ? <img src={URL.createObjectURL(selectedImage)} alt="Selected" className='flex h-[7rem] w-[8rem] object-contain' />
-                : <img src={""} />
-              }
-             
-                </div>
+                {selectedImage
+                  ? <img src={URL.createObjectURL(selectedImage)} alt="Selected" className='flex h-[7rem] w-[8rem] object-contain' />
+                  : <img src={""} />
+                }
+
+              </div>
             </div>
             <div className='flex w-[20%] mb-16 m-5 '>
               <button onClick={handleSubmit} className='p-2 flex justify-center w-full text-white text-sm bg-blue-500'>
-                {loading ? "loading" : "Add Product"}
+                {loading
+                  ? <LoadingSpinner size={25} color={'#fff'} />
+                  : "Add Product"}
               </button>
             </div>
           </div>

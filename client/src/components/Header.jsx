@@ -12,13 +12,15 @@ import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux'
 import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 
 function Header() {
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { currentUser } = useSelector((state) => state.auth)
+  const { currentUser, loading } = useSelector((state) => state.auth)
 
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
@@ -86,14 +88,14 @@ function Header() {
                 <button
                   onClick={handleLogout}
                   className='p-1 px-2 text-xs rounded-lg bg-red-400 text-white hover:opacity-90'>
-                  Logout
+                  {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Logout" }
                 </button>
               </div>
             ) : (
               <button
                 onClick={handleLogin}
                 className='p-1 px-5 rounded-full bg-teal-400 text-white hover:opacity-90'>
-                Login
+                {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
               </button>
             )
           }
@@ -164,7 +166,7 @@ function Header() {
                         <button
                           onClick={handleLogout}
                           className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
-                          Logout
+                          {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
                         </button>
 
                       </div>
@@ -172,7 +174,7 @@ function Header() {
                       <button
                         onClick={handleLogin}
                         className='p-1 px-3 rounded-lg bg-teal-600 text-white hover:opacity-90'>
-                        Login
+                        {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
                       </button>
                     )
                   }

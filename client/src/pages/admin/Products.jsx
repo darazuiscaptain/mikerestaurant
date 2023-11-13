@@ -5,10 +5,12 @@ import fetchAPI from '../../utils/fetchData/fetchAPI.js'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import NavBar from './component/NavBar'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 
 const Products = () => {
     const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const handleInputChange = (index, event) => {
         const newProducts = [...products];
@@ -20,27 +22,33 @@ const Products = () => {
         const product = products[index]
 
         try {
+            setLoading(true)
             const update = await axios.put(`/api/products/update/${product._id}`, product)
             if (update) {
                 toast.success("Update successfully")
             }
         } catch (error) {
             toast.error(error)
+        } finally {
+            setLoading(false)
+
         }
     }
 
     useEffect(() => {
+        setLoading(true)
         const fetchData = async () => {
             try {
                 const result = await fetchAPI(`/api/products`);
                 setProducts(result);
+                setLoading(false)
             } catch (error) {
                 console.error(error);
             }
         };
         fetchData();
     }, [])
-    
+
     return (
         <div id="dashboard" className='flex w-full h-full'>
             <div id="sidebar">
@@ -60,27 +68,29 @@ const Products = () => {
                             <li className='text-sm text-gray-900 font-bold'>Amount</li>
                         </ul>
                         <div className='border-b-2 w-full border-black' />
-                        {products && products.map((res, index) => (
-                            <ul key={res._id} className='grid grid-cols-8 mt-3'>
-                                <img src={res.productImage} className='h-10 w-[5rem] object-fit' />
-                                <li className='text-xs'>{res.productName}</li>
-                                <input
-                                    type='number' min="1"
-                                    value={res.price} name='price'
-                                    onChange={(e) => handleInputChange(index, e)}
-                                    className='w-[2.5rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-1' />
-                                <input
-                                    type='number' min="1"
-                                    value={res.amount} name='amount'
-                                    onChange={(e) => handleInputChange(index, e)}
-                                    className='w-[2.5rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-1' />
-                                <button
-                                    onClick={() => handleUpdate(index)}
-                                    className='border-[1px] border-orange-600 text-orange-600 hover:text-white hover:bg-orange-600 px-2 rounded-md cursor-pointer text-xs w-fit h-fit p-1'>
-                                    Update
-                                </button>
-                            </ul>
-                        ))}
+                        {loading
+                            ? <LoadingSpinner size={100} color={'#4299e1'} />
+                            : products && products.map((res, index) => (
+                                <ul key={res._id} className='grid grid-cols-8 mt-3'>
+                                    <img src={res.productImage} className='h-10 w-[5rem] object-fit' />
+                                    <li className='text-xs'>{res.productName}</li>
+                                    <input
+                                        type='number' min="1"
+                                        value={res.price} name='price'
+                                        onChange={(e) => handleInputChange(index, e)}
+                                        className='w-[2.5rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-1' />
+                                    <input
+                                        type='number' min="1"
+                                        value={res.amount} name='amount'
+                                        onChange={(e) => handleInputChange(index, e)}
+                                        className='w-[2.5rem] hover:outline-none focus:outline-none text-xs h-[1.7rem] border-2 px-1' />
+                                    <button
+                                        onClick={() => handleUpdate(index)}
+                                        className='border-[1px] border-orange-600 text-orange-600 hover:text-white hover:bg-orange-600 px-2 rounded-md cursor-pointer text-xs w-fit h-fit p-1'>
+                                        Update
+                                    </button>
+                                </ul>
+                            ))}
                     </div>
                 </div>
             </div>

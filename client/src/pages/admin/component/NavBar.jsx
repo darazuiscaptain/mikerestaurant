@@ -10,13 +10,14 @@ import { BiLogOut, BiEdit } from 'react-icons/bi'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
+import LoadingSpinner from '../../../components/LoadingSpinner'
 
 
 const NavBar = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { currentUser } = useSelector((state) => state.auth)
+    const { currentUser, loading } = useSelector((state) => state.auth)
 
     const [profile, setProfile] = useState(false)
 
@@ -70,10 +71,10 @@ const NavBar = () => {
                             Update Profile
                         </Link>
                         <div className='w-full border-b-2 border-gray-300' />
-                        <button className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                        <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
                             <BiLogOut className='text-red-600 text-lg' />
                             <span onClick={() => handleLogout()} >
-                                Logout
+                            {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout" }
                             </span>
                         </button>
                     </div>

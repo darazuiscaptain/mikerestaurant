@@ -6,6 +6,7 @@ import NavBar from './component/NavBar'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { FaAngleDoubleRight } from 'react-icons/fa'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 
 
@@ -15,6 +16,7 @@ const OrderDetails = () => {
   const [order, setOrder] = useState([])
   const [delivery, setDelivery] = useState([])
   const [selected, setSelected] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setSelected(e.target.value)
@@ -40,10 +42,11 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const stringID = JSON.stringify(id)
-
+    setLoading(true)
     const handleDetails = async () => {
       const result = await fetchAPI(`/api/orders/${stringID}`)
       setOrder(result)
+      setLoading(false)
     }
     handleDetails()
   }, [id])
@@ -82,7 +85,9 @@ const OrderDetails = () => {
           <div className='flex flex-col bg-white flex-1 p-2 text-gray-600'>
             <h3 className='text-xs '>Ordered lists</h3>
             <div className='flex flex-wrap gap-3 p-3'>
-              {order ? (order?.items?.map((order, index) => (
+              {loading
+              ? <LoadingSpinner size={100} color={'#4299e1'} />
+              : order ? (order?.items?.map((order, index) => (
                 <div className='flex gap-1 min-w-[14rem] bg-blue-gray-50 min-h-[4rem]' key={index}>
                   <div className='flex flex-col gap-1 m-2 '>
                     <img src={order.productImage} alt="" className='w-[5rem] h-[3.5rem]' />

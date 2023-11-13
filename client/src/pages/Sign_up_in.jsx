@@ -6,6 +6,7 @@ import Oauth from '../components/Oauth'
 import { useDispatch, useSelector } from 'react-redux'
 import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 import { toast } from 'react-toastify'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 
 
@@ -171,7 +172,9 @@ function Sign_up_in() {
             <button
               type='submit'
               className='w-full uppercase p-[5px] bg-teal-400 text-white hover:opacity-90'>
-              {loading ? "loading" : (login ? "Login" : "Register")}
+              {loading
+                ? (<LoadingSpinner size={25} color={"#fff"} />)
+                : (login ? "Login" : "Register")}
             </button>
 
             {/* =========== Signup with google ================ */}

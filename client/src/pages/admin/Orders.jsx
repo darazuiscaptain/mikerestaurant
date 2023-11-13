@@ -4,11 +4,13 @@ import Sidebar from './component/Sidebar'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
 import NavBar from './component/NavBar'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 
 const Orders = () => {
 
     const [orders, setOrders] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -17,9 +19,11 @@ const Orders = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         const orders = async () => {
             const result = await fetchAPI(`/api/orders`)
             setOrders(result)
+            setLoading(false)
         }
         orders()
     }, [])
@@ -47,7 +51,9 @@ const Orders = () => {
                             <li></li>
                         </ul>
                         <div className='border-b-2 w-full border-black' />
-                        {orders.length > 0 ? (orders.map((orders) => (
+                        {loading
+                        ? <LoadingSpinner size = {100} color = { '#4299e1'} />
+                        : orders.length > 0 ? (orders.map((orders) => (
                             <ul
                                 key={orders._id}
                                 className='grid grid-cols-7 w-full mt-3 '>
