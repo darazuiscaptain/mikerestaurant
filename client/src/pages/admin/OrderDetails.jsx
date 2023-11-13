@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import Sidebar from './component/Sidebar'
 import NavBar from './component/NavBar'
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import { FaAngleDoubleRight } from 'react-icons/fa'
 
 const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
+
 
 const OrderDetails = () => {
   const id = useParams()
@@ -23,13 +25,17 @@ const OrderDetails = () => {
     const _id = JSON.stringify(id)
     const data = {
       assignedDelivery: selected,
-      status: "out of delivery"
+      status: "ready for pickup"
     }
-    try {
-      const update = await axios.put(`${BASE_URL}/orders/edit/${_id}`,data)
-      console.log(update)
-    } catch (error) {
-      toast.error(error)
+    if (selected) {
+      try {
+        await axios.put(`${BASE_URL}/orders/edit/${_id}`, data)
+        toast.success("Delivery Assigned", { autoClose: 1200 })
+      } catch (error) {
+        toast.error(error)
+      }
+    } else {
+      toast.error("Select delivery")
     }
   }
 
@@ -41,7 +47,7 @@ const OrderDetails = () => {
       setOrder(result)
     }
     handleDetails()
-  }, [])
+  }, [id])
 
   useEffect(() => {
     const fetchDelivery = async () => {
@@ -60,12 +66,17 @@ const OrderDetails = () => {
       <div id="order" className='flex flex-col p-5 w-full gap-4 bg-blue-gray-50'>
         <NavBar />
 
-        <div className='flex flex-col w-full bg-white p-1 px-3'>
-          <h2 className='text-md text-gray-700 flex items-center gap-3'>Orders
+        <div className='flex flex-col w-full bg-white p-5'>
+          <h2 className='text-md text-gray-700 flex items-center gap-3'>
+            <Link to={"/orders"}>
+              Orders
+            </Link>
+            <FaAngleDoubleRight/>
             <span className='text-sm text-gray-500'>
               order details
-            </span>
+            </span>           
           </h2>
+
         </div>
 
         <div className='w-full h-full flex gap-4'>
@@ -73,12 +84,12 @@ const OrderDetails = () => {
             <h3 className='text-xs '>Ordered lists</h3>
             <div className='flex flex-wrap gap-3 p-3'>
               {order ? (order?.items?.map((order, index) => (
-                <div className='flex gap-1 min-w-[12rem] bg-blue-gray-50 min-h-[4rem]' key={index}>
+                <div className='flex gap-1 min-w-[14rem] bg-blue-gray-50 min-h-[4rem]' key={index}>
                   <div className='flex flex-col gap-1 m-2 '>
                     <img src={order.productImage} alt="" className='w-[5rem] h-[3.5rem]' />
                   </div>
                   <div className='flex flex-col justify-center'>
-                    <h4 className='text-xs text-black'>{order.productName}</h4>
+                    <h4 className='text-xs text-black truncate'>{order.productName}</h4>
                     <h3 className='text-xs'>{order.categories}</h3>
                     <h3 className='text-xs text-teal-600'>${order.price}</h3>
                   </div>
@@ -120,26 +131,34 @@ const OrderDetails = () => {
                 </div>
               </div>
             </div>
-            <h1 className='flex gap-3 items-center text-md'>
-              Status:
-              {order ? (
-                <span
-                  className={` whitespace-nowrap 
-                                    ${order.status == "placed"
-                      ? "text-orange-500"
-                      : order.status === "out of delivery"
-                        ? "text-blue-500"
-                        : order.status === "delivered"
-                          ? "text-green-500"
-                          : order.status === "rejected"
-                            ? "text-red-500"
-                            : "text-black"
-                    }`}
-                >
-                  {order.status}
-                </span>
-              ) : ""}
-            </h1>
+            <div className='flex flex-col gap-3'>
+              <h2 className='flex gap-2 text-sm'>
+                Assigned Delivery :
+                <span className={`${order?.assignedDelivery === "Not Assigned" ? "text-red-500" : "text-gray-400 font-semibold"} capitalize`}>{order?.assignedDelivery}</span>
+              </h2>
+              <h1 className='flex gap-3 items-center text-md'>
+                Status:
+                {order ? (
+                  <span
+                    className={`whitespace-nowrap 
+                    ${order.status == "placed"
+                        ? "text-orange-500"
+                        : order.status === "ready for pickup"
+                          ? "text-purple-500"
+                          : order.status === "out of delivery"
+                            ? "text-blue-500"
+                            : order.status === "delivered"
+                              ? "text-teal-500"
+                              : order.status === "rejected"
+                                ? "text-red-500"
+                                : "text-black"
+                      }`}
+                  >
+                    {order.status}
+                  </span>
+                ) : ""}
+              </h1>
+            </div>
           </div>
         </div>
       </div>

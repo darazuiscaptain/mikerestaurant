@@ -52,10 +52,10 @@ const Deliveries = () => {
                                 className='grid grid-cols-4  w-5/6'>
                                 <div className='flex gap-3 items-center'>
                                     <img src={user.photo} alt='' className='flex w-8 h-8 rounded-full' />
-                                    <li className='flex text-xs text-gray-600 truncate uppercase'>{user.username}</li>
+                                    <li className='flex text-xs items-center text-gray-600 truncate uppercase'>{user.username}</li>
                                 </div>
-                                <li className='flex text-xs text-gray-600'>{user.email}</li>
-                                <div className='flex gap-2'>
+                                <li className='flex text-xs items-center text-gray-600'>{user.email}</li>
+                                <div className='flex items-center gap-3'>
                                     <li><AiOutlineEdit className='text-orange-600' /></li>
                                     <li><AiOutlineDelete className='text-red-600' /></li>
 
