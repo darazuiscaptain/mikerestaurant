@@ -27,22 +27,23 @@ export const getOrder = async (req, res, next) => {
         const orderDetails = await Order.findById({ _id: parsedID })
             .populate("customer")
             .populate("items")
-            .populate("assigndDelivery")
+            .populate("assignedDelivery")
         res.json(orderDetails)
     } catch (error) {
+        // console.log(error)
         next(error)
     }
 }
 
 export const updateOrder = async (req, res, next) => {
     const { id } = req.params
-    const { assignedDelivery, status } = req.body
-    
-    const parsedID = JSON.parse(id).id
+
     try {
-        const result = Order.findByIdAndUpdate({_id: parsedID}, {assignedDelivery, status}, {new: true})
+        const parsedID = JSON.parse(id).id
+        const result = await Order.updateOne({ _id: parsedID }, req.body, { new: true })
         res.json(result)
     } catch (error) {
+        // console.log(error)
         next(error)
     }
 } 
