@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Logo from '../../../components/Logo'
+import logo from '../../../assets/food-delivery-logo.jpg'
 import { AiTwotoneHome } from "react-icons/ai"
 import { MdOutlineProductionQuantityLimits, MdRememberMe } from "react-icons/md"
 import { HiDocumentReport } from "react-icons/hi"
@@ -14,7 +14,7 @@ const Sidebar = () => {
         <div className='flex w-[11rem] h-[100vh] sticky top-0 left-0 rounded-none border-r-2'>
             <div className='flex flex-col mx-auto pt-7 gap-6'>
                 <div className='flex flex-col gap-4'>
-                    <Logo />
+                    <img src={logo} alt="" className='w-16 h-16' />
                     <div className='flex flex-col items-center justify-center'>
                         <h2 className='text-sm font-normal'>{username}</h2>
                         <h5 className='text-xs text-gray-500'>{email}</h5>
