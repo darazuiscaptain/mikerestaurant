@@ -32,22 +32,22 @@ function FastFood({ fastFood }) {
     return (
         <section className='mt-8 p-3'>
             <div className='flex justify-start py-2'>
-                <h1 className='text_gradient_p font-extrabold text-2xl'>FastFood</h1>
+                <h1 className='font-semibold text-xl text-red-400 px-3 sm:pl-8'>Fast-Food</h1>
             </div>
-            <div className='flex flex-wrap gap-2 '>
+            <div className='flex flex-wrap gap-2'>
                 {fastFood.map((fastFood) => (
                     <div
                         key={fastFood._id}
-                        className='flex flex-col gap-2 max-w-[170px] p-1 h-52 border-[1px] bg-gray-50 rounded-lg'>
-                        <div className='overflow-hidden flex flex-1'>
+                        className='flex flex-col gap-2 max-w-[190px] sm:max-w-[225px] p-1 h-60 border-[1px] rounded-t-2xl shadow-lg bg-white'>
+                        <div className='overflow-hidden flex flex-1 rounded-2xl'>
                             <img
                                 src={fastFood.productImage}
                                 alt=""
                                 className='hover:scale-110  w-full h-full object-cover' />
                         </div>
                         <div className='flex flex-col p-1'>
-                            <p className='text-sm font-semibold text-gray-700 lowercase truncate'>{fastFood.name}</p>
-                            <span className='text-xs text-gray-500'>{fastFood.star}*</span>
+                            <p className='text-md font-semibold text-gray-900 capitalize truncate'>{fastFood.productName}</p>
+                            <span className='text-xs text-gray-500'>{fastFood.star}*******</span>
                             <div className='flex justify-between items-center'>
                                 <span className='text-md text-green-600'>${fastFood.price}</span>
                                 <div className='flex gap-2 justify-center items-center'>

@@ -1,27 +1,29 @@
-import heroImg from '../assets/7.png'
+import homeLogo from '../assets/home-image.jpg'
+import Statistics from "../UI/Statistics"
 
 function Main() {
     return (
         <section id='main' className=''>
-            <div className='flex flex-col-reverse xl:flex-row-reverse gap-5 lg:gap-0 '>
-                <div className='flex h-[140px] xl:h-[20rem]'>
-                    <img src={heroImg} alt="restaurant" 
-                        className='w-full h-full object-cover' />
+            <div className='grid md:grid-cols-3 h-fit '>
+                <div className='flex flex-col  gap-0  justify-around p-8 sm:p-4 max-w-[400px] sm:w-full'>
+                    <div className='flex items-center justify-center'>
+                        <h2 className='flex flex-col text-[40px] font-extrabold leading-10 text-red-400'>
+                            Order Delivery
+                            <span className='text-black'>
+                                near you!
+                            </span>
+                            <h3 className='text-gray-500 text-sm font-light my-2'>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Iorem sum sit amet.
+                            </h3>
+                        </h2>
+                    </div>
                 </div>
-                <div className='flex flex-col justify-center items-start w-full flex-1 p-3 py-0'>
-                    <h1
-                        data-aos='fade-top' data-aos-duration='900'
-                        className='font-bold font-sans  text-black text-1xl sm:text-3xl  '>
-                        
-                        <br />
-                        <span className='text-red-700 whitespace-nowrap'>
-                            Order Delivery near you!
-                        </span>
-                    </h1>
-                    <p className='text-sm flex flex-wrap max-w-[400px] text-gray-600'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Similique nostrum.
-                    </p>
+                <div className='flex  bg-white'>
+                    <img src={homeLogo} alt="" className='bg-white' />
+                </div>
+                <div className='flex'>
+                    <Statistics />
                 </div>
             </div>
         </section>

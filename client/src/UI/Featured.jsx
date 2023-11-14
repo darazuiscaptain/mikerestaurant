@@ -11,17 +11,17 @@ function Featured() {
   return (
     <section className='sm:mt-8 px-8 sm:p-8 md:p-4 lg:p-0 mt-16 '>
         <div className='flex flex-col gap-2'>
-            <h1 className='text_gradient_h cursor-pointer hover:scale-105'>
+            <h1 className='font-extrabold text-2xl text-red-400 px-3 sm:pl-8'>
                 Our Restaurants
             </h1>
-            <div className='flex flex-wrap gap-4 bg-gray-100 p-2 py-4 rounded-md justify-center lg:justify-start'>
-                <CardLoader image={image1} open={"open"} title={"Lorem"}/>
-                <CardLoader image={image6} open={"open"} title={"Ipsum"}/>
-                <CardLoader image={image3} open={"close"} title={"Dolor"}/>
-                <CardLoader image={image2} open={"open"} title={"amet"}/>
-                <CardLoader image={image4} open={"open"} title={"Sit"}/>
-                <CardLoader image={image1} open={"close"} title={"Lorem"}/>
-                <CardLoader image={image6} open={"open"} title={"Ipsum"}/>
+            <div className='flex flex-wrap gap-5  p-2 py-4 rounded-md justify-center lg:justify-start'>
+                <CardLoader image={image1} open={"open"} title={"Lorem Kepaso"}/>
+                <CardLoader image={image6} open={"open"} title={"Ipsum Isumur gini"}/>
+                <CardLoader image={image3} open={"close"} title={"Dolor kapt"}/>
+                <CardLoader image={image2} open={"open"} title={"Amet Smirna"}/>
+                <CardLoader image={image4} open={"open"} title={"Sit Bakulu"}/>
+                <CardLoader image={image1} open={"close"} title={"Lorem Estivasko"}/>
+                <CardLoader image={image6} open={"open"} title={"Psum Balo"}/>
             </div>
         </div>
     </section>

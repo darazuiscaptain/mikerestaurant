@@ -21,6 +21,8 @@ import Products from "./pages/admin/Products";
 import { useSelector } from "react-redux";
 import Deliveries from "./pages/admin/Deliveries";
 import RegisterDelivery from "./pages/admin/RegisterDelivery";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 
@@ -73,10 +75,17 @@ function App() {
 export const ProtectedRoute = () => {
   const { currentUser } = useSelector((state) => state?.auth)
 
-  if (currentUser?.role === "customer") {
-    return <Outlet />
-  }
-  <Navigate to="/sign_up_in" />
+  // if (currentUser?.role === "customer") {
+    return (
+      <>
+      <Header/>
+      <Outlet />
+      <Footer />
+      </>
+
+    )
+  // }
+  // <Navigate to="/sign_up_in" />
 }
 
 export const ProtectedAdminRoute = () => {
