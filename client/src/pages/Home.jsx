@@ -49,7 +49,7 @@ function Home() {
                 <div className="flex flex-col flex-1 md:rounded-lg border-1">
 
                     {loading
-                        ? <LoadingSpinner size={100} color={'#4299e1'} />
+                        ? <LoadingSpinner size={100} color={"#EF436F"} />
                         : (
                             <>
                                 <FastFood fastFood={fastFood} />

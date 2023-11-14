@@ -16,6 +16,7 @@ const OrderDetails = () => {
   const [delivery, setDelivery] = useState([])
   const [selected, setSelected] = useState("")
   const [loading, setLoading] = useState(false)
+  const [processing, setProcessing] = useState(false)
 
   const handleChange = (e) => {
     setSelected(e.target.value)
@@ -29,10 +30,13 @@ const OrderDetails = () => {
     }
     if (selected) {
       try {
+        setProcessing(true)
         await axios.put(`${BASE_URL}/orders/edit/${_id}`, data)
         toast.success("Delivery Assigned", { autoClose: 1200 })
       } catch (error) {
         toast.error(error)
+      } finally {
+        setProcessing(false)
       }
     } else {
       toast.error("Select delivery")
@@ -128,8 +132,8 @@ const OrderDetails = () => {
                 <div className='flex justify-end'>
                   <button
                     onClick={handleAssign}
-                    className='text-xs uppercase bg-teal-500 rounded-lg p-2 px-5 w-fit text-white'>
-                    Assign
+                    className='flex  items-center justify-center w-full text-xs uppercase bg-teal-500 rounded-lg p-2 px-5 text-white'>
+                    {processing ? <LoadingSpinner size={20} color={"#fff"}/> : "Assign"}
                   </button>
                 </div>
               </div>
