@@ -1,24 +1,34 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  MobileNav,
   Button,
   IconButton,
   Collapse,
+  Dialog,
 } from "@material-tailwind/react";
 
 import { CgProfile } from "react-icons/cg"
-import {  BsFillCartCheckFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
 import logo from "../assets/food-delivery-logo.jpg"
+import { BiEdit, BiLogOut } from "react-icons/bi";
+
 import { BASE_URL } from "../baseurl"
+import Sign_up_in from "../pages/Sign_up_in";
 
 export function Header() {
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
+
   const { currentUser, loading } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [profile, setProfile] = useState(false)
 
   const [openNav, setOpenNav] = useState(false);
   const [activeAnchor, setActiveAnchor] = useState(1); // Assuming links are indexed from 1
@@ -33,8 +43,9 @@ export function Header() {
       await axios.post(`${BASE_URL}/auth/logout`)
       navigate("/")
       dispatch(logoutSuccess())
-      toast("Logout success", { autoClose: 1200 })
+      toast("Logout success", { autoClose: 1000 })
     } catch (error) {
+      console.log(error)
       dispatch(logoutFailure(error?.response?.data?.message))
     } finally {
       closeDrawer()
@@ -56,7 +67,7 @@ export function Header() {
       <div className="flex items-center justify-between text-blue-gray-900">
         {/* Header logo */}
         <Link to={"/"}>
-        <img src={logo} alt="" className="w-24 h-12" />
+          <img src={logo} alt="" className="w-24 h-12" />
         </Link>
 
         {/* nav list  */}
@@ -92,37 +103,44 @@ export function Header() {
           </ul>
         </nav>
 
-        { currentUser ? (
-            <div className="flex flex-row text-md items-center justify-end gap-3">
-              <Link to={"/mycart"}>
-                <BsFillCartCheckFill className=" text-gray-900" />
+        {currentUser ? (
+          <div className="hidden lg:flex text-xl px-5 items-center justify-end gap-3 relative">
+            <Link to={"/mycart"}>
+              <BsFillCartCheckFill className=" text-gray-900" />
+            </Link>
+            <button onClick={() => setProfile(!profile)}
+            >
+              <CgProfile />
+            </button>
+            <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 top-5 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
+              <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                <BiEdit className='text-orange-600 text-lg' />
+                Update Profile
               </Link>
-              <button
-                onClick={handleLogout}
-                className='text-lg text-black'>
-                {loading
-                  ? <LoadingSpinner size={20} color={"#fff"} />
-                  : <CgProfile />}
+              <div className='w-full border-b-2 border-gray-300' />
+              <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                <BiLogOut className='text-red-600 text-lg' />
+                <span onClick={() => handleLogout()} >
+                  {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
+                </span>
               </button>
+
             </div>
-          ) : (
-            <div className="flex items-center gap-x-1 text-md">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Sign in</span>
-              </Button>
-            </div>
-          )
+          </div>
+        ) : (
+          <div className="flex items-center gap-x-1 text-md">
+
+            <Button onClick={handleOpen}
+              variant="text"
+              size="sm"
+              className="hidden lg:inline-block">
+              Log In
+            </Button>
+            <Dialog open={open} handler={handleOpen} className="w-fit h-fit p-5">
+              <Sign_up_in  />
+            </Dialog>
+          </div>
+        )
         }
 
         <IconButton
@@ -197,180 +215,47 @@ export function Header() {
               </a>
             </li>
           </ul>
-          <div className="flex justify-around">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
-          </div>
+          {currentUser ? (
+            <div className="flex lg:hidden text-xl px-5 items-center justify-end gap-3 relative">
+              <Link to={"/mycart"}>
+                <BsFillCartCheckFill className=" text-gray-900" />
+              </Link>
+              <button onClick={() => setProfile(!profile)}
+              >
+                <CgProfile />
+              </button>
+              <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 -top-32 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
+                <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                  <BiEdit className='text-orange-600 text-lg' />
+                  Update Profile
+                </Link>
+                <div className='w-full border-b-2 border-gray-300' />
+                <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                  <BiLogOut className='text-red-600 text-lg' />
+                  <span onClick={() => handleLogout()} >
+                    {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
+                  </span>
+                </button>
+
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-end gap-x-1 text-md">
+              <Button onClick={handleOpen}
+                variant="gradient"
+                size="sm"
+                className="block lg:hidden">
+                Log In
+              </Button>
+              <Dialog open={open} handler={handleOpen} className="w-fit h-fit p-5">
+                <Sign_up_in open={open} setOpen={setOpen} />
+              </Dialog>
+            </div>
+          )
+          }
         </div>
       </Collapse>
     </div>
   );
 }
 export default Header
-
-// function Header() {
-
-//   const navigate = useNavigate()
-//   const dispatch = useDispatch()
-
-//   const [open, setOpen] = useState(false);
-//   const openDrawer = () => setOpen(true);
-//   const closeDrawer = () => setOpen(false);
-
-
-//   const handleLogin = () => {
-//     closeDrawer()
-//     navigate("/sign_up_in")
-//   }
-
-  
-
-//   const manageProfile = () => {
-//     if (currentUser) {
-//       navigate("/profile/me")
-//       closeDrawer()
-//     } else {
-//       toast("something err Refresh the page")
-//     }
-//   }
-
-//   return (
-//     <div className="px-5 md:px-12 lg:px-24  py-4 sticky top-0 bg-white z-50">
-//       <header className='flex justify-between flex-row-reverse lg:flex-row'>
-//         <h1 className='text-3xl md:text-5xl font-bold cursor-pointer'>
-//           <Logo />
-//         </h1>
-//         <ul className='hidden lg:flex gap-12 items-center justify-center'>
-//           <div className="flex gap-3">
-//             <Link to="/" className='hover:underline cursor-pointer text_gradient_a text-sx'>
-//               Home
-//             </Link>
-//             <Link to="/contact" className='hover:underline cursor-pointer text_gradient_a text-sx'>
-//               Contact Us
-//             </Link>
-//             <Link to="/about" className='hover:underline cursor-pointer text_gradient_a text-sx'>
-//               About Us
-//             </Link>
-//           </div>
-//           {
-//             currentUser ? (
-//               <div className="flex flex-row items-center gap-3">
-//                 <Link to={"/mycart"}>
-//                   <BsFillCartCheckFill className="text-md text-teal-900" />
-//                 </Link>
-//                 {/* <div onClick={manageProfile}>
-//                   <img
-//                     src={currentUser.photo}
-//                     alt={currentUser.username}
-//                     className="h-8 w-8 rounded-full cursor-pointer" />
-//                 </div> */}
-//                 <button
-//                   onClick={handleLogout}
-//                   className='text-lg text-black'>
-//                   {loading 
-//                   ? <LoadingSpinner size={20} color={"#fff"} /> 
-//                   : <CgProfile /> }
-//                 </button>
-//               </div>
-//             ) : (
-//               <button
-//                 onClick={handleLogin}
-//                 className='p-1 px-5 rounded-full bg-teal-400 text-white hover:opacity-90'>
-//                 {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
-//               </button>
-//             )
-//           }
-//         </ul>
-
-//         {/* ==================== Mobile Menu ====================== */}
-
-//         <div className='flex lg:hidden'>
-//           <Fragment>
-//             <div onClick={openDrawer} className="bg-white border-none shadow-none">
-//               <div className="text-gray-700 text-4xl cursor-pointer">
-//                 <BiMenuAltLeft />
-//               </div>
-//             </div>
-//             <Drawer open={open} onClose={closeDrawer} placement="right">
-//               <div className="mb-2 flex items-center justify-between p-4">
-//                 <Typography variant="h5" color="blue-gray">
-//                   <Logo />
-//                 </Typography>
-//                 <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
-//                   <svg
-//                     xmlns="http://www.w3.org/2000/svg"
-//                     fill="none"
-//                     viewBox="0 0 24 24"
-//                     strokeWidth={2}
-//                     stroke="currentColor"
-//                     className="h-5 w-5"
-//                   >
-//                     <path
-//                       strokeLinecap="round"
-//                       strokeLinejoin="round"
-//                       d="M6 18L18 6M6 6l12 12"
-//                     />
-//                   </svg>
-//                 </IconButton>
-//               </div>
-//               <div className="flex flex-col justify-between h-96 my-12">
-//                 <div>
-//                   <ul className='flex flex-col gap-2 '>
-//                     <Link to="/" onClick={closeDrawer} className="flex gap-3 items-center p-3 mx-2 text-lg rounded-lg cursor-pointer hover:bg-gray-100 text-teal-700">
-//                       <span><BiHomeAlt /></span> Home
-//                     </Link>
-//                     <Link to="contact" onClick={closeDrawer} className="flex gap-3 items-center p-3 mx-2 text-lg rounded-lg cursor-pointer hover:bg-gray-100 text-teal-700">
-//                       <span><BiPhoneCall /></span> Contact Us
-//                     </Link>
-//                     <Link to="about" onClick={closeDrawer} className="flex gap-3 items-center p-3 mx-2 text-lg rounded-lg cursor-pointer hover:bg-gray-100 text-teal-700">
-//                       <span><BsInfoLg /></span> About Us
-//                     </Link>
-//                   </ul>
-//                 </div>
-//                 {currentUser && (
-//                   <div className="w-full flex gap-5 justify-center items-center">
-//                     <Link to={"/mycart"}>
-//                       <BsFillCartCheckFill className="text-xl text-teal-900" />
-//                     </Link>
-//                     <div onClick={manageProfile} >
-//                       <img
-//                         src={currentUser.photo}
-//                         alt={currentUser.username}
-//                         className="h-12 w-12 rounded-full cursor-pointer" />
-//                     </div>
-//                   </div>
-//                 )}
-//                 <div className="flex gap-6 justify-center">
-//                   {
-//                     currentUser ? (
-//                       <div className="flex flex-row justify-between w-full px-5 items-center">
-//                         <button
-//                           onClick={handleLogout}
-//                           className='p-1 px-3 rounded-lg bg-red-400 text-white hover:opacity-90'>
-//                           {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
-//                         </button>
-
-//                       </div>
-//                     ) : (
-//                       <button
-//                         onClick={handleLogin}
-//                         className='p-1 px-3 rounded-lg bg-teal-600 text-white hover:opacity-90'>
-//                         {loading ? <LoadingSpinner size={20} color={"#fff"} /> : "Login" }
-//                       </button>
-//                     )
-//                   }
-//                 </div>
-//               </div>
-//             </Drawer>
-//           </Fragment>
-//         </div>
-//       </header>
-//     </div>
-
-//   )
-// }
-
