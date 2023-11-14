@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import NavBar from './component/NavBar'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
+const BASE_URL = import.meta.env.BASE_URL
 
 const Orders = () => {
 
@@ -21,7 +22,7 @@ const Orders = () => {
     useEffect(() => {
         setLoading(true)
         const orders = async () => {
-            const result = await fetchAPI(`/api/orders`)
+            const result = await fetchAPI(`${BASE_URL}/orders`)
             setOrders(result)
             setLoading(false)
         }

@@ -9,6 +9,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
+const BASE_URL = import.meta.env.BASE_URL
+
 const initialValue = {
     username: "",
     email: "",
@@ -37,7 +39,7 @@ const RegisterDelivery = () => {
         } else {
             try {
                 dispatch(signInStart())
-                const result = await axios.post(`/api/auth/register`, user)
+                const result = await axios.post(`${BASE_URL}/auth/register`, user)
                 dispatch(signUpFailure(result.data))
                 if (result.status === 201) {
                     toast.success("Register success")

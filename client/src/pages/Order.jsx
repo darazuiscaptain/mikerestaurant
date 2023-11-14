@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import fetchAPI from "../utils/fetchData/fetchAPI"
 import axios from "axios"
 
+const BASE_URL = import.meta.env.BASE_URL
 
 const Order = () => {
   const id = useParams()
@@ -43,7 +44,7 @@ const Order = () => {
       toast.error("Invalid Request!")
     } else {
       try {
-        await axios.post(`/api/orders/create-order`, order)
+        await axios.post(`${BASE_URL}/orders/create-order`, order)
         if (typeof id !== 'object' || Object.keys(id).length === 0) {
           dispatch(deleteAllCart())
         }
@@ -63,7 +64,7 @@ const Order = () => {
       const stringID = JSON.stringify(id)
       try {
         if (typeof id === 'object' && Object.keys(id).length !== 0) {
-          const result = await fetchAPI(`/api/products/${stringID}`)
+          const result = await fetchAPI(`${BASE_URL}/products/${stringID}`)
           setProduct(result)
         } else {
           setProduct(null)
@@ -76,8 +77,8 @@ const Order = () => {
   }, [])
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-gray-50">
-      <div className="flex flex-col gap-3 min-w-[400px] h-full bg-white p-8 shadow-md">
+    <div className="">
+      <div className="flex flex-col gap-3  h-full bg-white p-8 shadow-md">
         <div className="flex flex-col gap-5 items-center justify-center">
           <h2 className="flex gap-3 justify-center text-teal-300">Payment on delivery!!!</h2>
           <div className="border-b-2 border-gray-300" />
@@ -115,7 +116,7 @@ const Order = () => {
         <div className="flex flex-col gap-6 m-4 justify-end w-full">
 
           {product !== null ? "" : (
-            <div className='flex gap-3 justify-end text-blue-gray-500'>
+            <div className='flex gap-3 justify-start text-blue-gray-500'>
               <h1 className='text-2xl'>Total:</h1>
               <h2 className='text-2xl'>
                 <span className="text-teal-600">

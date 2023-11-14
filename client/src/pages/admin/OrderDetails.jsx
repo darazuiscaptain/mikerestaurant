@@ -8,7 +8,7 @@ import axios from 'axios'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
-
+const BASE_URL = import.meta.env.BASE_URL
 
 const OrderDetails = () => {
   const id = useParams()
@@ -30,7 +30,7 @@ const OrderDetails = () => {
     }
     if (selected) {
       try {
-        await axios.put(`/api/orders/edit/${_id}`, data)
+        await axios.put(`${BASE_URL}/orders/edit/${_id}`, data)
         toast.success("Delivery Assigned", { autoClose: 1200 })
       } catch (error) {
         toast.error(error)
@@ -44,7 +44,7 @@ const OrderDetails = () => {
     const stringID = JSON.stringify(id)
     setLoading(true)
     const handleDetails = async () => {
-      const result = await fetchAPI(`/api/orders/${stringID}`)
+      const result = await fetchAPI(`${BASE_URL}/orders/${stringID}`)
       setOrder(result)
       setLoading(false)
     }
@@ -53,7 +53,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const fetchDelivery = async () => {
-      const result = await fetchAPI(`/api/users?role=delivery`)
+      const result = await fetchAPI(`${BASE_URL}/users?role=delivery`)
       setDelivery(result)
     }
     fetchDelivery()

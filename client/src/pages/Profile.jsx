@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import fetchAPI from '../utils/fetchData/fetchAPI'
 
-
+const BASE_URL = import.meta.env.BASE_URL
 
 function Profile() {
     const [user, setUser] = useState(null)
@@ -26,7 +26,7 @@ function Profile() {
                 if (currentPassword === undefined && newPassword) {
                     toast.error("Current password Required!")
                 } else {
-                    await axios.put(`/api/user/${currentUser?._id}`, user)
+                    await axios.put(`${BASE_URL}/user/${currentUser?._id}`, user)
                     toast.success("Update success")
                 }
             } catch (error) {
@@ -49,7 +49,7 @@ function Profile() {
     useEffect(() => {
         const fetch = async () => {
             if (currentUser) {
-                const result = await fetchAPI(`/api/users/${currentUser._id}`)
+                const result = await fetchAPI(`${BASE_URL}/users/${currentUser._id}`)
                 console.log(result)
                 setUser(result)
             }

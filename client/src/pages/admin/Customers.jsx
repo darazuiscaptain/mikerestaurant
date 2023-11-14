@@ -5,6 +5,7 @@ import NavBar from './component/NavBar'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
+const BASE_URL = import.meta.env.BASE_URL
 
 const Customers = () => {
 
@@ -14,7 +15,7 @@ const Customers = () => {
     useEffect(() => {
         setLoading(true)
         const fetchCustomers = async () => {
-            const result = await fetchAPI(`/api/users?role=customer`)
+            const result = await fetchAPI(`${BASE_URL}/users?role=customer`)
             setCustomers(result)
             setLoading(false)
         }

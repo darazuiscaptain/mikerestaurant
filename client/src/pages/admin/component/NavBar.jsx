@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 
+const BASE_URL = import.meta.env.BASE_URL
 
 const NavBar = () => {
 
@@ -24,7 +25,7 @@ const NavBar = () => {
     const handleLogout = async () => {
         dispatch(logoutStart())
         try {
-            await axios.post(`/api/auth/logout`)
+            await axios.post(`${BASE_URL}/auth/logout`)
             navigate("/")
             dispatch(logoutSuccess())
             toast("Logout success", { autoClose: 1200 })

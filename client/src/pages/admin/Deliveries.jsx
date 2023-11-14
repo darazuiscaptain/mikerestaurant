@@ -6,7 +6,7 @@ import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
-
+const BASE_URL = import.meta.env.BASE_URL
 
 const Deliveries = () => {
 
@@ -16,7 +16,7 @@ const Deliveries = () => {
     useEffect(() => {
         setLoading(true)
         const fetchDelivery = async () => {
-            const result = await fetchAPI(`/api/users?role=delivery`)
+            const result = await fetchAPI(`${BASE_URL}/users?role=delivery`)
             setLoading(false)
             setDelivery(result)
         }

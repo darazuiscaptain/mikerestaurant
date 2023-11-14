@@ -7,7 +7,7 @@ import { toast } from "react-toastify"
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
-
+const BASE_URL = import.meta.env.BASE_URL
 
 const AddProduct = () => {
   const navigate = useNavigate()
@@ -48,7 +48,7 @@ const AddProduct = () => {
 
     try {
       setLoading(true)
-      const result = await axios.post(`/api/products/add-product`, formData);
+      const result = await axios.post(`${BASE_URL}/products/add-product`, formData);
       if (result) {
         toast.success("Product created successfully")
         navigate("/products")

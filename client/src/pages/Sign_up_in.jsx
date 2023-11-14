@@ -8,7 +8,7 @@ import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signU
 import { toast } from 'react-toastify'
 import LoadingSpinner from '../components/LoadingSpinner'
 
-
+const BASE_URL = import.meta.env.BASE_URL
 
 const initialValue = {
   username: "",
@@ -41,7 +41,7 @@ function Sign_up_in() {
       } else {
         try {
           dispatch(signInStart())
-          const result = await axios.post(`/api/auth/login`, user)
+          const result = await axios.post(`${BASE_URL}/auth/login`, user)
           console.log(result)
           if (result.status === 200) {
             toast.success("Login success", { autoClose: 1500 })
@@ -76,7 +76,7 @@ function Sign_up_in() {
       } else {
         try {
           dispatch(signInStart())
-          const result = await axios.post(`/api/auth/register`, user)
+          const result = await axios.post(`${BASE_URL}/auth/register`, user)
           if (result.status === 201) {
             toast.success("Register and login success")
             dispatch(signUpSuccess(result.data))

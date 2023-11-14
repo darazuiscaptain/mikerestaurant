@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import NavBar from './component/NavBar'
 import LoadingSpinner from '../../components/LoadingSpinner'
 
+const BASE_URL = import.meta.env.BASE_URL
 
 const Products = () => {
     const [products, setProducts] = useState([])
@@ -23,7 +24,7 @@ const Products = () => {
 
         try {
             setLoading(true)
-            const update = await axios.put(`/api/products/update/${product._id}`, product)
+            const update = await axios.put(`${BASE_URL}/products/update/${product._id}`, product)
             if (update) {
                 toast.success("Update successfully")
             }
@@ -39,7 +40,7 @@ const Products = () => {
         setLoading(true)
         const fetchData = async () => {
             try {
-                const result = await fetchAPI(`/api/products`);
+                const result = await fetchAPI(`${BASE_URL}/products`);
                 setProducts(result);
                 setLoading(false)
             } catch (error) {
