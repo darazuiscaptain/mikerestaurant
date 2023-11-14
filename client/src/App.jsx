@@ -1,5 +1,6 @@
 import Aos from "aos"
 import { useEffect } from "react"
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,22 +9,27 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Sign_up_in from "./pages/Sign_up_in";
-import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+
 import Dashboard from "./pages/admin/Dashboard";
 import AddProduct from "./pages/admin/AddProduct";
 import Orders from "./pages/admin/Orders";
 import Customers from "./pages/admin/Customers";
 import OrderDetails from "./pages/admin/OrderDetails";
 import Products from "./pages/admin/Products";
-import { useSelector } from "react-redux";
 import Deliveries from "./pages/admin/Deliveries";
 import RegisterDelivery from "./pages/admin/RegisterDelivery";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+
+import DeliveryDashboard from "./pages/delivery/Dashboard";
+import OrdersDeliveryView from "./pages/delivery/orders";
+import OrderDetailsDeliveryView from "./pages/delivery/orderdetail";
 
 
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   useEffect(() => {
@@ -59,6 +65,14 @@ function App() {
             <Route path="/reg-delivery" element={<RegisterDelivery />} />
           </Route>
 
+          {/* Protected Customers Routes */}
+          <Route element={<ProtectedDeliveryRoute />}>
+            <Route path="/delivery/dashboard" element={<DeliveryDashboard />} />
+            <Route path="/delivery/orders" element={<OrdersDeliveryView />} />
+            <Route path="/delivery/order/:id" element={<OrderDetailsDeliveryView />} />
+            
+          </Route>
+
 
           {/* Routes Not Found  */}
           <Route path="*" element={<PageNotFound />} />
@@ -73,17 +87,15 @@ function App() {
 export const ProtectedRoute = () => {
   const { currentUser } = useSelector((state) => state?.auth)
 
-  // if (currentUser?.role === "customer") {
+  if (currentUser?.role === "customer") {
     return (
       <>
-      <Header/>
-      <Outlet />
-      <Footer />
+        <Header />
+        <Outlet />
+        <Footer />
       </>
-
     )
-  // }
-  // <Navigate to="/sign_up_in" />
+  }
 }
 
 export const ProtectedAdminRoute = () => {
@@ -92,7 +104,15 @@ export const ProtectedAdminRoute = () => {
   if (currentUser?.role === "admin") {
     return <Outlet />
   }
-  <Navigate to="/sign_up_in" />
+}
+
+
+export const ProtectedDeliveryRoute = () => {
+  const { currentUser } = useSelector((state) => state?.auth)
+
+  if (currentUser?.role === "delivery") {
+    return <Outlet />
+  }
 }
 
 export default App
