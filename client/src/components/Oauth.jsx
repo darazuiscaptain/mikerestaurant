@@ -4,9 +4,7 @@ import { app } from "../firebase"
 import axios from "axios"
 import { signInFailure, signInStart, signInSuccess } from "../redux/authSlice"
 import { useDispatch } from "react-redux"
-
-const BASE_URL = "https://mern-restaurant-5rre.onrender.com"
-
+import { BASE_URL } from "../baseurl"
 
 function Oauth({loading}) {
   const navigate = useNavigate()

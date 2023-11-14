@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import LoadingSpinner from '../../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../../baseurl"
 
 const Deliveries = () => {
 

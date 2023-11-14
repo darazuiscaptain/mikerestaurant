@@ -5,8 +5,7 @@ import axios from "axios"
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import fetchAPI from '../utils/fetchData/fetchAPI'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../baseurl"
 
 function Profile() {
     const [user, setUser] = useState(null)

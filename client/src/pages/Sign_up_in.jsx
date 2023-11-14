@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { reload, signInStart, signInSuccess, signInFailure, signUpSuccess, signUpFailure } from '../redux/authSlice'
 import { toast } from 'react-toastify'
 import LoadingSpinner from '../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../baseurl"
 
 const initialValue = {
   username: "",
@@ -34,6 +33,7 @@ function Sign_up_in() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch(signInStart())
+    console.log(BASE_URL, "base")
     if (login) {
       if (email === "" || password === "") {
         toast.error("Fields are required!", { autoClose: 1500 })

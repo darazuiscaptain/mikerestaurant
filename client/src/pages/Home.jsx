@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import LoadingSpinner from "../components/LoadingSpinner"
 
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../baseurl"
 
 function Home() {
     const [fastFood, setFastFood] = useState([])
@@ -47,7 +47,7 @@ function Home() {
             <Main />
             <div className="flex flex-col gap-1 lg:mt-5">
                 <div className="flex flex-col flex-1 md:rounded-lg border-1">
-                    
+
                     {loading
                         ? <LoadingSpinner size={100} color={'#4299e1'} />
                         : (

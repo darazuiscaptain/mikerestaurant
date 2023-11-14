@@ -11,8 +11,7 @@ import { BiLogOut, BiEdit } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutFailure, logoutStart, logoutSuccess } from '../../../redux/authSlice'
 import LoadingSpinner from '../../../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../../../baseurl"
 
 const NavBar = () => {
 

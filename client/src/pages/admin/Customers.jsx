@@ -4,8 +4,7 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import NavBar from './component/NavBar'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import LoadingSpinner from '../../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../../baseurl"
 
 const Customers = () => {
 

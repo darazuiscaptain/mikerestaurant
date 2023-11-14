@@ -8,8 +8,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaAngleDoubleRight } from 'react-icons/fa'
 import LoadingSpinner from '../../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../../baseurl"
 
 const initialValue = {
     username: "",

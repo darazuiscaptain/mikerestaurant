@@ -15,8 +15,7 @@ import { logoutSuccess, logoutFailure, logoutStart } from "../redux/authSlice";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
 import logo from "../assets/food-delivery-logo.jpg"
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../baseurl"
 
 export function Header() {
   const { currentUser, loading } = useSelector((state) => state.auth)

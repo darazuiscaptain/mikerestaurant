@@ -5,8 +5,7 @@ import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
 import NavBar from './component/NavBar'
 import LoadingSpinner from '../../components/LoadingSpinner'
-
-const BASE_URL = import.meta.env.BASE_URL
+import { BASE_URL } from "../../baseurl"
 
 const Orders = () => {
 
