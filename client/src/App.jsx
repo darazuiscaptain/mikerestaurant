@@ -11,7 +11,6 @@ import Sign_up_in from "./pages/Sign_up_in";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
-import Order from "./pages/Order";
 import Dashboard from "./pages/admin/Dashboard";
 import AddProduct from "./pages/admin/AddProduct";
 import Orders from "./pages/admin/Orders";
@@ -45,8 +44,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/profile/me" element={<Profile />} />
             <Route path="/mycart" element={<Cart />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/order/:id" element={<Order />} />
+            <Route path="/order/:id" element={<Cart />} />
           </Route>
 
           {/* Protected Admin Routes */}

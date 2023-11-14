@@ -7,7 +7,6 @@ const LoadingSpinner = ({ size, color }) => {
             <SpinnerDotted
                 size={size}
                 color={color}
-                secondaryColor='rgba(0,250,0,0.44)'
                 thickness={150}
             />
         </div>
