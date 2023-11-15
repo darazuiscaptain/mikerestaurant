@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import fetchAPI from '../../utils/fetchData/fetchAPI'
-import Sidebar from './component/Sidebar'
+import SideBar from './component/SideBar'
 import NavBar from './component/NavBar'
 import { toast } from 'react-toastify'
 import axios from 'axios'
@@ -61,7 +61,7 @@ const OrderDetails = () => {
   return (
     <div id="dashboard" className='flex w-full h-full '>
       <div id="sidebar">
-        <Sidebar />
+        <SideBar />
       </div>
       <div id="order" className='flex flex-col p-5 w-full gap-4 bg-blue-gray-50'>
         <NavBar />
