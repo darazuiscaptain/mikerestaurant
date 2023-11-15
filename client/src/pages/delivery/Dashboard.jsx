@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from './component/Sidebar'
+import Sidebar from './component/SideBar'
 import MainBoard from './component/MainBoard'
 
 const Dashboard = () => {
