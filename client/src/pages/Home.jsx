@@ -46,7 +46,7 @@ function Home() {
             <Header />
             <Main />
             <div className="flex flex-col gap-1 lg:mt-5">
-                <div className="flex flex-col flex-1 md:rounded-lg border-1">
+                <div className="flex flex-col flex-1 mx-auto pl-3 sm:pl-0 md:rounded-lg border-1">
 
                     {loading
                         ? <LoadingSpinner size={100} color={"#EF436F"} />
