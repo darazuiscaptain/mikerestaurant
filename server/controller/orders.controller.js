@@ -12,8 +12,14 @@ export const createOrder = async (req, res, next) => {
 }
 
 export const getOrders = async (req, res, next) => {
+    const { assignedDelivery } = req.query
     try {
-        const result = await Order.find({}).populate("items.product")
+        let result;
+        if(assignedDelivery){
+            result = await Order.find({ assignedDelivery: assignedDelivery }).populate("items.product")
+        } else {
+            result = await Order.find({}).populate("items.product")
+        }
         res.json(result)
     } catch (error) {
         next(error)

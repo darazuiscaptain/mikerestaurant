@@ -25,8 +25,8 @@ import Deliveries from "./pages/admin/Deliveries";
 import RegisterDelivery from "./pages/admin/RegisterDelivery";
 
 import DeliveryDashboard from "./pages/delivery/Dashboard";
-import OrdersDeliveryView from "./pages/delivery/orders";
-import OrderDetailsDeliveryView from "./pages/delivery/orderdetail";
+import OrdersDeliveryView from "./pages/delivery/Orders";
+import OrderDetailsDeliveryView from "./pages/delivery/Orderdetail";
 
 
 import PageNotFound from "./pages/PageNotFound";
