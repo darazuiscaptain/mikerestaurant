@@ -3,7 +3,6 @@ import {
   Button,
   IconButton,
   Collapse,
-  Dialog,
 } from "@material-tailwind/react";
 
 import { CgProfile } from "react-icons/cg"
@@ -19,6 +18,7 @@ import { BiEdit, BiLogOut } from "react-icons/bi";
 
 import { BASE_URL } from "../baseurl"
 import Sign_up_in from "../pages/Sign_up_in";
+import Dialog from "./Dialog";
 
 export function Header() {
 
@@ -95,11 +95,11 @@ export function Header() {
         </nav>
 
         {currentUser ? currentUser.role === "admin"
-          ? <Link to={"/dashboard"} className="flex text-sm font-bold">
+          ? <Link to={"/dashboard"} className="hidden lg:flex text-sm font-bold">
             Admin
           </Link>
           : currentUser.role === "delivery"
-            ? <Link to={"/delivery/dashboard"} className="flex text-sm font-bold">
+            ? <Link to={"/delivery/dashboard"} className="hidden lg:flex text-sm font-bold">
               Delivery
             </Link>
             : (
@@ -135,7 +135,7 @@ export function Header() {
               className="hidden lg:inline-block">
               Log In
             </Button>
-            <Dialog open={open} handler={handleOpen} className="w-fit h-fit p-5">
+            <Dialog open={open} handler={handleOpen} >
               <Sign_up_in />
             </Dialog>
           </div>
@@ -214,31 +214,39 @@ export function Header() {
               </a>
             </li>
           </ul>
-          {currentUser ? (
-            <div className="flex lg:hidden text-xl px-5 items-center justify-end gap-3 relative">
-              <Link to={"/mycart"}>
-                <BsFillCartCheckFill className=" text-gray-900" />
+          {currentUser ? currentUser.role === "admin"
+            ? <Link to={"/dashboard"} className="flex text-sm font-bold sm:hidden px-5 items-center justify-end">
+              Admin
+            </Link>
+            : currentUser.role === "delivery"
+              ? <Link to={"/delivery/dashboard"} className="flex text-sm font-bold sm:hidden  px-5 items-center justify-end">
+                Delivery
               </Link>
-              <button onClick={() => setProfile(!profile)}
-              >
-                <CgProfile />
-              </button>
-              <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 -top-32 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
-                <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
-                  <BiEdit className='text-orange-600 text-lg' />
-                  Update Profile
-                </Link>
-                <div className='w-full border-b-2 border-gray-300' />
-                <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
-                  <BiLogOut className='text-red-600 text-lg' />
-                  <span onClick={() => handleLogout()} >
-                    {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
-                  </span>
-                </button>
+              : (
+                <div className="flex lg:hidden text-xl px-5 items-center justify-end gap-3 relative">
+                  <Link to={"/mycart"}>
+                    <BsFillCartCheckFill className=" text-gray-900" />
+                  </Link>
+                  <button onClick={() => setProfile(!profile)}
+                  >
+                    <CgProfile />
+                  </button>
+                  <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 -top-32 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
+                    <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                      <BiEdit className='text-orange-600 text-lg' />
+                      Update Profile
+                    </Link>
+                    <div className='w-full border-b-2 border-gray-300' />
+                    <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                      <BiLogOut className='text-red-600 text-lg' />
+                      <span onClick={() => handleLogout()} >
+                        {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
+                      </span>
+                    </button>
 
-              </div>
-            </div>
-          ) : (
+                  </div>
+                </div>
+              ) : (
             <div className="flex justify-end gap-x-1 text-md">
               <Button onClick={handleOpen}
                 variant="gradient"
@@ -246,8 +254,8 @@ export function Header() {
                 className="block lg:hidden">
                 Log In
               </Button>
-              <Dialog open={open} handler={handleOpen} className="w-fit h-fit p-5">
-                <Sign_up_in open={open} setOpen={setOpen} />
+              <Dialog open={open} handler={handleOpen} >
+                <Sign_up_in />
               </Dialog>
             </div>
           )

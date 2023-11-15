@@ -65,9 +65,7 @@ function Sign_up_in() {
           } else {
             console.error('Network error:', error);
           }
-        } finally {
-          dispatch(exit())
-        }
+        } 
       }
     } else {
       if (username === "" || email === "" || password === "") {
@@ -95,7 +93,6 @@ function Sign_up_in() {
             console.error('Network error:', error);
           }
         } finally {
-          dispatch(exit())
         }
       }
     }
@@ -106,18 +103,16 @@ function Sign_up_in() {
     setUser(initialValue)
   }, [login])
 
-  // useEffect(() => {
-  //   toast.error(error)
-  // }, [error])
+
+  useEffect(() => {
+    dispatch(exit())
+  }, [])
 
   return (
-    <section className='flex flex-col justify-center gap-5'>
-      <Card className='flex flex-col justify-between px-5 shadow-none'>
+    <section className='flex flex-col justify-center gap-5 max-w-[400px]'>
+      <div className='flex flex-col justify-between px-5 shadow-none'>
         <div className='flex flex-col gap-3'>
-          {error 
-          ? <span className='flex justify-center text-red-400 bg-red-100 text-xs p-5 w-1/2'>{error}</span>
-          : null }
-          
+
           <h1 className='uppercase text-2xl text-center font-medium'>
             {login ? "Login" : "Sign up"}
           </h1>
@@ -163,10 +158,13 @@ function Sign_up_in() {
             {login && <Link to={"forget"} className='text-sm text-blue-500'>Forgot password? </Link>}
 
           </div>
+          {error
+            ? <h2 className='p-3 text-xs bg-red-50 text-red-400'>{error}</h2>
+            : ""}
           <div className='flex flex-col gap-3 my-4'>
             <button
               type='submit'
-              className='w-full uppercase p-[5px] bg-teal-400 text-white hover:opacity-90'>
+              className='w-full uppercase p-[5px] bg-blue-gray-400 text-white hover:opacity-90'>
               {loading
                 ? (<LoadingSpinner size={25} color={"#fff"} />)
                 : (login ? "Login" : "Register")}
@@ -176,7 +174,7 @@ function Sign_up_in() {
             {/* <Oauth loading={loading} /> */}
           </div>
         </form>
-      </Card>
+      </div>
     </section>
   )
 }
