@@ -22,7 +22,7 @@ function Main() {
                 <div className='flex bg-white'>
                     <img src={homeLogo} alt="" className='bg-white w-full' />
                 </div>
-                <div className='flex'>
+                <div className='flex justify-center items-center'>
                     <Statistics />
                 </div>
             </div>

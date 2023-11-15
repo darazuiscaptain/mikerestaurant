@@ -40,7 +40,7 @@ const OrderDetails = () => {
         setProcessing(false)
       }
     } else {
-      toast.error("No Select selected")
+      toast.error("No status selected")
     }
   }
 
