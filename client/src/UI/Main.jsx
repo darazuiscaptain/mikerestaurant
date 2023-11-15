@@ -4,7 +4,7 @@ import Statistics from "../UI/Statistics"
 function Main() {
     return (
         <section id='main' className=''>
-            <div className='grid md:grid-cols-3 max-w-full'>
+            <div className='grid md:grid-cols-3 w-full'>
                 <div className='flex flex-col  gap-0  justify-around p-8 sm:p-4 max-w-[400px] sm:w-full'>
                     <div className='flex items-center justify-center px-5 sm:px-12'>
                         <h2 className='flex flex-col text-[40px] font-extrabold leading-10 text-red-400'>

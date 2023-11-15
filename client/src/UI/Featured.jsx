@@ -14,7 +14,7 @@ function Featured() {
             <h1 className='font-extrabold text-2xl text-red-400 px-3 sm:pl-8'>
                 Our Restaurants
             </h1>
-            <div className='flex flex-wrap gap-5  p-2 py-4 rounded-md justify-center lg:justify-start'>
+            <div className='flex flex-wrap gap-5 py-4 rounded-md justify-center lg:justify-start'>
                 <CardLoader image={image1} open={"open"} title={"Lorem Kepaso"}/>
                 <CardLoader image={image6} open={"open"} title={"Ipsum Isumur gini"}/>
                 <CardLoader image={image3} open={"close"} title={"Dolor kapt"}/>

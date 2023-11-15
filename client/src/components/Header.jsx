@@ -31,11 +31,6 @@ export function Header() {
   const [profile, setProfile] = useState(false)
 
   const [openNav, setOpenNav] = useState(false);
-  const [activeAnchor, setActiveAnchor] = useState(1); // Assuming links are indexed from 1
-
-  const handleLinkClick = (linkIndex) => {
-    setActiveAnchor(linkIndex); // Update active anchor state on link click
-  }
 
   const handleLogout = async () => {
     dispatch(logoutStart())
@@ -51,7 +46,6 @@ export function Header() {
       closeDrawer()
     }
   }
-
 
   useEffect(() => {
     window.addEventListener(
@@ -75,27 +69,24 @@ export function Header() {
           <ul className="flex gap-4">
             <li>
               <a
-                href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 1 ? 'active:text-red-400' : ''}`}
-                onClick={() => handleLinkClick(1)}
+                href="#home"
+                className={`px-3 py-2 rounded-md active:text-red-400`}
               >
                 Home
               </a>
             </li>
             <li>
               <a
-                href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 2 ? 'active:text-red-400' : ''}`}
-                onClick={() => handleLinkClick(2)}
+                href="#about"
+                className={`px-3 py-2 rounded-md active:text-red-400`}
               >
                 About
               </a>
             </li>
             <li>
               <a
-                href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 3 ? 'active:text-red-400' : ''}`}
-                onClick={() => handleLinkClick(3)}
+                href="#contact"
+                className={`px-3 py-2 rounded-md active:text-red-400`}
               >
                 Contact
               </a>
@@ -103,31 +94,39 @@ export function Header() {
           </ul>
         </nav>
 
-        {currentUser ? (
-          <div className="hidden lg:flex text-xl px-5 items-center justify-end gap-3 relative">
-            <Link to={"/mycart"}>
-              <BsFillCartCheckFill className=" text-gray-900" />
+        {currentUser ? currentUser.role === "admin"
+          ? <Link to={"/dashboard"} className="flex text-sm font-bold">
+            Admin
+          </Link>
+          : currentUser.role === "delivery"
+            ? <Link to={"/delivery/dashboard"} className="flex text-sm font-bold">
+              Delivery
             </Link>
-            <button onClick={() => setProfile(!profile)}
-            >
-              <CgProfile />
-            </button>
-            <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 top-5 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
-              <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
-                <BiEdit className='text-orange-600 text-lg' />
-                Update Profile
-              </Link>
-              <div className='w-full border-b-2 border-gray-300' />
-              <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
-                <BiLogOut className='text-red-600 text-lg' />
-                <span onClick={() => handleLogout()} >
-                  {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
-                </span>
-              </button>
+            : (
+              <div className="hidden lg:flex text-xl px-5 items-center justify-end gap-3 relative">
+                <Link to={"/mycart"}>
+                  <BsFillCartCheckFill className=" text-gray-900" />
+                </Link>
+                <button onClick={() => setProfile(!profile)}
+                >
+                  <CgProfile />
+                </button>
+                <div className={`${profile ? "block" : "hidden"} flex flex-col justify-center px-2 gap-3  absolute right-0 top-5 bg-white shadow-2xl h-[7rem] w-[15rem] `}>
+                  <Link className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                    <BiEdit className='text-orange-600 text-lg' />
+                    Update Profile
+                  </Link>
+                  <div className='w-full border-b-2 border-gray-300' />
+                  <button disabled={loading} className='flex gap-3 items-center text-sm font-normal text-gray-600 px-3 hover:opacity-70'>
+                    <BiLogOut className='text-red-600 text-lg' />
+                    <span onClick={() => handleLogout()} >
+                      {loading ? <LoadingSpinner size={20} color={'#4299e1'} /> : "Logout"}
+                    </span>
+                  </button>
 
-            </div>
-          </div>
-        ) : (
+                </div>
+              </div>
+            ) : (
           <div className="flex items-center gap-x-1 text-md">
 
             <Button onClick={handleOpen}
@@ -137,7 +136,7 @@ export function Header() {
               Log In
             </Button>
             <Dialog open={open} handler={handleOpen} className="w-fit h-fit p-5">
-              <Sign_up_in  />
+              <Sign_up_in />
             </Dialog>
           </div>
         )
@@ -190,7 +189,7 @@ export function Header() {
             <li>
               <a
                 href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 1 ? 'active:text-red-400' : ''}`}
+                className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(1)}
               >
                 Home
@@ -199,7 +198,7 @@ export function Header() {
             <li>
               <a
                 href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 2 ? 'active:text-red-400' : ''}`}
+                className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(2)}
               >
                 About
@@ -208,7 +207,7 @@ export function Header() {
             <li>
               <a
                 href="#"
-                className={`px-3 py-2 rounded-md ${activeAnchor === 3 ? 'active:text-red-400' : ''}`}
+                className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(3)}
               >
                 Contact

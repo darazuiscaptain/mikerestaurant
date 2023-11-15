@@ -1,34 +1,24 @@
 import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import logo from "../assets/res-logo.jpg"
+
 
 function About() {
   return (
-    <div className='flex flex-col'>
-      <Header/>
-      <div className='flex flex-col gap-5 h-[70vh] max-w-[500px] mx-auto px-3 font-serif mt-4 sm:mt-8 md:mt-12 lg:mt-16'>
-        <h1 className='text_gradient_h text-2xl uppercase font-semibold'>Lorem ipsum dolor</h1>
-        <p className=''>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Odio similique voluptatum magnam earum fuga libero tempora sint nobis ipsa voluptates.
-          Culpa error earum laborum accusantium.
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ut, distinctio placeat ea neque qui corrupti sunt rem sed culpa maxime magni,
-          quae repudiandae blanditiis similique ipsam dolor ipsum exercitationem optio!
-          Aliquam similique quis voluptates eaque.
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Veritatis sapiente eius dolor temporibus perferendis adipisci incidunt ut perspiciatis
-          voluptatem,
-          enim iste repellendus reiciendis repellat rerum distinctio aperiam itaque.
-        </p>
+    <div className='w-full bg-yellow-100'>
+      <div className='flex flex-col justify-around sm:flex-row sm:h-[100vh] mx-auto px-3 font-serif mt-4 sm:mt-8 md:mt-12 lg:mt-16'>
+        <div className='flex justify-center items-center'>
+          <img src={logo} alt="" className='' />
+        </div>
+        <div className='flex flex-col gap-3 justify-center  max-w-[500px] p-5 sm:px-0 mx-auto w-full'>
+          <h1 className='flex text-4xl font-extrabold text-red-400'>Mike Restaurant</h1>
+          <p className='justify-start'>
+            dolor sit amet consectetur adipisicing elit.
+            Odio similique voluptatum magnam earum
+            fuga libero tempora sint nobis ipsa voluptates.
+            Culpa error earum laborum accusantium.
+          </p>
+        </div>
       </div>
-      <Footer/>
     </div>
   )
 }

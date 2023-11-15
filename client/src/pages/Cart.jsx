@@ -51,7 +51,7 @@ const Cart = () => {
         const order = {
             customer: currentUser?._id,
             items: productId,
-            totalAmount: subtotal || product?.price
+            totalAmount: subtotal+15 || product?.price+15
         }
         console.log(order, "order")
 

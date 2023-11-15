@@ -10,6 +10,8 @@ import axios from "axios"
 import LoadingSpinner from "../components/LoadingSpinner"
 
 import { BASE_URL } from "../baseurl"
+import Contact from "./Contact"
+import About from "./About"
 
 function Home() {
     const [fastFood, setFastFood] = useState([])
@@ -44,7 +46,9 @@ function Home() {
     return (
         <div div className="">
             <Header />
-            <Main />
+            <div id="home">
+                <Main />
+            </div>
             <div className="flex flex-col gap-1 lg:mt-5">
                 <div className="flex flex-col flex-1 mx-auto pl-3 sm:pl-0 md:rounded-lg border-1">
 
@@ -59,7 +63,13 @@ function Home() {
                         )}
                 </div>
             </div>
+            <div id="about">
+                <About />
+            </div>
             <Featured />
+            <div id="contact">
+                <Contact />
+            </div>
             <Footer />
         </div>
     )
