@@ -23,7 +23,7 @@ const Orders = () => {
   useEffect(() => {
     setLoading(true)
     const orders = async () => {
-      const result = await fetchAPI(`http://localhost:5000/orders?assignedDelivery=${currentUser.username}`)
+      const result = await fetchAPI(`${BASE_URL}/orders?assignedDelivery=${currentUser.username}`)
       setOrders(result)
       console.log(result)
       setLoading(false)
