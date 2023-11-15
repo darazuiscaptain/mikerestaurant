@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from './component/Sidebar'
+import SideBar from './component/SideBar'
 
 import fetchAPI from '../../utils/fetchData/fetchAPI'
 import { useNavigate } from 'react-router-dom'
@@ -34,7 +34,7 @@ const Orders = () => {
   return (
     <div id="dashboard" className='flex w-full h-full '>
       <div id="sidebar">
-        <Sidebar />
+        <SideBar />
       </div>
       <div id="order" className='flex flex-col p-5 w-full gap-4 bg-blue-gray-50'>
         <NavBar />
