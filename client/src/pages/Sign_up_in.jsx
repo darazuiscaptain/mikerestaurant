@@ -110,7 +110,7 @@ function Sign_up_in() {
 
   return (
     <section className='flex flex-col justify-center gap-5 max-w-[400px]'>
-      <div className='flex flex-col justify-between px-5 shadow-none'>
+      <div className='flex flex-col justify-between px-2 shadow-none'>
         <div className='flex flex-col gap-3'>
 
           <h1 className='uppercase text-2xl text-center font-medium'>

@@ -30,7 +30,7 @@ function FastFood({ fastFood }) {
 
 
     return (
-        <section className='mt-8 p-3'>
+        <section className='mt-4 p-3'>
             <div className='flex justify-start py-2'>
                 <h1 className='font-semibold text-xl text-red-400 px-3 sm:pl-8'>Fast-Food</h1>
             </div>
@@ -38,7 +38,7 @@ function FastFood({ fastFood }) {
                 {fastFood.map((fastFood) => (
                     <div
                         key={fastFood._id}
-                        className='flex flex-col gap-2 max-w-[190px] sm:max-w-[225px] p-1 h-60 border-[1px] rounded-t-2xl shadow-lg bg-white'>
+                        className='flex flex-col gap-2 max-w-[48%] sm:max-w-[32%] md:max-w-[24%] lg:max-w-[19%] p-1 h-60 border-[1px] rounded-t-2xl shadow-lg bg-white'>
                         <div className='overflow-hidden flex flex-1 rounded-2xl'>
                             <img
                                 src={fastFood.productImage}

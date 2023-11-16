@@ -4,13 +4,12 @@ import CountUp from "react-countup"
 
 function Statistics() {
   return (
-    <section className='flex gap-8 w-full'>
-      <div className='md:grid md:grid-rows-4 flex flex-wrap gap-3 '>
+    <section className='flex w-full'>
+      <div className='flex w-full items-center justify-center md:flex-col gap-8 sm:gap-3'>
         {
           stats.map((stats) => (
             <div key={stats.name}
-              className='flex gap-12 items-center justify-center min-w-[200px]'>
-
+              className='flex '>
               <div className='flex gap-3'>
                 <div className='hidden md:flex items-center justify-center p-4 border-[1px] shadow-gray-400 shadow-xl'>
                   <IoMdStats className="font-extrabold text-xs" />

@@ -188,7 +188,7 @@ export function Header() {
           <ul className="flex flex-col gap-3 text-md">
             <li>
               <a
-                href="#"
+                href="#home"
                 className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(1)}
               >
@@ -197,7 +197,7 @@ export function Header() {
             </li>
             <li>
               <a
-                href="#"
+                href="#about"
                 className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(2)}
               >
@@ -206,7 +206,7 @@ export function Header() {
             </li>
             <li>
               <a
-                href="#"
+                href="#contact"
                 className={`px-3 py-2 rounded-md  active:text-red-400 `}
                 onClick={() => handleLinkClick(3)}
               >

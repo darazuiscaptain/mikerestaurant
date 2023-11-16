@@ -29,8 +29,8 @@ function Contact() {
 
   const { full_name, email, subject, message } = emailFrom
   return (
-    <section className='flex flex-col justify-center items-center gap-5 w-full md:h-[100vh] bg-gray-900 mx-auto mt-4 sm:mt-8 md:mt-12 lg:mt-16'>
-      <div className='flex flex-col min-w-[400px] mx-auto text-white '>
+    <section className='flex flex-col  justify-center items-center gap-5 w-full md:h-[75vh] bg-gray-900 mx-auto mt-4 sm:mt-8 md:mt-12 lg:mt-16'>
+      <div className='flex flex-col min-w-full p-5 md:min-w-[400px] mx-auto text-white '>
         <h1 className='text-2xl text-center underline-offset-2 pt-3'>Contact Us</h1>
         <form className='flex flex-col w-full h-full gap-3 my-4'>
           <input

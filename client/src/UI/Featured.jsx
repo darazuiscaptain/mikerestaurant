@@ -9,7 +9,7 @@ import image6 from '../assets/restaurant6.png'
 
 function Featured() {
   return (
-    <section className='sm:mt-8 px-8 sm:p-8 md:p-4 lg:p-0 mt-16 '>
+    <section className='sm:mt-8 px-2 md:px-8 sm:p-8 md:p-4 lg:p-0 mt-16 '>
         <div className='flex flex-col gap-2'>
             <h1 className='font-extrabold text-2xl text-red-400 px-3 sm:pl-8'>
                 Our Restaurants

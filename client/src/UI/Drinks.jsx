@@ -41,7 +41,7 @@ function Drinks({ drinks }) {
                 {drinks.map((drink) => (
                     <div
                         key={drink._id}
-                        className='flex flex-col gap-2 max-w-[190px] sm:max-w-[225px] p-1 h-60 border-[1px] rounded-t-2xl shadow-lg bg-white'>
+                        className='flex flex-col gap-2 max-w-[48%] sm:max-w-[32%] md:max-w-[24%] lg:max-w-[19%] p-1 h-60 border-[1px] rounded-t-2xl shadow-lg bg-white'>
                         <div className='overflow-hidden flex flex-1 rounded-2xl'>
                             <img
                                 src={drink.productImage}
