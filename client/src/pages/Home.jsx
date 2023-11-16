@@ -44,7 +44,7 @@ function Home() {
     }, [])
 
     return (
-        <div div className="">
+        <div className="">
             <Header />
             <div id="home">
                 <Main />
