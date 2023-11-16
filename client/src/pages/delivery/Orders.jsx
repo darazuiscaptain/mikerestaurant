@@ -82,11 +82,12 @@ const Orders = () => {
                     }`}
                   >{orders.status}</li>
                   <div className='flex items-center'>
-                    <li
+                    <button
                       onClick={() => handleNavigate(orders._id)}
-                      className='flex justify-center items-center w-[60%] whitespace-nowrap rounded-md cursor-pointer text-xs p-[.1rem] px-2 text-green-500 hover:text-white hover:bg-teal-700  border-green-500 border-[.1rem] '>
-                      update status
-                    </li>
+                      disabled={orders.status === "delivered"}
+                      className={ `${orders.status === "delivered" ? "" : "hover:text-white hover:bg-teal-400"} flex justify-center items-center w-[60%] whitespace-nowrap rounded-md cursor-pointer text-xs p-[.1rem] px-2 text-green-500   border-green-500 border-[.1rem] `}>
+                      {orders.status === "delivered" ? "Done" : "update status"}
+                    </button>
                   </div>
                 </ul>
               ))) : ""}

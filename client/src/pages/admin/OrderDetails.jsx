@@ -104,12 +104,14 @@ const OrderDetails = () => {
               ))
               ) : ""}
             </div>
-            <h1 className='text-md  flex gap-3 justify-start p-5'>
+            <h1 className='text-md  flex gap-3 justify-start p-5 pb-0'>
               Total:
               <span className='text-teal-500'>
                 ${order && order.totalAmount}
               </span>
             </h1>
+            <h2 className='text-md p-5 '>Location: <span className='text-gray-500'>{order && order?.location || "Not available"}</span></h2>
+
           </div>
 
           {/* ----------- Assign delivery------------ */}
