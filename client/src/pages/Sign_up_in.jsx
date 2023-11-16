@@ -171,7 +171,7 @@ function Sign_up_in() {
             </button>
 
             {/* =========== Signup with google ================ */}
-            <Oauth loading={loading} />
+            {/* <Oauth loading={loading} /> */}
           </div>
         </form>
       </div>
