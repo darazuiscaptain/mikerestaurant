@@ -12,7 +12,6 @@ function FastFood({ fastFood }) {
 
     const addCart = (product) => {
         if (currentUser) {
-            product.quantity = parseInt(1);
             dispatch(addToCart(product))
             toast("Added to your cart")
         } else {

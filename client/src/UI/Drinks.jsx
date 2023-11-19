@@ -13,9 +13,7 @@ function Drinks({ drinks }) {
 
     const addCart = (product) => {
         if (currentUser) {
-            const quantityInput = document.querySelector('input[name="quantity"]');
-            const quantity = parseInt(quantityInput.value);
-            product.quantity = quantity;
+            
             dispatch(addToCart(product))
             toast("Added to your cart")
         } else {
