@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
         addToCart:(state,action)=>{
             const itemIndex= state.cartItems?.findIndex((item)=>item._id === action.payload._id)
             if(itemIndex >=0){
-                state.cartItems[itemIndex]?.cartQuantity +=1;
+                state.cartItems[itemIndex].cartQuantity +=1;
             }else{
                 const tempProduct ={...action.payload,cartQuantity :1}
                 state.cartItems?.push(tempProduct)
@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
 
         increaseCart:(state,action)=>{
             const itemIndex = state.cartItems?.findIndex((cartItem)=>cartItem._id === action.payload._id)
-            state.cartItems[itemIndex]?.cartQuantity +=1
+            state.cartItems[itemIndex].cartQuantity +=1
         },
 
         deleteAllCart:(state)=>{
