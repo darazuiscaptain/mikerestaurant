@@ -59,7 +59,7 @@ const Cart = () => {
             customer: currentUser?._id,
             location,
             items: productId,
-            totalAmount: product?.price + 15 || cartTotalAmount + 15 
+            totalAmount: product?.price + 15 || cartTotalAmount + 15
         }
 
         if (cartItems.length < 1 && Object.keys(id).length === 0) {
@@ -110,7 +110,7 @@ const Cart = () => {
 
 
     dispatch(cartTotal())
-  
+
 
     return (
         <section id="cart" className="flex flex-col p-2 ">
@@ -119,11 +119,11 @@ const Cart = () => {
                     Your Cart is Here
                 </h1>
                 <div className="w-full border-b-2 border-gray-500 my-3" />
-                <h2
+                {cartItems && <h2
                     className="w-full p-2 uppercase text-xs hover:cursor-pointer my-2 text-red-400 rounded-md whitespace-nowrap px-2 hover:opacity-90"
                     onClick={() => deleteCart()}>
                     Clear cart
-                </h2>
+                </h2>}
                 <div className='flex flex-col md:flex-row gap-8'>
                     <div className='flex flex-1'>
                         {
